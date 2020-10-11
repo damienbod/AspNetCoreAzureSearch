@@ -8,6 +8,8 @@ namespace AspNetCoreAzureSearch
 
         public string Paging { get; set; }
 
-        public SearchResults<Person> People;
+        public SearchResults<PersonCity> PersonCities;
+
+        //public IEnumerable<PersonCity> PersonCities { get; set; }
     }
 }

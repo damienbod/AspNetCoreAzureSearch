@@ -13,7 +13,7 @@ namespace AspNetCoreAzureSearch
 
         }
 
-        public void AddDocumentsToIndex(List<Person> people)
+        public void AddDocumentsToIndex(List<PersonCity> personCities)
         { 
         }
     }

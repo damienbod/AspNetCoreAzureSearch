@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30524.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreAzureSearch", "AspNetCoreAzureSearch.csproj", "{6386F8AA-F81A-494A-84D6-3274029FC211}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6386F8AA-F81A-494A-84D6-3274029FC211}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6386F8AA-F81A-494A-84D6-3274029FC211}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6386F8AA-F81A-494A-84D6-3274029FC211}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6386F8AA-F81A-494A-84D6-3274029FC211}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {46557F1A-E122-45E4-A5A1-DAF40304ABD9}
+	EndGlobalSection
+EndGlobal

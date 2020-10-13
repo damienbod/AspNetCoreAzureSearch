@@ -27,7 +27,7 @@ namespace AspNetCoreAzureSearch
             _searchClient = new SearchClient(serviceEndpoint, _index, credential);
         }
 
-        public void CreateIndex()
+        public async Task CreateIndex()
         {
             var index = new SearchIndex(_index)
             {
@@ -46,7 +46,7 @@ namespace AspNetCoreAzureSearch
                 }
             };
 
-            _searchIndexClient.CreateIndex(index);
+            await _searchIndexClient.CreateIndexAsync(index);
         }
 
         public async Task AddDocumentsToIndex(List<PersonCity> personCities)

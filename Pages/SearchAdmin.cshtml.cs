@@ -22,7 +22,19 @@ namespace AspNetCoreAzureSearch.Pages
 
         public void OnGet()
         {
+            
+        }
 
+        public async Task<ActionResult> OnPostCreateIndex()
+        {
+            await _searchProvider.CreateIndex();
+            return Page();
+        }
+
+        public async Task<ActionResult> OnPostAddData()
+        {
+            await _searchProvider.AddDocumentsToIndex(PersonCityData.Data);
+            return Page();
         }
     }
 }

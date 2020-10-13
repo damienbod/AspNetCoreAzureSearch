@@ -37,20 +37,8 @@ namespace AspNetCoreAzureSearch
 
         public async Task AddDocumentsToIndex(List<PersonCity> personCities)
         {
-            await UploadDocumentsAsync(_searchClient, personCities);
-        }
-
-        private async Task UploadDocumentsAsync(SearchClient searchClient, List<PersonCity> personCities)
-        {
             var batch = IndexDocumentsBatch.Upload(personCities);
-            try
-            {
-                await searchClient.IndexDocumentsAsync(batch).ConfigureAwait(false);
-            }
-            catch (RequestFailedException ex)
-            {
-                Console.WriteLine("Failed to index the documents: \n{0}", ex.Message);
-            }
+            await _searchClient.IndexDocumentsAsync(batch).ConfigureAwait(false);
         }
     }
 }

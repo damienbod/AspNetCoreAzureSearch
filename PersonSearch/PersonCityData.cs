@@ -4,12 +4,13 @@ namespace AspNetCoreAzureSearch
 {
     public static class PersonCityData
     {
+
         public static List<PersonCity> Data = new List<PersonCity>();
 
         public static void CreateTestData()
         {
             Data.Add(new PersonCity {
-                Id = 1, Name = "Damien", FamilyName = "Bowden", CityCountry="Switzerland",
+                Id = "1", Name = "Damien", FamilyName = "Bowden", CityCountry="Switzerland",
                 Metadata = "ASP.NET Core EFCore SQLite Angular2 Angular Typescript javascript Microsoft MVP webpack security",
                 Info = "I am an engineer, Microsoft MVP, living in Switzerland interested in web development. My favorite technologies are ASP.NET Core, EFCore, ASP.NET, WebAPI, AngularJS, Angular 2, Typescript, MS SQL Server, SQLite and Elasticsearch.", 
                 Web= "https://damienbod.com",
@@ -20,7 +21,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 2,
+                Id = "2",
                 Name = "Fabian",
                 FamilyName = "Grossbrink",
                 CityCountry = "Switzerland St Gallen",
@@ -34,7 +35,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 3,
+                Id = "3",
                 Name = "Jürgen",
                 FamilyName = "Gutsch",
                 CityCountry = "Switzerland Basel",
@@ -48,7 +49,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 4,
+                Id = "4",
                 Name = "Benjamin",
                 FamilyName = "Abt",
                 CityCountry = "Germany",
@@ -62,7 +63,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 5,
+                Id = "5",
                 Name = "Alexander",
                 FamilyName = "Zeitler",
                 CityCountry = "Germany Karlsruhe, BW",
@@ -76,7 +77,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 6,
+                Id = "6",
                 Name = "Christos",
                 FamilyName = "Sakellarios",
                 CityCountry = "Greece Athens Attica",
@@ -90,7 +91,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 7,
+                Id = "7",
                 Name = "Ali Tugberk",
                 FamilyName = "Ugurlu",
                 CityCountry = "United Kingdom Cambridge",
@@ -104,7 +105,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 8,
+                Id = "8",
                 Name = "Scott",
                 FamilyName = "Hanselman",
                 CityCountry = "USA",
@@ -118,7 +119,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 9,
+                Id = "9",
                 Name = "Roberto",
                 FamilyName = "Simonetti",
                 CityCountry = "Italy",
@@ -132,7 +133,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 10,
+                Id = "10",
                 Name = "John",
                 FamilyName = "Papa",
                 CityCountry = "USA",
@@ -146,7 +147,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 11,
+                Id = "11",
                 Name = "Dan",
                 FamilyName = "Wahlin",
                 CityCountry = "USA",
@@ -160,7 +161,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 12,
+                Id = "12",
                 Name = "Jeremy",
                 FamilyName = "Likness",
                 CityCountry = "USA",
@@ -174,7 +175,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 13,
+                Id = "13",
                 Name = "Julie",
                 FamilyName = "Lerman",
                 CityCountry = "USA Vermont",
@@ -188,7 +189,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 14,
+                Id = "14",
                 Name = "Kurata",
                 FamilyName = "Deborah",
                 CityCountry = "Pleasanton, CA",
@@ -202,7 +203,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 15,
+                Id = "15",
                 Name = "Andrew",
                 FamilyName = "Lock",
                 CityCountry = "Plymouth, UK",
@@ -216,7 +217,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 16,
+                Id = "16",
                 Name = "Brock",
                 FamilyName = "Allen",
                 CityCountry = "Barrington, RI ",
@@ -230,7 +231,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 17,
+                Id = "17",
                 Name = "Dominick",
                 FamilyName = "Baier",
                 CityCountry = "Germany",
@@ -244,7 +245,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 18,
+                Id = "18",
                 Name = "Scott",
                 FamilyName = "Brady",
                 CityCountry = "Bristol, United Kingdom",
@@ -258,7 +259,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 19,
+                Id = "19",
                 Name = "Shawn",
                 FamilyName = "Wildermuth",
                 CityCountry = "USA",
@@ -272,7 +273,7 @@ namespace AspNetCoreAzureSearch
             
             Data.Add(new PersonCity
             {
-                Id = 20,
+                Id = "20",
                 Name = "Minko",
                 FamilyName = "Gechev",
                 CityCountry = "San Francisco, California USA",
@@ -286,7 +287,7 @@ namespace AspNetCoreAzureSearch
             
             Data.Add(new PersonCity
             {
-                Id = 21,
+                Id = "21",
                 Name = "Mike",
                 FamilyName = "Brind",
                 CityCountry = "Rochester  United Kingdom",
@@ -300,7 +301,7 @@ namespace AspNetCoreAzureSearch
             
             Data.Add(new PersonCity
             {
-                Id = 22,
+                Id = "22",
                 Name = "Rion",
                 FamilyName = "Williams",
                 CityCountry = "Lake Charles, Louisiana USA",
@@ -314,7 +315,7 @@ namespace AspNetCoreAzureSearch
             
             Data.Add(new PersonCity
             {
-                Id = 23,
+                Id = "23",
                 Name = "Shayne",
                 FamilyName = "Boyer",
                 CityCountry = "Florida, USA",
@@ -328,7 +329,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 24,
+                Id = "24",
                 Name = "Torgeir",
                 FamilyName = "Helgevold",
                 CityCountry = "New York USA",
@@ -342,7 +343,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 25,
+                Id = "25",
                 Name = "Rob",
                 FamilyName = "Wormald",
                 CityCountry = "Mountain View CA",
@@ -356,7 +357,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 26,
+                Id = "26",
                 Name = "Brad",
                 FamilyName = "Green",
                 CityCountry = "Mountain View CA",
@@ -370,7 +371,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 27,
+                Id = "27",
                 Name = "Victor",
                 FamilyName = "Savkin",
                 CityCountry = "Mountain View CA",
@@ -384,7 +385,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 28,
+                Id = "28",
                 Name = "Todd",
                 FamilyName = "Motto",
                 CityCountry = "England UK",
@@ -398,7 +399,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 29,
+                Id = "29",
                 Name = "Pascal",
                 FamilyName = "Precht",
                 CityCountry = "Hanover Germany ",
@@ -412,7 +413,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 30,
+                Id = "30",
                 Name = "Martijn",
                 FamilyName = "Laarman",
                 CityCountry = "Amsterdam, Netherlands ",
@@ -426,7 +427,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 31,
+                Id = "31",
                 Name = "Troy",
                 FamilyName = "Hunt",
                 CityCountry = " Australia",
@@ -440,7 +441,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 32,
+                Id = "32",
                 Name = "Rick",
                 FamilyName = "Strahl",
                 CityCountry = " Paia, HI ",
@@ -454,7 +455,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 33,
+                Id = "33",
                 Name = "Taiseer",
                 FamilyName = "Joudeh",
                 CityCountry = "Jordan",
@@ -468,7 +469,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 34,
+                Id = "34",
                 Name = "Simon",
                 FamilyName = "Rigby",
                 CityCountry = "USA",
@@ -482,7 +483,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 35,
+                Id = "35",
                 Name = "Scott",
                 FamilyName = "Addie",
                 CityCountry = "Verona, WI USA",
@@ -496,7 +497,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 36,
+                Id = "36",
                 Name = "Jon",
                 FamilyName = "Galloway",
                 CityCountry = "Rancho San Diego, CA  USA",
@@ -510,7 +511,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 37,
+                Id = "37",
                 Name = "David",
                 FamilyName = "Fowler",
                 CityCountry = "Redmond USA",
@@ -524,7 +525,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 38,
+                Id = "38",
                 Name = "Steve",
                 FamilyName = "Smith",
                 CityCountry = "Kent OH USA",
@@ -538,7 +539,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 39,
+                Id = "39",
                 Name = "Barry",
                 FamilyName = "Dorrans",
                 CityCountry = "Redmond USA",
@@ -552,7 +553,7 @@ namespace AspNetCoreAzureSearch
 
             Data.Add(new PersonCity
             {
-                Id = 40,
+                Id = "40",
                 Name = "Brice",
                 FamilyName = "Lambson",
                 CityCountry = "Redmond USA",

@@ -33,6 +33,7 @@ namespace AspNetCoreAzureSearch.Pages
 
         public async Task<ActionResult> OnPostAddDataAsync()
         {
+            PersonCityData.CreateTestData();
             await _searchProvider.AddDocumentsToIndex(PersonCityData.Data);
             return Page();
         }

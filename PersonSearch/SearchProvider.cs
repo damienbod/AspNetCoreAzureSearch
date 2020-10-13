@@ -29,38 +29,28 @@ namespace AspNetCoreAzureSearch
 
         public async Task CreateIndex()
         {
-            var index = new SearchIndex(_index)
-            {
-                Fields = 
-                {
-                    new SimpleField("id", SearchFieldDataType.String) { IsKey = true, IsFilterable = true, IsSortable = true },
-                    new SearchableField("name") { IsFilterable = true, IsSortable = true },
-                    new SearchableField("familyName") { IsFilterable = true, IsSortable = true },
-                    new SearchableField("info") { IsFilterable = true, IsSortable = true },
-                    new SearchableField("cityCountry") { IsFilterable = true, IsSortable = true, IsFacetable = true },
-                    new SearchableField("metadata") { IsFilterable = true, IsSortable = true, IsFacetable = true },
-                    new SearchableField("web") { IsFilterable = true },
-                    new SearchableField("github") { IsFilterable = true },
-                    new SearchableField("twitter") { IsFilterable = true },
-                    new SearchableField("mvp") { IsFilterable = true},
-                }
-            };
+            FieldBuilder bulder = new FieldBuilder();
+            var definition = new SearchIndex(_index, bulder.Build(typeof(PersonCity)));
 
-            await _searchIndexClient.CreateIndexAsync(index);
+            await _searchIndexClient.CreateIndexAsync(definition).ConfigureAwait(false);
         }
 
         public async Task AddDocumentsToIndex(List<PersonCity> personCities)
         {
-            IndexDocumentsBatch<PersonCity> batch = IndexDocumentsBatch.Create<PersonCity>();
+            await UploadDocumentsAsync(_searchClient, personCities);
+        }
 
-            foreach(var personCity in personCities)
+        private async Task UploadDocumentsAsync(SearchClient searchClient, List<PersonCity> personCities)
+        {
+            var batch = IndexDocumentsBatch.Upload(personCities);
+            try
             {
-                batch.Actions.Add(IndexDocumentsAction.Upload(personCity));
+                await searchClient.IndexDocumentsAsync(batch).ConfigureAwait(false);
             }
-
-            IndexDocumentsOptions idxoptions = new IndexDocumentsOptions { ThrowOnAnyError = true };
-
-            await _searchClient.IndexDocumentsAsync(batch, idxoptions);
+            catch (RequestFailedException ex)
+            {
+                Console.WriteLine("Failed to index the documents: \n{0}", ex.Message);
+            }
         }
     }
 }

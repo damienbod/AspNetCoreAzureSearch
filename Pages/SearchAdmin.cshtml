@@ -8,10 +8,18 @@
     SearchAdmin
 </div>
 
-
-<button id="CreateIndex" type="button" class="btn btn-primary" value="createIndex">Create Index</button>
+<form asp-page="/SearchAdmin" asp-page-handler="CreateIndex">
+    <button type="submit" class="btn btn-primary">
+        Create Index
+    </button>
+</form>
 
 <br />
 <br />
 
-<button id="AddData" type="button" class="btn btn-primary" value="addData">Add Data</button>
+<form asp-page="/SearchAdmin" asp-page-handler="AddData">
+    <button type="submit" class="btn btn-primary">
+        Add Data
+    </button>
+</form>
+

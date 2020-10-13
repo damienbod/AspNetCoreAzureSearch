@@ -25,13 +25,13 @@ namespace AspNetCoreAzureSearch.Pages
             
         }
 
-        public async Task<ActionResult> OnPostCreateIndex()
+        public async Task<ActionResult> OnPostCreateIndexAsync()
         {
             await _searchProvider.CreateIndex();
             return Page();
         }
 
-        public async Task<ActionResult> OnPostAddData()
+        public async Task<ActionResult> OnPostAddDataAsync()
         {
             await _searchProvider.AddDocumentsToIndex(PersonCityData.Data);
             return Page();

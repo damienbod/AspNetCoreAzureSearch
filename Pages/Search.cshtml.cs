@@ -32,8 +32,30 @@ namespace AspNetCoreAzureSearch.Pages
 
         public void OnGet()
         {
-
         }
+
+        public async Task<ActionResult> OnPostInitAsync(SearchData model)
+        {
+            // Ensure the search string is valid.
+            if (model.SearchText == null)
+            {
+                model.SearchText = "";
+            }
+
+            // Make the search call for the first page.
+            await _searchProvider.RunQueryAsync(model, 0, 0).ConfigureAwait(false);
+
+            SearchText = model.SearchText;
+            CurrentPage = model.CurrentPage;
+            PageCount = model.PageCount;
+            LeftMostPage = model.LeftMostPage;
+            PageRange = model.PageRange;
+            Paging = model.Paging;
+            PersonCities = model.PersonCities;
+
+            return Page();
+        }
+
 
 
         public async Task<ActionResult> OnPostPageAsync(SearchData model)
@@ -63,8 +85,12 @@ namespace AspNetCoreAzureSearch.Pages
 
             PageNo = page;
             SearchText = model.SearchText;
+            CurrentPage = model.CurrentPage;
+            PageCount = model.PageCount;
             LeftMostPage = model.LeftMostPage;
-  
+            PageRange = model.PageRange;
+            Paging = model.Paging;
+            PersonCities = model.PersonCities;
 
             return Page();
         }

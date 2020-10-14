@@ -22,7 +22,7 @@ namespace AspNetCoreAzureSearch
         // Used when page numbers, or next or prev buttons, have been selected.
         public string Paging { get; set; }
 
-        public SearchResults<PersonCity> PersonCities;
+        public SearchResults<PersonCity> PersonCities { get; set; }
 
     }
 }

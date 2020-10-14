@@ -15,7 +15,7 @@ namespace AspNetCoreAzureSearch
                 Info = "I am an engineer, Microsoft MVP, living in Switzerland interested in web development. My favorite technologies are ASP.NET Core, EFCore, ASP.NET, WebAPI, AngularJS, Angular 2, Typescript, MS SQL Server, SQLite and Elasticsearch.", 
                 Web= "https://damienbod.com",
                 Twitter= "https://twitter.com/damien_bod",
-                Github = "https://github/damienbod",
+                Github = "https://github.com/damienbod",
                 Mvp = "https://mvp.microsoft.com/en-us/PublicProfile/5002218"
             });
 

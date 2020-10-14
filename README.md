@@ -1,4 +1,4 @@
-# AspNetCoreAzureSearch
+# ASP.NET Core with Cognitive Azure Search
 
 # Links
 

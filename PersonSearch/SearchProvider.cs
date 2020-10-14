@@ -43,9 +43,9 @@ namespace AspNetCoreAzureSearch
 
         public async Task RunQueryAsync(SearchData model, int page, int leftMostPage)
         {
-            var pageSize = 5;
-            var maxPageRange = 10;
-            var pageRangeDelta = 5;
+            var pageSize = 4;
+            var maxPageRange = 7;
+            var pageRangeDelta = 3;
 
             var options = new SearchOptions
             {

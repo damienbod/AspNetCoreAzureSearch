@@ -492,7 +492,7 @@ namespace AspNetCoreAzureSearch
                 Web = "https://scottaddie.com/",
                 Twitter = "https://twitter.com/Scott_Addie",
                 Github = "https://github.com/scottaddie",
-                Mvp = "https://mvp.microsoft.com/en-us/PublicProfile/5001850?fullName=Scott%20%20Addie"
+                Mvp = ""
             });
 
             Data.Add(new PersonCity
@@ -565,6 +565,19 @@ namespace AspNetCoreAzureSearch
                 Mvp = ""
             });
 
+            Data.Add(new PersonCity
+            {
+                Id = "41",
+                Name = "Mark",
+                FamilyName = "Allibone",
+                CityCountry = "Switzerland",
+                Metadata = "Certified Xamarin Developer & Mobile Consultant",
+                Info = "Mark Allibone is a qualified expert and enthusiast for mobile technologies at Rey Automation and a Microsoft MVP. He supports many well-known companies with their mobile ambitions in the fields of healthcare, industry, tourism and public transport apps that integrate seamlessly with other systems and devices. With a passion for efficient cross-platform solutions and a heart for the user, Mark does not solely aim to build functionally complete apps, but apps that enable the user.",
+                Web = "https://mallibone.com/",
+                Twitter = "https://twitter.com/mallibone",
+                Github = "https://github.com/mallibone",
+                Mvp = "https://mvp.microsoft.com/en-us/PublicProfile/5002881?fullName=Mark%20Allibone"
+            });
         }
     }
 }

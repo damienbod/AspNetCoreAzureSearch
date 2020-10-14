@@ -51,7 +51,7 @@ namespace AspNetCoreAzureSearch.Pages
             return Page();
         }
 
-        public async Task<ActionResult> OnPostPageAsync(SearchData model)
+        public async Task<ActionResult> OnGetPagingAsync(SearchData model)
         {
             int page;
 

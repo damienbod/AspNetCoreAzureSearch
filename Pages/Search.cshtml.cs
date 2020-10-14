@@ -2,9 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AspNetCoreAzureSearch.Pages
@@ -36,13 +33,11 @@ namespace AspNetCoreAzureSearch.Pages
 
         public async Task<ActionResult> OnPostInitAsync(SearchData model)
         {
-            // Ensure the search string is valid.
             if (model.SearchText == null)
             {
                 model.SearchText = "";
             }
 
-            // Make the search call for the first page.
             await _searchProvider.RunQueryAsync(model, 0, 0).ConfigureAwait(false);
 
             SearchText = model.SearchText;
@@ -55,8 +50,6 @@ namespace AspNetCoreAzureSearch.Pages
 
             return Page();
         }
-
-
 
         public async Task<ActionResult> OnPostPageAsync(SearchData model)
         {

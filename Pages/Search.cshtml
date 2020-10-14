@@ -4,10 +4,6 @@
     ViewData["Title"] = "Search";
 }
 
-<div class="text-center">
-    Search
-</div>
-
 <form asp-page="/Search" asp-page-handler="Init">
     <div class="searchBoxForm">
         @Html.TextBoxFor(m => m.SearchText, new { @class = "searchBox" }) <input class="searchBoxSubmit" type="submit" value="">
@@ -29,9 +25,7 @@
             @Html.TextArea($"desc{1}", results[i].Document.Info, new { @class = "box2" })
         }
     }
-    <button type="submit" class="btn btn-primary">
-        Search
-    </button>
+    <input type="submit" hidden />
 </form>
 
 @if (Model != null && Model.PageCount > 1)

@@ -492,7 +492,7 @@ namespace AspNetCoreAzureSearch
                 Web = "https://scottaddie.com/",
                 Twitter = "https://twitter.com/Scott_Addie",
                 Github = "https://github.com/scottaddie",
-                Mvp = ""
+                Mvp = "https://mvp.microsoft.com/en-us/PublicProfile/5001850?fullName=Scott%20%20Addie"
             });
 
             Data.Add(new PersonCity

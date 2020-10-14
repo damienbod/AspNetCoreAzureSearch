@@ -12,7 +12,7 @@
     @if (Model.PersonCities != null)
     {
         <p class="sampleText">
-            @Model.PersonCities.TotalCount Results
+            Found @Model.PersonCities.TotalCount Documents
         </p>
 
         var results = Model.PersonCities.GetResults().ToList();
@@ -35,7 +35,7 @@
                 }
                 <br />
                 <em><span>@results[i].Document.Metadata</span></em><br />
-                @Html.TextArea($"desc{1}", results[i].Document.Info, new { @class = "box2" })
+                @Html.TextArea($"desc{1}", results[i].Document.Info, new { @class = "infotext" })
                 <br />
             </div>
         }

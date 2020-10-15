@@ -1,47 +1,46 @@
 ﻿@page
 @model SearchModel
 @{
-    ViewData["Title"] = "Search";
+    ViewData["Title"] = "Search with Paging";
 }
 
-<form asp-page="/Search" asp-page-handler="Init">
+<form asp-page="/Search" asp-page-handler="Init"  method="get" >
     <div class="searchBoxForm">
         @Html.TextBoxFor(m => m.SearchText, new { @class = "searchBox" }) <input class="searchBoxSubmit" type="submit" value="">
     </div>
-
-    @if (Model.PersonCities != null)
-    {
-        <p class="sampleText">
-            Found @Model.PersonCities.TotalCount Documents
-        </p>
-
-        var results = Model.PersonCities.GetResults().ToList();
-
-        @for (var i = 0; i < results.Count; i++)
-        {
-            <div>
-                <b><span><a href="@results[i].Document.Web">@results[i].Document.Name @results[i].Document.FamilyName</a>: @results[i].Document.CityCountry</span></b>
-                @if (!string.IsNullOrEmpty(results[i].Document.Twitter))
-                {
-                    <a href="@results[i].Document.Twitter"><img src="images/socialTwitter.png" /></a>
-                }
-                @if (!string.IsNullOrEmpty(results[i].Document.Github))
-                {
-                    <a href="@results[i].Document.Github"><img src="images/github.png" /></a>
-                }
-                @if (!string.IsNullOrEmpty(results[i].Document.Github))
-                {
-                    <a href="@results[i].Document.Mvp"><img src="images/mvp.png" width="24" /></a>
-                }
-                <br />
-                <em><span>@results[i].Document.Metadata</span></em><br />
-                @Html.TextArea($"desc{1}", results[i].Document.Info, new { @class = "infotext" })
-                <br />
-            </div>
-        }
-    }
-    <input type="submit" hidden />
 </form>
+
+@if (Model.PersonCities != null)
+{
+    <p class="sampleText">
+        Found @Model.PersonCities.TotalCount Documents
+    </p>
+
+    var results = Model.PersonCities.GetResults().ToList();
+
+    @for (var i = 0; i < results.Count; i++)
+    {
+        <div>
+            <b><span><a href="@results[i].Document.Web">@results[i].Document.Name @results[i].Document.FamilyName</a>: @results[i].Document.CityCountry</span></b>
+            @if (!string.IsNullOrEmpty(results[i].Document.Twitter))
+            {
+                <a href="@results[i].Document.Twitter"><img src="images/socialTwitter.png" /></a>
+            }
+            @if (!string.IsNullOrEmpty(results[i].Document.Github))
+            {
+                <a href="@results[i].Document.Github"><img src="images/github.png" /></a>
+            }
+            @if (!string.IsNullOrEmpty(results[i].Document.Github))
+            {
+                <a href="@results[i].Document.Mvp"><img src="images/mvp.png" width="24" /></a>
+            }
+            <br />
+            <em><span>@results[i].Document.Metadata</span></em><br />
+            @Html.TextArea($"desc{1}", results[i].Document.Info, new { @class = "infotext" })
+            <br />
+        </div>
+    }
+}
 
 @if (Model != null && Model.PageCount > 1)
 {
@@ -50,9 +49,9 @@
             <td>
                 @if (Model.CurrentPage > 0)
                 {
-                <p class="pageButton">
-                    <a href="/Search?handler=Paging&paging=0">|&#60;</a>
-                </p>
+                    <p class="pageButton">
+                        <a href="/Search?handler=Paging&paging=0">|&#60;</a>
+                    </p>
                 }
                 else
                 {
@@ -63,9 +62,9 @@
             <td>
                 @if (Model.CurrentPage > 0)
                 {
-                <p class="pageButton">
-                    <a href="/Search?handler=Paging&paging=prev">&#60;</a>
-                </p>
+                    <p class="pageButton">
+                        <a href="/Search?handler=Paging&paging=prev">&#60;</a>
+                    </p>
                 }
                 else
                 {
@@ -82,10 +81,10 @@
                     }
                     else
                     {
-                <p class="pageButton">
-                    @{var p1 = Model.PageCount - 1;}
-                    <a href="/Search?handler=Paging&paging=@pn">@(pn + 1)</a>
-                </p>
+                        <p class="pageButton">
+                            @{var p1 = Model.PageCount - 1;}
+                            <a href="/Search?handler=Paging&paging=@pn">@(pn + 1)</a>
+                        </p>
                     }
                 </td>
 
@@ -94,10 +93,10 @@
             <td>
                 @if (Model.CurrentPage < Model.PageCount - 1)
                 {
-                <p class="pageButton">
-                    @{var p1 = Model.PageCount - 1;}
-                    <a href="/Search?handler=Paging&paging=next">&#62;</a>
-                </p>
+                    <p class="pageButton">
+                        @{var p1 = Model.PageCount - 1;}
+                        <a href="/Search?handler=Paging&paging=next">&#62;</a>
+                    </p>
                 }
                 else
                 {
@@ -108,10 +107,10 @@
             <td>
                 @if (Model.CurrentPage < Model.PageCount - 1)
                 {
-                <p class="pageButton">
-                    @{var p7 = Model.PageCount - 1;}
-                    <a href="/Search?handler=Paging&paging=@p7">&#62;|</a>
-                </p>
+                    <p class="pageButton">
+                        @{var p7 = Model.PageCount - 1;}
+                        <a href="/Search?handler=Paging&paging=@p7">&#62;|</a>
+                    </p>
                 }
                 else
                 {

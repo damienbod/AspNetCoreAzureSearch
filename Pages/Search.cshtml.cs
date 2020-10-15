@@ -31,12 +31,12 @@ namespace AspNetCoreAzureSearch.Pages
         {
         }
 
-        public async Task<ActionResult> OnPostInitAsync(SearchData model)
+        public async Task<ActionResult> OnGetInitAsync(string searchText)
         {
-            if (model.SearchText == null)
+            SearchData model = new SearchData
             {
-                model.SearchText = "";
-            }
+                SearchText = searchText
+            };
 
             await _searchProvider.RunQueryAsync(model, 0, 0).ConfigureAwait(false);
 

@@ -649,9 +649,37 @@ namespace AspNetCoreAzureSearch
                 Mvp = "https://mvp.microsoft.com/en-us/PublicProfile/5000868?fullName=Emanuele%20Bartolesi"
             });
 
+            Data.Add(new PersonCity
+            {
+                Id = "47",
+                Name = "Rico",
+                FamilyName = "Suter",
+                CityCountry = "Switerland",
+                Metadata = "ASP.NET Core NSwag",
+                Info = "Independent Software Engineer and Architect focusing on .NET and Microsoft technologies. Creator of NSwag, NJsonSchema and MyToolkit for .NET",
+                Web = "https://blog.rsuter.com/",
+                Twitter = "https://twitter.com/RicoSuter",
+                Github = "https://github.com/RicoSuter",
+                Mvp = "https://mvp.microsoft.com/en-us/PublicProfile/5002807?fullName=Rico%20Suter"
+            });
+
+            Data.Add(new PersonCity
+            {
+                Id = "48",
+                Name = "Robert",
+                FamilyName = "Muehsig",
+                CityCountry = "Switzerland",
+                Metadata = "ASP.NET Core",
+                Info = "Robert Muehsig is a Senior Software Developer at Sevitec Informatik AG. He is a passionate web developer and loves ASP.NET, Javascript and the web.",
+                Web = "https://blog.codeinside.eu/",
+                Twitter = "https://twitter.com/robert0muehsig",
+                Github = "https://github.com/robertmuehsig",
+                Mvp = "https://mvp.microsoft.com/en-us/PublicProfile/4020675?fullName=Robert%20Muehsig"
+            });
+
             //Data.Add(new PersonCity
             //{
-            //    Id = "47",
+            //    Id = "49",
             //    Name = "",
             //    FamilyName = "",
             //    CityCountry = "",

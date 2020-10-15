@@ -592,6 +592,63 @@ namespace AspNetCoreAzureSearch
                 Github = "https://github.com/Franklin89",
                 Mvp = ""
             });
+
+            Data.Add(new PersonCity
+            {
+                Id = "43",
+                Name = "Laurent",
+                FamilyName = "Bugnion",
+                CityCountry = "Switzerland",
+                Metadata = "Azure MVVM Xamarin",
+                Info = "Laurent works as Senior Cloud Developer Advocate for Microsoft Azure after almost 10 years spent working for IdentityMine and Valorem, two leading firms in Microsoft technologies. He codes in Azure, .NET, Windows, WPF, Xamarin (iOS and Android), ASP.NET (Core and Classic). On his free time, he writes for technical publications such as MSDN Magazine, publishes technical videos on YouTube and Microsoft Channel 9, and his blog is on blog.galasoft.ch. He is a frequent speaker at conferences such as Microsoft Ignite, Microsoft Build, TechEd, VS Live, Techorama and many other international events. Prior to joining Microsoft, he was a Microsoft Most Valuable Professional for Windows development from 2007 to 2017, a Microsoft Regional Director from 2013 and a Xamarin Most Valuable Professional from 2015. He is also the author of the well-known open source framework MVVM Light for Windows, WPF and Xamarin.",
+                Web = "https://galasoft.ch/",
+                Twitter = "https://twitter.com/LBugnion",
+                Github = "https://github.com/lbugnion",
+                Mvp = ""
+            });
+
+            Data.Add(new PersonCity
+            {
+                Id = "44",
+                Name = "Steve",
+                FamilyName = "Gordon",
+                CityCountry = "East Sussex United Kingdom",
+                Metadata = ".NET Core ASP.NET Core Elasticsearch AWS",
+                Info = "Steve Gordon is a senior developer based in Brighton, UK and Microsoft MVP. He works for Madgex (www.madgex.com) developing and supporting their new product portfolio built on ASP.NET Core technologies. Madgex Ltd are a market-leading SaaS provider of Job Board and Course Board platforms, relied upon by the world's most successful media owners, online recruitment businesses and associations. Steve is passionate about all things .NET related and has worked with ASP.NET on and off for over 15 years. He is currently most focused on ASP.NET Core and Docker to build microservice APIs. He enjoys sharing his knowledge through his blog and at by giving talks at user groups and conferences. Steve is excited by the .NET community and has recently founded .NET South East, a Brighton based, .NET User Group. He enjoys contributing to and maintaining OSS projects, most actively to the Humanitarian Toolbox (https://github.com/htbox/allready). You can find Steve online at his blog www.stevejgordon.co.uk and on Twitter @stevejgordon.",
+                Web = "https://www.stevejgordon.co.uk/",
+                Twitter = "https://twitter.com/stevejgordon",
+                Github = "https://github.com/stevejgordon",
+                Mvp = "https://mvp.microsoft.com/en-us/PublicProfile/5002866"
+            });
+
+            Data.Add(new PersonCity
+            {
+                Id = "45",
+                Name = "Manuel",
+                FamilyName = "Meyer",
+                CityCountry = "Zurich Switzerland",
+                Metadata = "Azure ",
+                Info = "Manuel Meyer is a principal consultant and trainer for .NET. He works for Trivadis AG (www.trivadis.com), a Switzerland based consulting company.  He regularly shares his knowledge in technical articles or as a speaker at conferences. He has a deep interest in technology. You can find him at www.manuelmeyer.net. He organizes the Azure Zurich User Group (www.azurezurichusergroup.com) and the .NET Day Switzerland (www.dotnetday.ch).",
+                Web = "https://manuelmeyer.net/",
+                Twitter = "https://twitter.com/manumeyer1",
+                Github = "https://github.com/manuelmeyer1",
+                Mvp = "https://mvp.microsoft.com/en-us/PublicProfile/5001968?fullName=Manuel%20Meyer"
+            });
+
+            //Data.Add(new PersonCity
+            //{
+            //    Id = "46",
+            //    Name = "",
+            //    FamilyName = "",
+            //    CityCountry = "",
+            //    Metadata = "",
+            //    Info = "",
+            //    Web = "",
+            //    Twitter = "",
+            //    Github = "",
+            //    Mvp = ""
+            //});
+
         }
     }
 }

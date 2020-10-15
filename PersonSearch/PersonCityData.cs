@@ -578,6 +578,20 @@ namespace AspNetCoreAzureSearch
                 Github = "https://github.com/mallibone",
                 Mvp = "https://mvp.microsoft.com/en-us/PublicProfile/5002881?fullName=Mark%20Allibone"
             });
+
+            Data.Add(new PersonCity
+            {
+                Id = "42",
+                Name = "Matteo",
+                FamilyName = "Locker",
+                CityCountry = "Switzerland",
+                Metadata = "ASP.NET Core Azure ",
+                Info = "I am a software engineer based in Bern, Switzerland. I work in a medium size company and focus on developing business web applications using .NET technologies like ASP.NET Core MVC, Entity Framework Core and some client frameworks like Bootstrap and jQuery. I am a tech enthusiast and I really like to try out the newest ASP.NET Core stuff and share my learnings with the community.",
+                Web = "https://ml-software.ch/",
+                Twitter = "https://twitter.com/matteolocher",
+                Github = "https://github.com/Franklin89",
+                Mvp = ""
+            });
         }
     }
 }

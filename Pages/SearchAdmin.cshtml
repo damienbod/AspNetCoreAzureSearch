@@ -4,11 +4,18 @@
     ViewData["Title"] = "SearchAdmin";
 }
 
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Index: @Model.IndexName</h1>
+        <p class="lead">Exists: <span class="badge badge-secondary">@Model.IndexExists</span>  Documents Count: <span class="badge badge-light">@Model.DocumentCount</span> </p>
+    </div>
+</div>
+
 <div class="card-deck">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Create index: personCities</h5>
-            <p class="card-text">Click to create a new index in Azure Cognitive search called personCities.</p>
+            <h5 class="card-title">Create index: @Model.IndexName</h5>
+            <p class="card-text">Click to create a new index in Azure Cognitive search called @Model.IndexName.</p>
         </div>
         <div class="card-footer text-center">
             <form asp-page="/SearchAdmin" asp-page-handler="CreateIndex">
@@ -20,8 +27,8 @@
     </div>
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Add Documents to index: personCities</h5>
-            <p class="card-text">Add documents to the Azure Cognitive search index: personCities.</p>
+            <h5 class="card-title">Add Documents to index: @Model.IndexName</h5>
+            <p class="card-text">Add documents to the Azure Cognitive search index: @Model.IndexName.</p>
         </div>
         <div class="card-footer text-center">
             <form asp-page="/SearchAdmin" asp-page-handler="AddData">
@@ -33,8 +40,8 @@
     </div>
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Delete index: personCities</h5>
-            <p class="card-text">Delete Azure Cognitive search index: personCities.</p>
+            <h5 class="card-title">Delete index: @Model.IndexName</h5>
+            <p class="card-text">Delete Azure Cognitive search index: @Model.IndexName.</p>
         </div>
         <div class="card-footer text-center">
             <form asp-page="/SearchAdmin" asp-page-handler="DeleteIndex">

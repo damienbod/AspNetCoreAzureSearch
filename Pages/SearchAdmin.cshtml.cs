@@ -21,6 +21,7 @@ namespace AspNetCoreAzureSearch.Pages
             _logger = logger;
         }
 
+        public string IndexName { get; set; } = "personcities";
         public bool IndexExists { get; set; }
         public long DocumentCount { get; set; }
 
@@ -39,6 +40,9 @@ namespace AspNetCoreAzureSearch.Pages
                 Messages = new[] {
                     new AlertViewModel("success", "Index created", "The Azure Search index was created successfully!"),
                 };
+                var indexStatus = await _searchProvider.GetIndexStatus();
+                IndexExists = indexStatus.Exists;
+                DocumentCount = indexStatus.DocumentCount;
                 return Page();
             }
             catch (Exception ex)
@@ -48,8 +52,6 @@ namespace AspNetCoreAzureSearch.Pages
                 };
                 return Page();
             }
-
-
         }
 
         public async Task<ActionResult> OnPostAddDataAsync()
@@ -59,8 +61,11 @@ namespace AspNetCoreAzureSearch.Pages
                 PersonCityData.CreateTestData();
                 await _searchProvider.AddDocumentsToIndex(PersonCityData.Data);
                 Messages = new[] {
-                    new AlertViewModel("success", "Documented added", "The Azure Search documents were uploaded!"),
+                    new AlertViewModel("success", "Documented added", "The Azure Search documents were uploaded! The Document Count takes n seconds to update!"),
                 };
+                var indexStatus = await _searchProvider.GetIndexStatus();
+                IndexExists = indexStatus.Exists;
+                DocumentCount = indexStatus.DocumentCount;
                 return Page();
             }
             catch (Exception ex)
@@ -80,6 +85,9 @@ namespace AspNetCoreAzureSearch.Pages
                 Messages = new[] {
                     new AlertViewModel("success", "Index Deleted!", "The Azure Search Index was successfully deleted!"),
                 };
+                var indexStatus = await _searchProvider.GetIndexStatus();
+                IndexExists = indexStatus.Exists;
+                DocumentCount = indexStatus.DocumentCount;
                 return Page();
             }
             catch (Exception ex)

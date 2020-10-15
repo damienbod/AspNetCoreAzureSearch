@@ -24,15 +24,15 @@
             <b><span><a href="@results[i].Document.Web">@results[i].Document.Name @results[i].Document.FamilyName</a>: @results[i].Document.CityCountry</span></b>
             @if (!string.IsNullOrEmpty(results[i].Document.Twitter))
             {
-                <a href="@results[i].Document.Twitter"><img src="images/socialTwitter.png" /></a>
+                <a href="@results[i].Document.Twitter"><img src="/images/socialTwitter.png" /></a>
             }
             @if (!string.IsNullOrEmpty(results[i].Document.Github))
             {
-                <a href="@results[i].Document.Github"><img src="images/github.png" /></a>
+                <a href="@results[i].Document.Github"><img src="/images/github.png" /></a>
             }
-            @if (!string.IsNullOrEmpty(results[i].Document.Github))
+            @if (!string.IsNullOrEmpty(results[i].Document.Mvp))
             {
-                <a href="@results[i].Document.Mvp"><img src="images/mvp.png" width="24" /></a>
+                <a href="@results[i].Document.Mvp"><img src="/images/mvp.png" width="24" /></a>
             }
             <br />
             <em><span>@results[i].Document.Metadata</span></em><br />

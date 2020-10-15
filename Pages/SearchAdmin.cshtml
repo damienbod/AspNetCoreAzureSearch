@@ -46,3 +46,17 @@
     </div>
 </div>
 
+<br />
+
+@if (Model.Messages != null)
+{
+    @foreach (var msg in Model.Messages)
+    {
+        <div class="alert alert-@msg.AlertType alert-dismissible fade show" role="alert">
+            <strong>@msg.AlertTitle</strong> @msg.AlertMessage
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+}

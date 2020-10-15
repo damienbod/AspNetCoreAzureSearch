@@ -654,7 +654,7 @@ namespace AspNetCoreAzureSearch
                 Id = "47",
                 Name = "Rico",
                 FamilyName = "Suter",
-                CityCountry = "Switerland",
+                CityCountry = "Switzerland",
                 Metadata = "ASP.NET Core NSwag",
                 Info = "Independent Software Engineer and Architect focusing on .NET and Microsoft technologies. Creator of NSwag, NJsonSchema and MyToolkit for .NET",
                 Web = "https://blog.rsuter.com/",

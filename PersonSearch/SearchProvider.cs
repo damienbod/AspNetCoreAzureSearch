@@ -76,7 +76,7 @@ namespace AspNetCoreAzureSearch
             await _searchClient.IndexDocumentsAsync(batch).ConfigureAwait(false);
         }
 
-        public async Task RunQueryAsync(SearchData model, int page, int leftMostPage)
+        public async Task QueryPagingFull(SearchData model, int page, int leftMostPage)
         {
             var pageSize = 4;
             var maxPageRange = 7;
@@ -86,7 +86,8 @@ namespace AspNetCoreAzureSearch
             {
                 Skip = page * pageSize,
                 Size = pageSize,
-                IncludeTotalCount = true
+                IncludeTotalCount = true, 
+                QueryType= SearchQueryType.Full
             };
 
             // options.Select.Add("Name");

@@ -38,7 +38,7 @@ namespace AspNetCoreAzureSearch.Pages
                 SearchText = searchText
             };
 
-            await _searchProvider.RunQueryAsync(model, 0, 0).ConfigureAwait(false);
+            await _searchProvider.QueryPagingFull(model, 0, 0).ConfigureAwait(false);
 
             SearchText = model.SearchText;
             CurrentPage = model.CurrentPage;
@@ -72,7 +72,7 @@ namespace AspNetCoreAzureSearch.Pages
 
             int leftMostPage = LeftMostPage;
 
-            await _searchProvider.RunQueryAsync(model, page, leftMostPage).ConfigureAwait(false);
+            await _searchProvider.QueryPagingFull(model, page, leftMostPage).ConfigureAwait(false);
 
             PageNo = page;
             SearchText = model.SearchText;

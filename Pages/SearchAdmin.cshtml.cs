@@ -21,13 +21,14 @@ namespace AspNetCoreAzureSearch.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public bool IndexExists { get; set; }
+        public long DocumentCount { get; set; }
+
+        public async Task OnGetAsync()
         {
-            //Messages = new[] {
-            //    new AlertViewModel("success", "Success!", "The object was added successfully!"),
-            //    new AlertViewModel("warning", "Warning!", "The object was added with a warning!"),
-            //    new AlertViewModel("danger", "Danger!", "The object was not added!")
-            //};
+            var indexStatus = await _searchProvider.GetIndexStatus();
+            IndexExists = indexStatus.Exists;
+            DocumentCount = indexStatus.DocumentCount;
         }
 
         public async Task<ActionResult> OnPostCreateIndexAsync()

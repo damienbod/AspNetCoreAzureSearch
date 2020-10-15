@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace AspNetCoreAzureSearch
@@ -16,6 +18,7 @@ namespace AspNetCoreAzureSearch
     {
         private readonly SearchIndexClient _searchIndexClient;
         private readonly SearchClient _searchClient;
+        private readonly IConfiguration _configuration;
         private readonly string _index;
 
         public SearchProvider(IConfiguration configuration)
@@ -25,6 +28,7 @@ namespace AspNetCoreAzureSearch
             _searchIndexClient = new SearchIndexClient(serviceEndpoint, credential);
             _index = configuration["PersonCitiesIndexName"];
             _searchClient = new SearchClient(serviceEndpoint, _index, credential);
+            _configuration = configuration;
         }
 
         public async Task CreateIndex()
@@ -38,6 +42,32 @@ namespace AspNetCoreAzureSearch
         public async Task DeleteIndex()
         {
             await _searchIndexClient.DeleteIndexAsync(_index).ConfigureAwait(false);
+        }
+
+        public async Task<(bool Exists,long DocumentCount)> GetIndexStatus()
+        {
+            try
+            {
+                var httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue
+                {
+                    NoCache = true,
+                };
+                httpClient.DefaultRequestHeaders.Add("api-key", _configuration["PersonCitiesSearchApiKey"]);
+
+                var uri = $"{_configuration["PersonCitiesSearchUri"]}/indexes/{_index}/docs/$count?api-version=2020-06-30";
+                var data = await httpClient.GetAsync(uri);
+                if (data.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    return (false, 0);
+                }
+                var payload = await data.Content.ReadAsStringAsync();
+                return (true, int.Parse(payload));
+            }
+            catch
+            {
+                return (false, 0);
+            }
         }
 
         public async Task AddDocumentsToIndex(List<PersonCity> personCities)

@@ -72,8 +72,6 @@ namespace AspNetCoreAzureSearch.Pages
 
             int leftMostPage = LeftMostPage;
 
-            model.SearchText = SearchText;
-
             await _searchProvider.RunQueryAsync(model, page, leftMostPage).ConfigureAwait(false);
 
             PageNo = page;

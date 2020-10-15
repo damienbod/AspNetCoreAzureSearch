@@ -35,6 +35,11 @@ namespace AspNetCoreAzureSearch
             await _searchIndexClient.CreateIndexAsync(definition).ConfigureAwait(false);
         }
 
+        public async Task DeleteIndex()
+        {
+            await _searchIndexClient.DeleteIndexAsync(_index).ConfigureAwait(false);
+        }
+
         public async Task AddDocumentsToIndex(List<PersonCity> personCities)
         {
             var batch = IndexDocumentsBatch.Upload(personCities);

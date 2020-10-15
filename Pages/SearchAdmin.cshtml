@@ -4,22 +4,53 @@
     ViewData["Title"] = "SearchAdmin";
 }
 
-<div class="text-center">
-    SearchAdmin
+<div class="row">
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Create index: personCities</h5>
+                <p class="card-text">Click to create a new index in Azure Cognitive search called personCities.</p>
+
+                <form asp-page="/SearchAdmin" asp-page-handler="CreateIndex">
+                    <button type="submit" class="btn btn-primary">
+                        Create
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Add Documents to index: personCities</h5>
+                <p class="card-text">Add documents to the Azure Cognitive search index: personCities.</p>
+
+                <form asp-page="/SearchAdmin" asp-page-handler="AddData">
+                    <button type="submit" class="btn btn-primary">
+                        Add
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Delete index: personCities</h5>
+                <p class="card-text">Delete Azure Cognitive search index: personCities.</p>
+
+                <form asp-page="/SearchAdmin" asp-page-handler="DeleteIndex">
+                    <button type="submit" class="btn btn-primary">
+                        Delete
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
 </div>
 
-<form asp-page="/SearchAdmin" asp-page-handler="CreateIndex">
-    <button type="submit" class="btn btn-primary">
-        Create Index
-    </button>
-</form>
 
-<br />
-<br />
 
-<form asp-page="/SearchAdmin" asp-page-handler="AddData">
-    <button type="submit" class="btn btn-primary">
-        Add Data
-    </button>
-</form>
 

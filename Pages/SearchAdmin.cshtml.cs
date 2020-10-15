@@ -37,5 +37,12 @@ namespace AspNetCoreAzureSearch.Pages
             await _searchProvider.AddDocumentsToIndex(PersonCityData.Data);
             return Page();
         }
+
+        public async Task<ActionResult> OnPostDeleteIndexAsync()
+        {
+            await _searchProvider.DeleteIndex();
+            return Page();
+        }
+        
     }
 }

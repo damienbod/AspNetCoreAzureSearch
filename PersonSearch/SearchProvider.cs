@@ -83,7 +83,7 @@ namespace AspNetCoreAzureSearch
         {
             var pageSize = 4;
             var maxPageRange = 7;
-            var pageRangeDelta = 3;
+            var pageRangeDelta = maxPageRange - pageSize;
 
             var options = new SearchOptions
             {
@@ -91,39 +91,25 @@ namespace AspNetCoreAzureSearch
                 Size = pageSize,
                 IncludeTotalCount = true, 
                 QueryType= SearchQueryType.Full
-            };
-
-            // options.Select.Add("Name");
-            // options.Select.Add("CityCountry");
+            }; // options.Select.Add("Name"); // add this explicitly if all fields are not required
 
             model.PersonCities = await _searchClient.SearchAsync<PersonCity>(model.SearchText, options).ConfigureAwait(false);
-
-            // This variable communicates the total number of pages to the view.
             model.PageCount = ((int)model.PersonCities.TotalCount + pageSize - 1) / pageSize;
-
-            // This variable communicates the page number being displayed to the view.
             model.CurrentPage = page;
-
-            // Calculate the range of page numbers to display.
             if (page == 0)
             {
                 leftMostPage = 0;
             }
             else if (page <= leftMostPage)
             {
-                // Trigger a switch to a lower page range.
                 leftMostPage = Math.Max(page - pageRangeDelta, 0);
             }
             else if (page >= leftMostPage + maxPageRange - 1)
             {
-                // Trigger a switch to a higher page range.
                 leftMostPage = Math.Min(page - pageRangeDelta, model.PageCount - maxPageRange);
             }
             model.LeftMostPage = leftMostPage;
-
-            // Calculate the number of page numbers to display.
             model.PageRange = Math.Min(model.PageCount - leftMostPage, maxPageRange);
-
         }
     }
 }

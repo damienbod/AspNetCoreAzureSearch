@@ -1,5 +1,9 @@
 # ASP.NET Core with Cognitive Azure Search
 
+## Blogs
+
+Using Azure Cognitive Search in ASP.NET Core
+
 # Links
 
 https://docs.microsoft.com/en-us/azure/search

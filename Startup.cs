@@ -20,6 +20,8 @@ namespace AspNetCoreAzureSearch
         {
             services.AddScoped<SearchProvider>();
 
+            services.AddHttpClient();
+
             services.AddRazorPages();
         }
 

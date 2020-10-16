@@ -17,16 +17,21 @@ namespace AspNetCoreAzureSearch
         private readonly SearchIndexClient _searchIndexClient;
         private readonly SearchClient _searchClient;
         private readonly IConfiguration _configuration;
+        private readonly IHttpClientFactory _httpClientFactory;
         private readonly string _index;
 
-        public SearchProvider(IConfiguration configuration)
+        public SearchProvider(IConfiguration configuration, IHttpClientFactory httpClientFactory)
         {
+            _configuration = configuration;
+            _httpClientFactory = httpClientFactory;
+            _index = configuration["PersonCitiesIndexName"];
+
             Uri serviceEndpoint = new Uri(configuration["PersonCitiesSearchUri"]);
             AzureKeyCredential credential = new AzureKeyCredential(configuration["PersonCitiesSearchApiKey"]);
+
             _searchIndexClient = new SearchIndexClient(serviceEndpoint, credential);
-            _index = configuration["PersonCitiesIndexName"];
             _searchClient = new SearchClient(serviceEndpoint, _index, credential);
-            _configuration = configuration;
+            
         }
 
         public async Task CreateIndex()
@@ -46,7 +51,7 @@ namespace AspNetCoreAzureSearch
         {
             try
             {
-                var httpClient = new HttpClient();
+                var httpClient = _httpClientFactory.CreateClient();
                 httpClient.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue
                 {
                     NoCache = true,

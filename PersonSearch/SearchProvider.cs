@@ -87,7 +87,7 @@ namespace AspNetCoreAzureSearch
 
             var options = new SearchOptions
             {
-                Skip = page * pageSize,
+                Skip = page * pageSize, 
                 Size = pageSize,
                 IncludeTotalCount = true, 
                 QueryType= SearchQueryType.Full

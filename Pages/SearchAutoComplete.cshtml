@@ -1,0 +1,12 @@
+﻿@page "{handler?}"
+@model SearchAutoCompleteModel
+@{
+    ViewData["Title"] = "Search with Paging";
+}
+
+<form asp-page="/SearchAutoComplete" method="get">
+    <div class="searchBoxForm">
+        @Html.TextBoxFor(m => m.SearchText, new { @class = "searchBox" }) 
+        <input class="searchBoxSubmit" type="submit" value="">
+    </div>
+</form>

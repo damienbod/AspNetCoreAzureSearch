@@ -2,7 +2,7 @@
 
 ## Blogs
 
-Using Azure Cognitive Search in ASP.NET Core
+Implement a full text search using Azure Cognitive Search in ASP.NET Core
 
 # Links
 

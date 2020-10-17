@@ -31,7 +31,7 @@ namespace AspNetCoreAzureSearch
 
             _searchIndexClient = new SearchIndexClient(serviceEndpoint, credential);
             _searchClient = new SearchClient(serviceEndpoint, _index, credential);
-            
+
         }
 
         public async Task CreateIndex()
@@ -47,7 +47,7 @@ namespace AspNetCoreAzureSearch
             await _searchIndexClient.DeleteIndexAsync(_index).ConfigureAwait(false);
         }
 
-        public async Task<(bool Exists,long DocumentCount)> GetIndexStatus()
+        public async Task<(bool Exists, long DocumentCount)> GetIndexStatus()
         {
             try
             {
@@ -87,10 +87,10 @@ namespace AspNetCoreAzureSearch
 
             var options = new SearchOptions
             {
-                Skip = page * pageSize, 
+                Skip = page * pageSize,
                 Size = pageSize,
-                IncludeTotalCount = true, 
-                QueryType= SearchQueryType.Full
+                IncludeTotalCount = true,
+                QueryType = SearchQueryType.Full
             }; // options.Select.Add("Name"); // add this explicitly if all fields are not required
 
             model.PersonCities = await _searchClient.SearchAsync<PersonCity>(model.SearchText, options).ConfigureAwait(false);

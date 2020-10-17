@@ -9,12 +9,16 @@ namespace AspNetCoreAzureSearch
 
         public static void CreateTestData()
         {
-            Data.Add(new PersonCity {
-                Id = "1", Name = "Damien", FamilyName = "Bowden", CityCountry="Switzerland",
+            Data.Add(new PersonCity
+            {
+                Id = "1",
+                Name = "Damien",
+                FamilyName = "Bowden",
+                CityCountry = "Switzerland",
                 Metadata = "ASP.NET Core Azure OAuth FIDO2 OIDC  EFCore SQLite  Typescript Javascript Angular",
-                Info = "I am an engineer, Microsoft MVP, living in Switzerland interested in web development. My favorite technologies are ASP.NET Core, EFCore, ASP.NET, WebAPI, AngularJS, Angular 2, Typescript, MS SQL Server, SQLite and Elasticsearch.", 
-                Web= "https://damienbod.com",
-                Twitter= "https://twitter.com/damien_bod",
+                Info = "I am an engineer, Microsoft MVP, living in Switzerland interested in web development. My favorite technologies are ASP.NET Core, EFCore, ASP.NET, WebAPI, AngularJS, Angular 2, Typescript, MS SQL Server, SQLite and Elasticsearch.",
+                Web = "https://damienbod.com",
+                Twitter = "https://twitter.com/damien_bod",
                 Github = "https://github.com/damienbod",
                 Mvp = "https://mvp.microsoft.com/en-us/PublicProfile/5002218"
             });
@@ -270,7 +274,7 @@ namespace AspNetCoreAzureSearch
                 Github = "https://github.com/shawnwildermuth",
                 Mvp = "https://mvp.microsoft.com/en-us/PublicProfile/9072?fullName=Shawn%20%20Wildermuth"
             });
-            
+
             Data.Add(new PersonCity
             {
                 Id = "20",
@@ -284,7 +288,7 @@ namespace AspNetCoreAzureSearch
                 Github = "https://github.com/mgechev",
                 Mvp = ""
             });
-            
+
             Data.Add(new PersonCity
             {
                 Id = "21",
@@ -298,7 +302,7 @@ namespace AspNetCoreAzureSearch
                 Github = "",
                 Mvp = "https://mvp.microsoft.com/en-us/PublicProfile/4015684?fullName=Mike%20%20Brind"
             });
-            
+
             Data.Add(new PersonCity
             {
                 Id = "22",
@@ -312,7 +316,7 @@ namespace AspNetCoreAzureSearch
                 Github = "https://github.com/rionmonster",
                 Mvp = "http://mvp.microsoft.com/en-us/MVP/Rion%20Williams-5000660"
             });
-            
+
             Data.Add(new PersonCity
             {
                 Id = "23",

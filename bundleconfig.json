@@ -27,7 +27,7 @@
     "outputFileName": "wwwroot/css/vendor.min.css",
     "inputFiles": [
       "node_modules/bootstrap/dist/css/bootstrap.min.css",
-      "node_modules/jquery-ui/themes/base/autocomplete.css"
+      "node_modules/jquery-ui-dist/jquery-ui.min.css"
     ],
     "minify": { "enabled": true }
   },
@@ -37,7 +37,7 @@
     "inputFiles": [
       "node_modules/jquery/dist/jquery.min.js",
       "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-      "node_modules/jquery-ui/ui/widgets/autocomplete.js"
+      "node_modules/jquery-ui-dist/jquery-ui.min.js"
     ],
     "minify": {
       "enabled": true,

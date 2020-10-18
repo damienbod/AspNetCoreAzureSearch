@@ -21,5 +21,10 @@ namespace AspNetCoreAzureSearch.Pages
         {
         }
 
+        public void OnGetAutoComplete(string term)
+        {
+            var zz = term;
+        }
+
     }
 }

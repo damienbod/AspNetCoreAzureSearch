@@ -17,7 +17,7 @@
         </tr>
         <tr>
             <td>
-                <input id="autocomplete" type="text" style="width:500px" />
+                <input class="form-control" id="autocomplete" type="text" style="width:500px" />
             </td>
         </tr>
     </table>
@@ -31,7 +31,7 @@
             $("input#autocomplete").autocomplete({
                 source: function(request, response) {
                     $.ajax({
-                        url: "search",
+                        url: "SearchAutoComplete/AutoComplete",
                         dataType: "json",
                         data: {
                             term: request.term,

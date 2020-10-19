@@ -4,6 +4,8 @@
 
 Implement a full text search using Azure Cognitive Search in ASP.NET Core
 
+https://damienbod.com/2020/10/19/implement-a-full-text-search-using-azure-cognitive-search-in-asp-net-core/
+
 # Links
 
 https://docs.microsoft.com/en-us/azure/search

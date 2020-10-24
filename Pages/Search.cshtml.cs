@@ -8,7 +8,7 @@ namespace AspNetCoreAzureSearch.Pages
 {
     public class SearchModel : PageModel
     {
-        private readonly SearchProvider _searchProvider;
+        private readonly SearchProviderPaging _searchProvider;
         private readonly ILogger<IndexModel> _logger;
 
         public string SearchText { get; set; }
@@ -20,7 +20,7 @@ namespace AspNetCoreAzureSearch.Pages
         public int PageNo { get; set; }
         public SearchResults<PersonCity> PersonCities;
 
-        public SearchModel(SearchProvider searchProvider,
+        public SearchModel(SearchProviderPaging searchProvider,
             ILogger<IndexModel> logger)
         {
             _searchProvider = searchProvider;

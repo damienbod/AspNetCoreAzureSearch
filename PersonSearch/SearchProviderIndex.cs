@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace AspNetCoreAzureSearch
 {
-    public class SearchProvider
+    public class SearchProviderIndex
     {
         private readonly SearchIndexClient _searchIndexClient;
         private readonly SearchClient _searchClient;
@@ -20,7 +20,7 @@ namespace AspNetCoreAzureSearch
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly string _index;
 
-        public SearchProvider(IConfiguration configuration, IHttpClientFactory httpClientFactory)
+        public SearchProviderIndex(IConfiguration configuration, IHttpClientFactory httpClientFactory)
         {
             _configuration = configuration;
             _httpClientFactory = httpClientFactory;
@@ -80,39 +80,6 @@ namespace AspNetCoreAzureSearch
         {
             var batch = IndexDocumentsBatch.Upload(personCities);
             await _searchClient.IndexDocumentsAsync(batch).ConfigureAwait(false);
-        }
-
-        public async Task QueryPagingFull(SearchData model, int page, int leftMostPage)
-        {
-            var pageSize = 4;
-            var maxPageRange = 7;
-            var pageRangeDelta = maxPageRange - pageSize;
-
-            var options = new SearchOptions
-            {
-                Skip = page * pageSize,
-                Size = pageSize,
-                IncludeTotalCount = true,
-                QueryType = SearchQueryType.Full
-            }; // options.Select.Add("Name"); // add this explicitly if all fields are not required
-
-            model.PersonCities = await _searchClient.SearchAsync<PersonCity>(model.SearchText, options).ConfigureAwait(false);
-            model.PageCount = ((int)model.PersonCities.TotalCount + pageSize - 1) / pageSize;
-            model.CurrentPage = page;
-            if (page == 0)
-            {
-                leftMostPage = 0;
-            }
-            else if (page <= leftMostPage)
-            {
-                leftMostPage = Math.Max(page - pageRangeDelta, 0);
-            }
-            else if (page >= leftMostPage + maxPageRange - 1)
-            {
-                leftMostPage = Math.Min(page - pageRangeDelta, model.PageCount - maxPageRange);
-            }
-            model.LeftMostPage = leftMostPage;
-            model.PageRange = Math.Min(model.PageCount - leftMostPage, maxPageRange);
         }
     }
 }

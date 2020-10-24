@@ -39,10 +39,8 @@ namespace AspNetCoreAzureSearch
         {
             SuggestOptions sp = new SuggestOptions()
             {
-                //Select = HotelName,
-                //SearchFields = HotelName,
-                UseFuzzyMatching = fuzzy,
-                //Top = 5
+                UseFuzzyMatching = fuzzy, 
+                Size = 5
             };
 
             if (highlights)
@@ -51,10 +49,24 @@ namespace AspNetCoreAzureSearch
                 sp.HighlightPostTag = "</b>";
             }
 
-            var resp = await _searchClient.SuggestAsync<PersonCity>(term, "sg", sp).ConfigureAwait(false);
+            var resp = await _searchClient.SuggestAsync<PersonCity>(term, "personSg", sp).ConfigureAwait(false);
 
             List<string> suggestions = resp.Value.Results.Select(x => x.Text).ToList();
             return suggestions;
+        }
+
+        public async Task<List<string>> AutoComplete(string term)
+        {
+            AutocompleteOptions ap = new AutocompleteOptions()
+            {
+                UseFuzzyMatching = false, Size = 5
+            };
+
+            var autocompleteResult = await _searchClient.AutocompleteAsync(term, "personSg", ap).ConfigureAwait(false);
+
+            // Convert the Suggest results to a list that can be displayed in the client.
+            List<string> autocomplete = autocompleteResult.Value.Results.Select(x => x.Text).ToList();
+            return autocomplete;
         }
     }
 }

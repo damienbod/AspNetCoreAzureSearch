@@ -110,12 +110,12 @@
                 },
                 select: function (event, ui) {
                     $("#spanupdateId").text(ui.item.data.id);
-                    $("#updateId").text(ui.item.data.document.id);
-                    $("#updateName").text(ui.item.data.document.name);
-                    $("#updateFamilyName").text(ui.item.data.document.familyName);
-                    $("#updateInfo").text(ui.item.data.document.info);
-                    console.log("damine");
+                    $("#updateId").val(ui.item.data.document.id);
+                    $("#updateName").val(ui.item.data.document.name);
+                    $("#updateFamilyName").val(ui.item.data.document.familyName);
+                    $("#updateInfo").val(ui.item.data.document.info);
                     console.log(ui.item);
+                    console.log(ui.item.data.document.name);
                 }
             });
         });

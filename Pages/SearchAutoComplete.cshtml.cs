@@ -1,21 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Search.Documents.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AspNetCoreAzureSearch.Pages
 {
     public class SearchAutoCompleteModel : PageModel
     {
-        private readonly SearchProviderPaging _searchProvider;
+        private readonly SearchProviderAutoComplete _searchProviderAutoComplete;
         private readonly ILogger<IndexModel> _logger;
 
         public string SearchText { get; set; }
 
-        public SearchAutoCompleteModel(SearchProviderPaging searchProvider,
+        public SuggestResults<PersonCity> PersonCities;
+
+        public SearchAutoCompleteModel(SearchProviderAutoComplete searchProviderAutoComplete,
             ILogger<IndexModel> logger)
         {
-            _searchProvider = searchProvider;
+            _searchProviderAutoComplete = searchProviderAutoComplete;
             _logger = logger;
         }
 
@@ -23,12 +27,17 @@ namespace AspNetCoreAzureSearch.Pages
         {
         }
 
-        public void OnGetAutoComplete(string term)
+        public async Task<ActionResult> OnGetAutoCompleteSuggest(string term)
         {
-            var zz = term;
+            //List<string> suggestions = PersonCities.Results.Select(x => x.Text).ToList();
+            PersonCities = await _searchProviderAutoComplete.Suggest(true, true, term);
+            SearchText = term;
+            return Page();
         }
 
-        
-
+        //public async Task OnGetAutoComplete(string term)
+        //{
+        //    var data = await _searchProviderAutoComplete.AutoComplete(term);
+        //}
     }
 }

@@ -35,13 +35,19 @@ namespace AspNetCoreAzureSearch
 
         }
 
-        public async Task<List<string>> Suggest(bool highlights, bool fuzzy, string term)
+        public async Task<SuggestResults<PersonCity>> Suggest(bool highlights, bool fuzzy, string term)
         {
             SuggestOptions sp = new SuggestOptions()
             {
                 UseFuzzyMatching = fuzzy, 
-                Size = 5
+                Size = 5,
             };
+            sp.Select.Add("Id");
+            sp.Select.Add("Name");
+            sp.Select.Add("FamilyName");
+            sp.Select.Add("Info");
+            sp.Select.Add("CityCountry");
+            sp.Select.Add("Web");
 
             if (highlights)
             {
@@ -49,10 +55,8 @@ namespace AspNetCoreAzureSearch
                 sp.HighlightPostTag = "</b>";
             }
 
-            var resp = await _searchClient.SuggestAsync<PersonCity>(term, "personSg", sp).ConfigureAwait(false);
-
-            List<string> suggestions = resp.Value.Results.Select(x => x.Text).ToList();
-            return suggestions;
+            var suggestResults = await _searchClient.SuggestAsync<PersonCity>(term, "personSg", sp).ConfigureAwait(false);
+            return suggestResults.Value;
         }
 
         public async Task<List<string>> AutoComplete(string term)

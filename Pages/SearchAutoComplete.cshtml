@@ -27,13 +27,13 @@
 
 <div class="card">
     <h5 class="card-header">
-        <span id="docName">-</span>
-        <span id="docFamilyName">-</span>
+        <span id="docName"></span>
+        <span id="docFamilyName"></span>
     </h5>
     <div class="card-body">
-        <h5 class="card-title">Details</h5>
-        <p class="card-text"><span id="docInfo">-</span></p>
-        <a href="#" class="btn btn-primary">open Web</a>
+        <p class="card-text"><span id="docInfo"></span></p>
+        <p class="card-text"><span id="docCityCountry"></span></p>
+        <p class="card-text"><span id="docWeb"></span></p>
     </div>
 </div>
 
@@ -73,6 +73,8 @@
                     $("#docName").text(ui.item.data.document.name);
                     $("#docFamilyName").text(ui.item.data.document.familyName);
                     $("#docInfo").text(ui.item.data.document.info);
+                    $("#docCityCountry").text(ui.item.data.document.cityCountry);
+                    $("#docWeb").text(ui.item.data.document.web);
                     console.log(ui.item);
                 }
             });

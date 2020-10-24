@@ -39,7 +39,7 @@ namespace AspNetCoreAzureSearch
             FieldBuilder bulder = new FieldBuilder();
             var definition = new SearchIndex(_index, bulder.Build(typeof(PersonCity)));
             definition.Suggesters.Add(new SearchSuggester(
-                "personSg", new string[] { "name", "familyName", "info", "cityCountry" }
+                "personSg", new string[] { "Name", "FamilyName", "Info", "CityCountry" }
             ));
 
             await _searchIndexClient.CreateIndexAsync(definition).ConfigureAwait(false);

@@ -64,7 +64,6 @@ namespace AspNetCoreAzureSearch
 
             var autocompleteResult = await _searchClient.AutocompleteAsync(term, "personSg", ap).ConfigureAwait(false);
 
-            // Convert the Suggest results to a list that can be displayed in the client.
             List<string> autocomplete = autocompleteResult.Value.Results.Select(x => x.Text).ToList();
             return autocomplete;
         }

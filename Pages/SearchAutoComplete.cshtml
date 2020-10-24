@@ -25,59 +25,17 @@
 
 <br />
 
-<form name="input" action="update" method="post">
-    <fieldset class="form">
-        <legend>UPDATE an existing document in the search engine</legend>
-        <table width="500">
-            <tr>
-                <th></th>
-                <th></th>
-            </tr>
-            <tr>
-                <td>
-                    <span>Id:</span>
-                </td>
-                <td>
-                    <span id="spanupdateId">-</span>
-                    <input id="updateId" name="updateId" type="hidden" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span>Name:</span>
-                </td>
-                <td>
-                    <input id="updateName" name="updateName" type="text" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span>Name:</span>
-                </td>
-                <td>
-                    <input id="updateFamilyName" name="updateFamilyName" type="text" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span>Info:</span>
-                </td>
-                <td>
-                    <input id="updateInfo" name="updateInfo" type="text" />
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <br />
-                    <input type="submit" value="Update Person" style="width: 200px" />
-                </td>
-                <td></td>
-            </tr>
-        </table>
-    </fieldset>
-</form>
-
+<div class="card">
+    <h5 class="card-header">
+        <span id="docName">-</span>
+        <span id="docFamilyName">-</span>
+    </h5>
+    <div class="card-body">
+        <h5 class="card-title">Details</h5>
+        <p class="card-text"><span id="docInfo">-</span></p>
+        <a href="#" class="btn btn-primary">open Web</a>
+    </div>
+</div>
 
 @section scripts
 {
@@ -111,13 +69,11 @@
                     });
                 },
                 select: function (event, ui) {
-                    $("#spanupdateId").text(ui.item.data.id);
-                    $("#updateId").val(ui.item.data.document.id);
-                    $("#updateName").val(ui.item.data.document.name);
-                    $("#updateFamilyName").val(ui.item.data.document.familyName);
-                    $("#updateInfo").val(ui.item.data.document.info);
+                    $("#docNameId").text(ui.item.data.id);
+                    $("#docName").text(ui.item.data.document.name);
+                    $("#docFamilyName").text(ui.item.data.document.familyName);
+                    $("#docInfo").text(ui.item.data.document.info);
                     console.log(ui.item);
-                    console.log(ui.item.data.document.name);
                 }
             });
         });

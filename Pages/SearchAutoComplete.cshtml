@@ -52,17 +52,6 @@
                 },
                 select: function (event, ui) {
                     $("#spanupdateId").text(ui.item.data.Id);
-                    $("#spanupdateCreated").text(new Date(parseInt(ui.item.data.Created.substr(6))));
-                    $("#spanupdateUpdated").text(new Date(parseInt(ui.item.data.Updated.substr(6))));
-                    $("#updateName").text(ui.item.data.Name);
-                    $("#updateDescription").text(ui.item.data.Description);
-                    $("#updateName").val(ui.item.data.Name);
-                    $("#updateDescription").val(ui.item.data.Description);
-                    $("#updateId").val(ui.item.data.Id);
-                    $("#updateCreated").val(ui.item.data.Created);
-                    $("#updateUpdated").val(ui.item.data.Updated);
-                    $("#spandeleteId").text(ui.item.data.Id);
-                    $("#deleteId").val(ui.item.data.Id);
                     $("#deleteName").text(ui.item.data.Name);
                     console.log(ui.item);
                 }

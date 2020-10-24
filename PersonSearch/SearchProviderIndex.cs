@@ -62,12 +62,12 @@ namespace AspNetCoreAzureSearch
                 httpClient.DefaultRequestHeaders.Add("api-key", _configuration["PersonCitiesSearchApiKey"]);
 
                 var uri = $"{_configuration["PersonCitiesSearchUri"]}/indexes/{_index}/docs/$count?api-version=2020-06-30";
-                var data = await httpClient.GetAsync(uri);
+                var data = await httpClient.GetAsync(uri).ConfigureAwait(false);
                 if (data.StatusCode == System.Net.HttpStatusCode.NotFound)
                 {
                     return (false, 0);
                 }
-                var payload = await data.Content.ReadAsStringAsync();
+                var payload = await data.Content.ReadAsStringAsync().ConfigureAwait(false);
                 return (true, int.Parse(payload));
             }
             catch

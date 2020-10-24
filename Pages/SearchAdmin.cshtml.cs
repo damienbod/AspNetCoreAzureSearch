@@ -27,7 +27,7 @@ namespace AspNetCoreAzureSearch.Pages
 
         public async Task OnGetAsync()
         {
-            var indexStatus = await _searchProviderIndex.GetIndexStatus();
+            var indexStatus = await _searchProviderIndex.GetIndexStatus().ConfigureAwait(false);
             IndexExists = indexStatus.Exists;
             DocumentCount = indexStatus.DocumentCount;
         }
@@ -36,11 +36,11 @@ namespace AspNetCoreAzureSearch.Pages
         {
             try
             {
-                await _searchProviderIndex.CreateIndex();
+                await _searchProviderIndex.CreateIndex().ConfigureAwait(false);
                 Messages = new[] {
                     new AlertViewModel("success", "Index created", "The Azure Search index was created successfully!"),
                 };
-                var indexStatus = await _searchProviderIndex.GetIndexStatus();
+                var indexStatus = await _searchProviderIndex.GetIndexStatus().ConfigureAwait(false);
                 IndexExists = indexStatus.Exists;
                 DocumentCount = indexStatus.DocumentCount;
                 return Page();
@@ -59,11 +59,11 @@ namespace AspNetCoreAzureSearch.Pages
             try
             {
                 PersonCityData.CreateTestData();
-                await _searchProviderIndex.AddDocumentsToIndex(PersonCityData.Data);
+                await _searchProviderIndex.AddDocumentsToIndex(PersonCityData.Data).ConfigureAwait(false);
                 Messages = new[] {
                     new AlertViewModel("success", "Documented added", "The Azure Search documents were uploaded! The Document Count takes n seconds to update!"),
                 };
-                var indexStatus = await _searchProviderIndex.GetIndexStatus();
+                var indexStatus = await _searchProviderIndex.GetIndexStatus().ConfigureAwait(false);
                 IndexExists = indexStatus.Exists;
                 DocumentCount = indexStatus.DocumentCount;
                 return Page();
@@ -81,11 +81,11 @@ namespace AspNetCoreAzureSearch.Pages
         {
             try
             {
-                await _searchProviderIndex.DeleteIndex();
+                await _searchProviderIndex.DeleteIndex().ConfigureAwait(false);
                 Messages = new[] {
                     new AlertViewModel("success", "Index Deleted!", "The Azure Search Index was successfully deleted!"),
                 };
-                var indexStatus = await _searchProviderIndex.GetIndexStatus();
+                var indexStatus = await _searchProviderIndex.GetIndexStatus().ConfigureAwait(false);
                 IndexExists = indexStatus.Exists;
                 DocumentCount = indexStatus.DocumentCount;
                 return Page();

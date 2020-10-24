@@ -23,23 +23,59 @@
     </table>
 </fieldset>
 
-@if (Model.PersonCities != null)
-{
+<form name="input" action="update" method="post">
+    <fieldset class="form">
+        <legend>UPDATE an existing document in the search engine</legend>
+        <table width="500">
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>
+                    <span>Id:</span>
+                </td>
+                <td>
+                    <span id="spanupdateId">-</span>
+                    <input id="updateId" name="updateId" type="hidden" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>Name:</span>
+                </td>
+                <td>
+                    <input id="updateName" name="updateName" type="text" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>Name:</span>
+                </td>
+                <td>
+                    <input id="updateFamilyName" name="updateFamilyName" type="text" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>Info:</span>
+                </td>
+                <td>
+                    <input id="updateInfo" name="updateInfo" type="text" />
+                </td>
+            </tr>
 
-    var results = Model.PersonCities.Results;
+            <tr>
+                <td>
+                    <br />
+                    <input type="submit" value="Update Person" style="width: 200px" />
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </fieldset>
+</form>
 
-    @for (var i = 0; i < results.Count; i++)
-    {
-<p>@results[i].Text</p>
-        <div>
-            <b><span><a href="@results[i].Document.Web">@results[i].Document.Name @results[i].Document.FamilyName</a>: @results[i].Document.CityCountry</span></b>
-            <br />
-            <em><span>@results[i].Document.Metadata</span></em><br />
-            @Html.TextArea($"desc{1}", results[i].Document.Info, new { @class = "infotext" })
-            <br />
-        </div>
-    }
-}
 
 @section scripts
 {
@@ -57,7 +93,11 @@
                         success: function (data) {
                             var itemArray = new Array();
                             for (i = 0; i < data.length; i++) {
-                                itemArray[i] = { label: data[i].Name, value: data[i].Name, data: data[i] }
+                                itemArray[i] = {
+                                    label: data[i].document.name + " " + data[i].document.familyName,
+                                    value: data[i].document.name + " " + data[i].document.familyName,
+                                    data: data[i]
+                                }
                             }
 
                             console.log(itemArray);
@@ -69,8 +109,12 @@
                     });
                 },
                 select: function (event, ui) {
-                    $("#spanupdateId").text(ui.item.data.Id);
-                    $("#deleteName").text(ui.item.data.Name);
+                    $("#spanupdateId").text(ui.item.data.id);
+                    $("#updateId").text(ui.item.data.document.id);
+                    $("#updateName").text(ui.item.data.document.name);
+                    $("#updateFamilyName").text(ui.item.data.document.familyName);
+                    $("#updateInfo").text(ui.item.data.document.info);
+                    console.log("damine");
                     console.log(ui.item);
                 }
             });

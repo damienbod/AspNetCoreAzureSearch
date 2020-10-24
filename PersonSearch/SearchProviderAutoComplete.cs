@@ -63,7 +63,7 @@ namespace AspNetCoreAzureSearch
         {
             AutocompleteOptions ap = new AutocompleteOptions()
             {
-                UseFuzzyMatching = false, Size = 5
+                UseFuzzyMatching = false, Size = 5, 
             };
 
             var autocompleteResult = await _searchClient.AutocompleteAsync(term, "personSg", ap).ConfigureAwait(false);

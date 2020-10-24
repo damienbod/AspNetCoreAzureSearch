@@ -32,7 +32,8 @@ namespace AspNetCoreAzureSearch.Pages
             //List<string> suggestions = PersonCities.Results.Select(x => x.Text).ToList();
             PersonCities = await _searchProviderAutoComplete.Suggest(true, true, term);
             SearchText = term;
-            return Page();
+
+            return new JsonResult(PersonCities.Results);
         }
 
         //public async Task OnGetAutoComplete(string term)

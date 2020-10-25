@@ -49,27 +49,27 @@ namespace AspNetCoreAzureSearch
             sp.Select.Add("CityCountry");
             sp.Select.Add("Web");
 
-            if (highlights)
-            {
-                sp.HighlightPreTag = "<b>";
-                sp.HighlightPostTag = "</b>";
-            }
+            //if (highlights)
+            //{
+            //    sp.HighlightPreTag = "<b>";
+            //    sp.HighlightPostTag = "</b>";
+            //}
 
             var suggestResults = await _searchClient.SuggestAsync<PersonCity>(term, "personSg", sp).ConfigureAwait(false);
             return suggestResults.Value;
         }
 
-        public async Task<List<string>> AutoComplete(string term)
-        {
-            AutocompleteOptions ap = new AutocompleteOptions()
-            {
-                UseFuzzyMatching = false, Size = 5, 
-            };
+        //public async Task<List<string>> AutoComplete(string term)
+        //{
+        //    AutocompleteOptions ap = new AutocompleteOptions()
+        //    {
+        //        UseFuzzyMatching = false, Size = 5, 
+        //    };
 
-            var autocompleteResult = await _searchClient.AutocompleteAsync(term, "personSg", ap).ConfigureAwait(false);
+        //    var autocompleteResult = await _searchClient.AutocompleteAsync(term, "personSg", ap).ConfigureAwait(false);
 
-            List<string> autocomplete = autocompleteResult.Value.Results.Select(x => x.Text).ToList();
-            return autocomplete;
-        }
+        //    List<string> autocomplete = autocompleteResult.Value.Results.Select(x => x.Text).ToList();
+        //    return autocomplete;
+        //}
     }
 }

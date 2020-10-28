@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading.Tasks;
 
-namespace AspNetCoreAzureSearch
+namespace BlazorAzureSearch.Server
 {
     public class SearchProviderAutoComplete
     {

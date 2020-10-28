@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AspNetCoreAzureSearch
+namespace BlazorAzureSearch.Server
 {
     public static class PersonCityData
     {

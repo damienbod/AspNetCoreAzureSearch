@@ -1,6 +1,6 @@
 using Azure.Search.Documents.Indexes;
 
-namespace AspNetCoreAzureSearch
+namespace BlazorAzureSearch.Server
 {
     public class PersonCity
     {

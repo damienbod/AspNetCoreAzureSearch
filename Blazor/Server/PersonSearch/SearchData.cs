@@ -1,6 +1,6 @@
 ﻿using Azure.Search.Documents.Models;
 
-namespace AspNetCoreAzureSearch
+namespace BlazorAzureSearch.Server
 {
     public class SearchData
     {

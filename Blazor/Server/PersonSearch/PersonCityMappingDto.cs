@@ -2,7 +2,7 @@
 using Azure.Search.Documents.Indexes.Models;
 using System.Text.Json.Serialization;
 
-namespace AspNetCoreAzureSearch
+namespace BlazorAzureSearch.Server
 {
     public class PersonCityMappingDto
     {

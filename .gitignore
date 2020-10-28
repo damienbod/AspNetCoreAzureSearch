@@ -2,3 +2,4 @@
 **/org/
 **/obj/
 /Blazor/.vs
+/Blazor/Client/wwwroot/debug.log

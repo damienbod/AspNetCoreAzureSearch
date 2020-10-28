@@ -1,16 +1,74 @@
 ﻿@page "/searchadmin"
+@using BlazorAzureSearch.Shared
 
-<h1>Counter</h1>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Index: @IndexName</h1>
+        <p class="lead">Exists: <span class="badge badge-secondary">@IndexExists</span>  Documents Count: <span class="badge badge-light">@DocumentCount</span> </p>
+    </div>
+</div>
 
-<p>Current count: @currentCount</p>
+<div class="card-deck">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Create index: @IndexName</h5>
+            <p class="card-text">Click to create a new index in Azure Cognitive search called @IndexName.</p>
+        </div>
+        <div class="card-footer text-center">
+            <form asp-page="/SearchAdmin" asp-page-handler="CreateIndex">
+                <button type="submit" class="btn btn-primary col-sm-6">
+                    Create
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Add Documents to index: @IndexName</h5>
+            <p class="card-text">Add documents to the Azure Cognitive search index: @IndexName.</p>
+        </div>
+        <div class="card-footer text-center">
+            <form asp-page="/SearchAdmin" asp-page-handler="AddData">
+                <button type="submit" class="btn btn-primary col-sm-6">
+                    Add
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Delete index: @IndexName</h5>
+            <p class="card-text">Delete Azure Cognitive search index: @IndexName.</p>
+        </div>
+        <div class="card-footer text-center">
+            <form asp-page="/SearchAdmin" asp-page-handler="DeleteIndex">
+                <button type="submit" class="btn btn-danger col-sm-6">
+                    Delete
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<br />
+
+@if (Messages != null)
+{
+    @foreach (var msg in Messages)
+    {
+        <div class="alert alert-@msg.AlertType alert-dismissible fade show" role="alert">
+            <strong>@msg.AlertTitle</strong> @msg.AlertMessage
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+}
 
 @code {
-    private int currentCount = 0;
+    public AlertViewModel[] Messages = null;
+    public string IndexName { get; set; } = "personcities";
+    public bool IndexExists { get; set; }
+    public long DocumentCount { get; set; }
 
-    private void IncrementCount()
-    {
-        currentCount++;
-    }
 }

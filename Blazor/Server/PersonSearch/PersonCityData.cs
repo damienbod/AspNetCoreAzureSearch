@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using BlazorAzureSearch.Shared;
+using System.Collections.Generic;
 
 namespace BlazorAzureSearch.Server
 {

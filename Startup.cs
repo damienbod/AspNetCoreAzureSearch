@@ -21,8 +21,7 @@ namespace AspNetCoreAzureSearch
             services.AddScoped<SearchProviderIndex>();
             services.AddScoped<SearchProviderPaging>();
             services.AddScoped<SearchProviderAutoComplete>();
-            
-
+ 
             services.AddHttpClient();
 
             services.AddRazorPages();

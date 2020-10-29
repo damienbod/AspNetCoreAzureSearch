@@ -1,5 +1,6 @@
 ﻿@page "/searchadmin"
 @using BlazorAzureSearch.Shared
+@inject HttpClient Http
 
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
@@ -15,11 +16,9 @@
             <p class="card-text">Click to create a new index in Azure Cognitive search called @IndexName.</p>
         </div>
         <div class="card-footer text-center">
-            <EditForm>
-                <button class="btn btn-primary col-sm-6" @onclick="CreateIndex">
-                    Create
-                </button>
-            </EditForm>
+            <button class="btn btn-primary col-sm-6" @onclick="CreateIndex">
+                Create
+            </button>
         </div>
     </div>
     <div class="card">
@@ -28,11 +27,9 @@
             <p class="card-text">Add documents to the Azure Cognitive search index: @IndexName.</p>
         </div>
         <div class="card-footer text-center">
-            <EditForm>
-                <button class="btn btn-primary col-sm-6" @onclick="AddData">
-                    Add
-                </button>
-            </EditForm>
+            <button class="btn btn-primary col-sm-6" @onclick="AddData">
+                Add
+            </button>
         </div>
     </div>
     <div class="card">
@@ -41,11 +38,9 @@
             <p class="card-text">Delete Azure Cognitive search index: @IndexName.</p>
         </div>
         <div class="card-footer text-center">
-            <EditForm>
-                <button type="submit" class="btn btn-danger col-sm-6" @onclick="DeleteIndex">
-                    Delete
-                </button>
-            </EditForm>
+            <button type="submit" class="btn btn-danger col-sm-6" @onclick="DeleteIndex">
+                Delete
+            </button>
         </div>
     </div>
 </div>
@@ -70,6 +65,13 @@
     private string IndexName { get; set; } = "personcities";
     private bool IndexExists { get; set; }
     private long DocumentCount { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var status = await Http.GetFromJsonAsync<IndexStatus>("SearchAdmin/IndexStatus");
+        IndexExists = status.IndexExists;
+        DocumentCount = status.DocumentCount;
+    }
 
     private void DeleteIndex()
     {

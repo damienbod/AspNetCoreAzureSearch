@@ -5,8 +5,8 @@
 <EditForm Model="@SearchData">
     <div class="searchBoxForm">
         <InputText @bind-Value="SearchData.SearchText" class="searchBox"></InputText>
-        <span class="searchBoxSubmit oi oi-magnifying-glass" aria-hidden="true" @onclick="Search"></span>
-        @*<input class="searchBoxSubmit" @onclick="Search">*@
+        @*<span class="searchBoxSubmit" aria-hidden="true" @onclick="Search"></span>*@
+        <input class="searchBoxSubmit" @onclick="Search">
     </div>
 </EditForm>
 
@@ -36,7 +36,7 @@
     }
     <br />
     <em><span>@results[i].Metadata</span></em><br />
-    <InputText @bind-Value="results[i].Info" class="infotext"></InputText>
+    <textarea class="infotext">@results[i].Info</textarea>
     <br />
 </div>
     }

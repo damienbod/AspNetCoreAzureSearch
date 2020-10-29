@@ -95,7 +95,7 @@ textarea.infotext {
     padding: 0 10px 0 0;
     border: 0;
     max-height: 30px;
-    outline: none;
+    outline: none !important;
     box-sizing: content-box;
     height: 35px;
     vertical-align: top;
@@ -105,7 +105,7 @@ textarea.infotext {
 .searchBoxSubmit {
     background-color: #fff;
     border-color: #fff;
-    /*background-image: url(/images/search.png);*/
+    background-image: url(/images/search.png);
     background-repeat: no-repeat;
     height: 20px;
     width: 20px;

@@ -24,6 +24,7 @@ namespace BlazorAzureSearch.Server.Controllers
         }
 
         [HttpGet]
+        [Route("IndexStatus")]
         public async Task<IndexStatus> IndexStatus()
         {
             var indexStatus = await _searchProviderIndex.GetIndexStatus().ConfigureAwait(false);

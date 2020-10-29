@@ -178,14 +178,10 @@
         response.EnsureSuccessStatusCode();
         string responseBody = await response.Content.ReadAsStringAsync();
 
-        var deleteIndex = System.Text.Json.JsonSerializer.Deserialize<IndexResult>(responseBody);
-
-
-        var searchDataResult = await Http.GetFromJsonAsync<SearchData>("Search/Paging");
+        var searchDataResult = System.Text.Json.JsonSerializer.Deserialize<SearchData>(responseBody);
 
         PageNo = page;
         SearchData = searchDataResult;
-
     }
 
 }

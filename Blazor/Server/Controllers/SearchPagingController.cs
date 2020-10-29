@@ -12,29 +12,55 @@ namespace BlazorAzureSearch.Server.Controllers
     [Route("[controller]")]
     public class SearchPagingController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        private readonly SearchProviderPaging _searchProvider;
+        private readonly ILogger<SearchAdminController> _logger;
 
-        private readonly ILogger<SearchPagingController> _logger;
-
-        public SearchPagingController(ILogger<SearchPagingController> logger)
+        public SearchPagingController(SearchProviderPaging searchProvider,
+        ILogger<SearchAdminController> logger)
         {
+            _searchProvider = searchProvider;
             _logger = logger;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<SearchData> Get(string searchText)
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            SearchData model = new SearchData
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+                SearchText = searchText
+            };
+
+            await _searchProvider.QueryPagingFull(model, 0, 0).ConfigureAwait(false);
+
+            return model;
+        }
+
+        [HttpGet]
+        [Route("Paging")]
+        public async Task<SearchData> Paging(SearchData model)
+        {
+            int page;
+
+            switch (model.Paging)
+            {
+                case "prev":
+                    page = model.CurrentPage - 1;
+                    break;
+
+                case "next":
+                    page = model.CurrentPage + 1;
+                    break;
+
+                default:
+                    page = int.Parse(model.Paging);
+                    break;
+            }
+
+            int leftMostPage = model.LeftMostPage;
+
+            await _searchProvider.QueryPagingFull(model, page, leftMostPage).ConfigureAwait(false);
+
+            return model;
         }
     }
 }

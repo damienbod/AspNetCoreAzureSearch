@@ -1,46 +1,145 @@
 ﻿@page "/searchpaging"
 @using BlazorAzureSearch.Shared
+@using Azure.Search.Documents.Models
 @inject HttpClient Http
 
-<h1>Weather forecast</h1>
+<EditForm asp-page="/Search" asp-page-handler="Init" method="get">
+    <div class="searchBoxForm">
+        <InputText @bind-Value="SearchText" class="searchBox" ></InputText>
+        <input class="searchBoxSubmit" @onclick="Search">
+    </div>
+</EditForm>
 
-<p>This component demonstrates fetching data from the server.</p>
-
-@if (forecasts == null)
+@if (PersonCities != null)
 {
-    <p><em>Loading...</em></p>
+    <p class="sampleText">
+        Found @PersonCities.TotalCount Documents
+    </p>
+
+    var results = PersonCities.GetResults().ToList();
+
+    @for (var i = 0; i < results.Count; i++)
+    {
+<div>
+    <b><span><a href="@results[i].Document.Web">@results[i].Document.Name @results[i].Document.FamilyName</a>: @results[i].Document.CityCountry</span></b>
+    @if (!string.IsNullOrEmpty(results[i].Document.Twitter))
+    {
+        <a href="@results[i].Document.Twitter"><img src="/images/socialTwitter.png" /></a>
+    }
+    @if (!string.IsNullOrEmpty(results[i].Document.Github))
+    {
+        <a href="@results[i].Document.Github"><img src="/images/github.png" /></a>
+    }
+    @if (!string.IsNullOrEmpty(results[i].Document.Mvp))
+    {
+        <a href="@results[i].Document.Mvp"><img src="/images/mvp.png" width="24" /></a>
+    }
+    <br />
+    <em><span>@results[i].Document.Metadata</span></em><br />
+    <InputText @bind-Value="results[i].Document.Info" class="infotext"></InputText>
+    <br />
+</div>
+    }
 }
-else
+
+@if (PageCount > 1)
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
+    <table>
+        <tr>
+            <td>
+                @if (CurrentPage > 0)
+                {
+                    <p class="pageButton">
+                        <a href="/Search?handler=Paging&paging=0&SearchText=@SearchText">|&#60;</a>
+                    </p>
+                }
+                else
+                {
+                    <p class="pageButtonDisabled">|&lt;</p>
+                }
+            </td>
+
+            <td>
+                @if (CurrentPage > 0)
+                {
+                    <p class="pageButton">
+                        <a href="/Search?handler=Paging&paging=prev&SearchText=@SearchText">&#60;</a>
+                    </p>
+                }
+                else
+                {
+                    <p class="pageButtonDisabled">&lt;</p>
+                }
+            </td>
+
+            @for (var pn = LeftMostPage; pn < LeftMostPage + PageRange; pn++)
             {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
-            }
-        </tbody>
+                <td>
+                    @if (CurrentPage == pn)
+                    {
+                        <p class="pageSelected">@(pn + 1)</p>
+                    }
+                    else
+                    {
+                        <p class="pageButton">
+                            @{var p1 = PageCount - 1;}
+                            <a href="/Search?handler=Paging&paging=@pn&SearchText=@SearchText">@(pn + 1)</a>
+                        </p>
+                                }
+                </td>
+
+                                }
+
+            <td>
+                @if (CurrentPage < PageCount - 1)
+                {
+                    <p class="pageButton">
+                        @{var p1 = PageCount - 1;}
+                        <a href="/Search?handler=Paging&paging=next&SearchText=@SearchText">&#62;</a>
+                    </p>
+                            }
+                            else
+                            {
+                    <p class="pageButtonDisabled">&gt;</p>
+                            }
+            </td>
+
+            <td>
+                @if (CurrentPage < PageCount - 1)
+                {
+                    <p class="pageButton">
+                        @{var p7 = PageCount - 1;}
+                        <a href="/Search?handler=Paging&paging=@p7&SearchText=@SearchText">&#62;|</a>
+                    </p>
+                            }
+                            else
+                            {
+                    <p class="pageButtonDisabled">&gt;|</p>
+                            }
+            </td>
+        </tr>
     </table>
 }
-
 @code {
-    private WeatherForecast[] forecasts;
+
+    public string SearchText { get; set; }
+    public int CurrentPage { get; set; }
+    public int PageCount { get; set; }
+    public int LeftMostPage { get; set; }
+    public int PageRange { get; set; }
+    public string Paging { get; set; }
+    public int PageNo { get; set; }
+    public SearchResults<PersonCity> PersonCities;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("SearchPaging");
+
+
+    }
+
+    private async Task Search()
+    {
+
     }
 
 }

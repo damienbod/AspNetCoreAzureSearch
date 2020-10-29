@@ -6,7 +6,7 @@
 <EditForm Model="@SearchData">
     <div class="searchBoxForm">
         <InputText @bind-Value="SearchData.SearchText" class="searchBox"></InputText>
-        <input class="searchBoxSubmit" @onclick="Search">
+        <input class="searchBoxSubmit" @onclick="@(e => SearchPager(0.ToString(), SearchData.SearchText))">
     </div>
 </EditForm>
 

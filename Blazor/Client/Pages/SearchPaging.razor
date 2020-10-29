@@ -5,8 +5,9 @@
 
 <EditForm Model="@SearchData">
     <div class="searchBoxForm">
-        <InputText @bind-Value="SearchData.SearchText" class="searchBox" ></InputText>
-        <input class="searchBoxSubmit" @onclick="Search">
+        <InputText @bind-Value="SearchData.SearchText" class="searchBox"></InputText>
+        <span class="searchBoxSubmit oi oi-magnifying-glass" aria-hidden="true" @onclick="Search"></span>
+        @*<input class="searchBoxSubmit" @onclick="Search">*@
     </div>
 </EditForm>
 
@@ -133,14 +134,14 @@
 
     private int PageNo { get; set; }
 
-    protected override async Task OnInitializedAsync()
-    {
-        //SearchData model = new SearchData
-        //{
-        //    SearchText = searchText
-        //};
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    //SearchData model = new SearchData
+    //    //{
+    //    //    SearchText = searchText
+    //    //};
 
-    }
+    //}
 
     private async Task Search()
     {
@@ -173,7 +174,7 @@
             Paging = SearchData.Paging
         };
 
-        var response = await Http.PostAsJsonAsync<SearchData>("SearchAdmin/DeleteIndex", searchData);
+        var response = await Http.PostAsJsonAsync<SearchData>("SearchPaging/Paging", searchData);
         response.EnsureSuccessStatusCode();
         string responseBody = await response.Content.ReadAsStringAsync();
 

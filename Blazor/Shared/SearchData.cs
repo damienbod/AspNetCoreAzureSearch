@@ -27,7 +27,7 @@ namespace BlazorAzureSearch.Shared
 
         // Used when page numbers, or next or prev buttons, have been selected.
         [JsonPropertyName("paging")]
-        public string Paging { get; set; }
+        public string Paging { get; set; } = "0";
 
         [JsonPropertyName("personCities")]
         public SearchResults<PersonCity> PersonCities { get; set; }

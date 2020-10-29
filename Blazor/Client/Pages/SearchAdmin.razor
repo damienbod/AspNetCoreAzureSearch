@@ -15,11 +15,11 @@
             <p class="card-text">Click to create a new index in Azure Cognitive search called @IndexName.</p>
         </div>
         <div class="card-footer text-center">
-            <form asp-page="/SearchAdmin" asp-page-handler="CreateIndex">
-                <button type="submit" class="btn btn-primary col-sm-6">
+            <EditForm>
+                <button class="btn btn-primary col-sm-6" @onclick="CreateIndex">
                     Create
                 </button>
-            </form>
+            </EditForm>
         </div>
     </div>
     <div class="card">
@@ -28,11 +28,11 @@
             <p class="card-text">Add documents to the Azure Cognitive search index: @IndexName.</p>
         </div>
         <div class="card-footer text-center">
-            <form asp-page="/SearchAdmin" asp-page-handler="AddData">
-                <button type="submit" class="btn btn-primary col-sm-6">
+            <EditForm>
+                <button class="btn btn-primary col-sm-6" @onclick="AddData">
                     Add
                 </button>
-            </form>
+            </EditForm>
         </div>
     </div>
     <div class="card">
@@ -41,11 +41,11 @@
             <p class="card-text">Delete Azure Cognitive search index: @IndexName.</p>
         </div>
         <div class="card-footer text-center">
-            <form asp-page="/SearchAdmin" asp-page-handler="DeleteIndex">
-                <button type="submit" class="btn btn-danger col-sm-6">
+            <EditForm>
+                <button type="submit" class="btn btn-danger col-sm-6" @onclick="DeleteIndex">
                     Delete
                 </button>
-            </form>
+            </EditForm>
         </div>
     </div>
 </div>
@@ -66,9 +66,25 @@
 }
 
 @code {
-    public AlertViewModel[] Messages = null;
-    public string IndexName { get; set; } = "personcities";
-    public bool IndexExists { get; set; }
-    public long DocumentCount { get; set; }
+    private AlertViewModel[] Messages = null;
+    private string IndexName { get; set; } = "personcities";
+    private bool IndexExists { get; set; }
+    private long DocumentCount { get; set; }
+
+    private void DeleteIndex()
+    {
+        //wait service.UpdateProductAsync(UpdateProduct)
+    }
+
+    private void AddData()
+    {
+        //wait service.UpdateProductAsync(UpdateProduct)
+    }
+
+    private void CreateIndex()
+    {
+        //wait service.UpdateProductAsync(UpdateProduct)
+    }
+
 
 }

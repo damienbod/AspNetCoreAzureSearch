@@ -121,6 +121,8 @@ textarea.infotext {
     color: darkblue;
     font-weight: normal;
     width: 50px;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .pageSelected {
@@ -128,6 +130,8 @@ textarea.infotext {
     color: black;
     font-weight: bold;
     width: 50px;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .pageButtonDisabled {
@@ -135,4 +139,6 @@ textarea.infotext {
     color: lightgray;
     font-weight: bold;
     width: 50px;
+    text-align: center;
+    vertical-align: middle;
 }

@@ -10,6 +10,7 @@
     </div>
 </EditForm>
 
+
 @if (SearchData.Results.PersonCities != null)
 {
     <p class="sampleText">
@@ -49,9 +50,12 @@
             <td>
                 @if (SearchData.CurrentPage > 0)
                 {
-                    <p class="pageButton">
-                        <a href="/searchpaging?paging=0&SearchText=@SearchData.SearchText">|&#60;</a>
-                    </p>
+                <p class="pageButton">
+                    <button class="btn btn-link"
+                            @onclick="@(e => SearchPager(0.ToString(), SearchData.SearchText))">
+                        |&#60;
+                    </button>
+                </p>
                 }
                 else
                 {
@@ -62,9 +66,10 @@
             <td>
                 @if (SearchData.CurrentPage > 0)
                 {
-                    <p class="pageButton">
-                        <a href="/searchpaging?paging=prev&SearchText=@SearchData.SearchText">&#60;</a>
-                    </p>
+                    var prev = "prev";
+                <p class="pageButton">
+                    <button class="btn btn-link" @onclick="@(e => SearchPager(prev, SearchData.SearchText))">&#60;</button>
+                </p>
                 }
                 else
                 {
@@ -82,8 +87,14 @@
                     else
                     {
                         <p class="pageButton">
-                            @{var p1 = SearchData.PageCount - 1;}
-                            <a href="/searchpaging?paging=@pn&SearchText=@SearchData.SearchText">@(pn + 1)</a>
+                            @{
+                                var p1 = SearchData.PageCount - 1;
+                                var plink = pn.ToString();
+                             }
+                            <button class="btn btn-link"
+                                    @onclick="@(e => SearchPager(plink, SearchData.SearchText))">
+                                @(pn + 1)
+                            </button>
                         </p>
                     }
                 </td>
@@ -93,10 +104,17 @@
             <td>
                 @if (SearchData.CurrentPage < SearchData.PageCount - 1)
                 {
-                    <p class="pageButton">
-                        @{var p1 = SearchData.PageCount - 1;}
-                        <a href="/searchpaging?paging=next&SearchText=@SearchData.SearchText">&#62;</a>
-                    </p>
+                    
+                <p class="pageButton">
+                    @{
+                        var p1 = SearchData.PageCount - 1;
+                        var next = "next";
+                    }
+                    <button class="btn btn-link"
+                            @onclick="@(e => SearchPager(next, SearchData.SearchText))">
+                        &#62;
+                    </button>
+                </p>
                 }
                 else
                 {
@@ -107,10 +125,11 @@
             <td>
                 @if (SearchData.CurrentPage < SearchData.PageCount - 1)
                 {
-                    <p class="pageButton">
-                        @{var p7 = SearchData.PageCount - 1;}
-                        <a href="/searchpaging?paging=@p7&SearchText=@SearchData.SearchText">&#62;|</a>
-                    </p>
+                <p class="pageButton">
+                    @{var p7 = SearchData.PageCount - 1;}
+                    <button class="btn btn-link" 
+                            @onclick="@(e => SearchPager(p7.ToString(), SearchData.SearchText))">&#62;|</button>
+                </p>
                 }
                 else
                 {
@@ -138,11 +157,18 @@
             SearchData.SearchText = queryParamSearchText;
         }
 
-        if(!string.IsNullOrEmpty(queryParamSearchText) || 
+        if (!string.IsNullOrEmpty(queryParamSearchText) ||
             !string.IsNullOrEmpty(queryParamPaging))
         {
             await Search();
         }
+    }
+
+    private async Task SearchPager(string paging, string searchText)
+    {
+        SearchData.Paging = paging.ToString();
+        SearchData.SearchText = searchText;
+        await Search();
     }
 
     private async Task Search()

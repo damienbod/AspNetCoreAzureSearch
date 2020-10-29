@@ -46,9 +46,9 @@ namespace BlazorAzureSearch.Server
             await _searchIndexClient.CreateIndexAsync(definition).ConfigureAwait(false);
         }
 
-        public async Task DeleteIndex()
+        public async Task DeleteIndex(string indexName)
         {
-            await _searchIndexClient.DeleteIndexAsync(_index).ConfigureAwait(false);
+            await _searchIndexClient.DeleteIndexAsync(indexName).ConfigureAwait(false);
         }
 
         public async Task<(bool Exists, long DocumentCount)> GetIndexStatus()

@@ -35,11 +35,32 @@ namespace BlazorAzureSearch.Server.Controllers
             };
         }
 
-        //[HttpPost]
-        //private Task<string> DeleteIndex()
-        //{
-        //    //wait service.UpdateProductAsync(UpdateProduct)
-        //}
+        [HttpPost]
+        [Route("DeleteIndex")]
+        private async Task<DeleteIndex> DeleteIndex(string indexName)
+        {
+            
+            var deleteIndex = new DeleteIndex();
+            try
+            {
+                await _searchProviderIndex.DeleteIndex(indexName).ConfigureAwait(false);
+
+                deleteIndex.Messages = new[] {
+                    new AlertViewModel("success", "Index Deleted!", "The Azure Search Index was successfully deleted!"),
+                };
+                var indexStatus = await _searchProviderIndex.GetIndexStatus().ConfigureAwait(false);
+                deleteIndex.Status.IndexExists = indexStatus.Exists;
+                deleteIndex.Status.DocumentCount = indexStatus.DocumentCount;
+                return deleteIndex;
+            }
+            catch (Exception ex)
+            {
+                deleteIndex.Messages = new[] {
+                    new AlertViewModel("danger", "Error deleting index", ex.Message),
+                };
+                return deleteIndex;
+            }
+        }
 
         //[HttpPost]
         //private void AddData()

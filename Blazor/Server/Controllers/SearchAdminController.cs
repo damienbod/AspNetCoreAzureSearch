@@ -42,7 +42,7 @@ namespace BlazorAzureSearch.Server.Controllers
             var deleteIndex = new DeleteIndex();
             if (string.IsNullOrEmpty(indexName))
             {
-                deleteIndex.Messages = new[] {
+                deleteIndex.Messages = new List<AlertViewModel> {
                     new AlertViewModel("danger", "no indexName defined", "Please provide the index name"),
                 };
                 return deleteIndex;
@@ -52,7 +52,7 @@ namespace BlazorAzureSearch.Server.Controllers
             {
                 await _searchProviderIndex.DeleteIndex(indexName).ConfigureAwait(false);
 
-                deleteIndex.Messages = new[] {
+                deleteIndex.Messages = new List<AlertViewModel> {
                     new AlertViewModel("success", "Index Deleted!", "The Azure Search Index was successfully deleted!"),
                 };
                 var indexStatus = await _searchProviderIndex.GetIndexStatus().ConfigureAwait(false);
@@ -62,7 +62,7 @@ namespace BlazorAzureSearch.Server.Controllers
             }
             catch (Exception ex)
             {
-                deleteIndex.Messages = new[] {
+                deleteIndex.Messages = new List<AlertViewModel> {
                     new AlertViewModel("danger", "Error deleting index", ex.Message),
                 };
                 return deleteIndex;

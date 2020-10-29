@@ -61,7 +61,7 @@
 }
 
 @code {
-    private AlertViewModel[] Messages = null;
+    private List<AlertViewModel> Messages = null;
     private string IndexName { get; set; } = "personcities";
     private bool IndexExists { get; set; }
     private long DocumentCount { get; set; }
@@ -80,9 +80,13 @@
         string responseBody = await response.Content.ReadAsStringAsync();
 
         var deleteIndex = System.Text.Json.JsonSerializer.Deserialize<DeleteIndex>(responseBody);
-        IndexExists = deleteIndex.Status.IndexExists;
-        DocumentCount = deleteIndex.Status.DocumentCount;
+
         Messages = deleteIndex.Messages;
+        if(Messages.Count > 0 && Messages[0].AlertType == "success")
+        {
+            IndexExists = deleteIndex.Status.IndexExists;
+            DocumentCount = deleteIndex.Status.DocumentCount;
+        }
     }
 
     private void AddData()

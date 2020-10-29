@@ -37,9 +37,9 @@ namespace BlazorAzureSearch.Server.Controllers
 
         [HttpPost]
         [Route("DeleteIndex")]
-        public async Task<DeleteIndex> DeleteIndex(string indexName)
+        public async Task<IndexResult> DeleteIndex(string indexName)
         {
-            var deleteIndex = new DeleteIndex();
+            var deleteIndex = new IndexResult();
             if (string.IsNullOrEmpty(indexName))
             {
                 deleteIndex.Messages = new List<AlertViewModel> {
@@ -69,16 +69,71 @@ namespace BlazorAzureSearch.Server.Controllers
             }
         }
 
-        //[HttpPost]
-        //private void AddData()
-        //{
-        //    //wait service.UpdateProductAsync(UpdateProduct)
-        //}
+        [HttpPost]
+        [Route("AddData")]
+        public async Task<IndexResult> AddData(string indexName)
+        {
+            var addData = new IndexResult();
+            if (string.IsNullOrEmpty(indexName))
+            {
+                addData.Messages = new List<AlertViewModel> {
+                    new AlertViewModel("danger", "no indexName defined", "Please provide the index name"),
+                };
+                return addData;
+            }
+            try
+            {
+                PersonCityData.CreateTestData();
+                await _searchProviderIndex.AddDocumentsToIndex(PersonCityData.Data).ConfigureAwait(false);
+                addData.Messages = new List<AlertViewModel>{
+                    new AlertViewModel("success", "Documented added", "The Azure Search documents were uploaded! The Document Count takes n seconds to update!"),
+                };
+                var indexStatus = await _searchProviderIndex.GetIndexStatus().ConfigureAwait(false);
+                addData.Status.IndexExists = indexStatus.Exists;
+                addData.Status.DocumentCount = indexStatus.DocumentCount;
+                return addData;
+            }
+            catch (Exception ex)
+            {
+                addData.Messages = new List<AlertViewModel> {
+                    new AlertViewModel("danger", "Error adding documents", ex.Message),
+                };
+                return addData;
+            }
+        }
 
-        //[HttpPost]
-        //private void CreateIndex()
-        //{
-        //    //wait service.UpdateProductAsync(UpdateProduct)
-        //}
+        [HttpPost]
+        [Route("CreateIndex")]
+        public async Task<IndexResult> CreateIndex(string indexName)
+        {
+            var createIndex = new IndexResult();
+            if (string.IsNullOrEmpty(indexName))
+            {
+                createIndex.Messages = new List<AlertViewModel> {
+                    new AlertViewModel("danger", "no indexName defined", "Please provide the index name"),
+                };
+                return createIndex;
+            }
+
+            try
+            {
+                await _searchProviderIndex.CreateIndex().ConfigureAwait(false);
+                createIndex.Messages = new List<AlertViewModel>  {
+                    new AlertViewModel("success", "Index created", "The Azure Search index was created successfully!"),
+                };
+                var indexStatus = await _searchProviderIndex.GetIndexStatus().ConfigureAwait(false);
+                createIndex.Status.IndexExists = indexStatus.Exists;
+                createIndex.Status.DocumentCount = indexStatus.DocumentCount;
+                return createIndex;
+            }
+            catch (Exception ex)
+            {
+                createIndex.Messages = new List<AlertViewModel> {
+                    new AlertViewModel("danger", "Error creating index", ex.Message),
+                };
+                return createIndex;
+            }
+
+        }
     }
 }

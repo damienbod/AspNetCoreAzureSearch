@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace BlazorAzureSearch.Shared
 {
-    public class DeleteIndex
+    public class IndexResult
     {
         [JsonPropertyName("messages")]
         public List<AlertViewModel> Messages { get; set; } = new List<AlertViewModel>();

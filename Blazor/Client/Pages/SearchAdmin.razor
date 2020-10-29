@@ -79,7 +79,7 @@
         response.EnsureSuccessStatusCode();
         string responseBody = await response.Content.ReadAsStringAsync();
 
-        var deleteIndex = System.Text.Json.JsonSerializer.Deserialize<DeleteIndex>(responseBody);
+        var deleteIndex = System.Text.Json.JsonSerializer.Deserialize<IndexResult>(responseBody);
 
         Messages = deleteIndex.Messages;
         if(Messages.Count > 0 && Messages[0].AlertType == "success")

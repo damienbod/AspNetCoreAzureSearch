@@ -1,11 +1,11 @@
 ﻿@page "/searchpaging"
 @using BlazorAzureSearch.Shared
 @inject HttpClient Http
+@inject NavigationManager NavManager
 
 <EditForm Model="@SearchData">
     <div class="searchBoxForm">
         <InputText @bind-Value="SearchData.SearchText" class="searchBox"></InputText>
-        @*<span class="searchBoxSubmit" aria-hidden="true" @onclick="Search"></span>*@
         <input class="searchBoxSubmit" @onclick="Search">
     </div>
 </EditForm>
@@ -20,25 +20,25 @@
 
     @for (var i = 0; i < results.Count; i++)
     {
-<div>
-    <b><span><a href="@results[i].Web">@results[i].Name @results[i].FamilyName</a>: @results[i].CityCountry</span></b>
-    @if (!string.IsNullOrEmpty(results[i].Twitter))
-    {
-        <a href="@results[i].Twitter"><img src="/images/socialTwitter.png" /></a>
-    }
-    @if (!string.IsNullOrEmpty(results[i].Github))
-    {
-        <a href="@results[i].Github"><img src="/images/github.png" /></a>
-    }
-    @if (!string.IsNullOrEmpty(results[i].Mvp))
-    {
-        <a href="@results[i].Mvp"><img src="/images/mvp.png" width="24" /></a>
-    }
-    <br />
-    <em><span>@results[i].Metadata</span></em><br />
-    <textarea class="infotext">@results[i].Info</textarea>
-    <br />
-</div>
+        <div>
+            <b><span><a href="@results[i].Web">@results[i].Name @results[i].FamilyName</a>: @results[i].CityCountry</span></b>
+            @if (!string.IsNullOrEmpty(results[i].Twitter))
+            {
+                <a href="@results[i].Twitter"><img src="/images/socialTwitter.png" /></a>
+            }
+            @if (!string.IsNullOrEmpty(results[i].Github))
+            {
+                <a href="@results[i].Github"><img src="/images/github.png" /></a>
+            }
+            @if (!string.IsNullOrEmpty(results[i].Mvp))
+            {
+                <a href="@results[i].Mvp"><img src="/images/mvp.png" width="24" /></a>
+            }
+            <br />
+            <em><span>@results[i].Metadata</span></em><br />
+            <textarea class="infotext">@results[i].Info</textarea>
+            <br />
+        </div>
     }
 }
 
@@ -50,7 +50,7 @@
                 @if (SearchData.CurrentPage > 0)
                 {
                     <p class="pageButton">
-                        <a href="/Search?handler=Paging&paging=0&SearchText=@SearchData.SearchText">|&#60;</a>
+                        <a href="/searchpaging?paging=0&SearchText=@SearchData.SearchText">|&#60;</a>
                     </p>
                 }
                 else
@@ -63,7 +63,7 @@
                 @if (SearchData.CurrentPage > 0)
                 {
                     <p class="pageButton">
-                        <a href="/Search?handler=Paging&paging=prev&SearchText=@SearchData.SearchText">&#60;</a>
+                        <a href="/searchpaging?paging=prev&SearchText=@SearchData.SearchText">&#60;</a>
                     </p>
                 }
                 else
@@ -83,25 +83,25 @@
                     {
                         <p class="pageButton">
                             @{var p1 = SearchData.PageCount - 1;}
-                            <a href="/Search?handler=Paging&paging=@pn&SearchText=@SearchData.SearchText">@(pn + 1)</a>
+                            <a href="/searchpaging?paging=@pn&SearchText=@SearchData.SearchText">@(pn + 1)</a>
                         </p>
-                                }
+                    }
                 </td>
 
-                                }
+            }
 
             <td>
                 @if (SearchData.CurrentPage < SearchData.PageCount - 1)
                 {
                     <p class="pageButton">
                         @{var p1 = SearchData.PageCount - 1;}
-                        <a href="/Search?handler=Paging&paging=next&SearchText=@SearchData.SearchText">&#62;</a>
+                        <a href="/searchpaging?paging=next&SearchText=@SearchData.SearchText">&#62;</a>
                     </p>
-                            }
-                            else
-                            {
+                }
+                else
+                {
                     <p class="pageButtonDisabled">&gt;</p>
-                            }
+                }
             </td>
 
             <td>
@@ -109,13 +109,13 @@
                 {
                     <p class="pageButton">
                         @{var p7 = SearchData.PageCount - 1;}
-                        <a href="/Search?handler=Paging&paging=@p7&SearchText=@SearchData.SearchText">&#62;|</a>
+                        <a href="/searchpaging?paging=@p7&SearchText=@SearchData.SearchText">&#62;|</a>
                     </p>
-                            }
-                            else
-                            {
+                }
+                else
+                {
                     <p class="pageButtonDisabled">&gt;|</p>
-                            }
+                }
             </td>
         </tr>
     </table>
@@ -126,14 +126,24 @@
 
     private int PageNo { get; set; }
 
-    //protected override async Task OnInitializedAsync()
-    //{
-    //    //SearchData model = new SearchData
-    //    //{
-    //    //    SearchText = searchText
-    //    //};
+    protected override async Task OnInitializedAsync()
+    {
+        var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
+        if (Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query).TryGetValue("paging", out var queryParamPaging))
+        {
+            SearchData.Paging = queryParamPaging;
+        }
+        if (Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query).TryGetValue("SearchText", out var queryParamSearchText))
+        {
+            SearchData.SearchText = queryParamSearchText;
+        }
 
-    //}
+        if(!string.IsNullOrEmpty(queryParamSearchText) || 
+            !string.IsNullOrEmpty(queryParamPaging))
+        {
+            await Search();
+        }
+    }
 
     private async Task Search()
     {
@@ -166,7 +176,7 @@
             Paging = SearchData.Paging
         };
 
-        var response = await Http.PostAsJsonAsync<SearchDataDto>("SearchPaging/Paging", searchData);
+        var response = await Http.PostAsJsonAsync<SearchDataDto>("api/SearchPaging/Paging", searchData);
         response.EnsureSuccessStatusCode();
         string responseBody = await response.Content.ReadAsStringAsync();
 

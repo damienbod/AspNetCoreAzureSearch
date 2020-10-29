@@ -68,14 +68,14 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var status = await Http.GetFromJsonAsync<IndexStatus>("SearchAdmin/IndexStatus");
+        var status = await Http.GetFromJsonAsync<IndexStatus>("api/SearchAdmin/IndexStatus");
         IndexExists = status.IndexExists;
         DocumentCount = status.DocumentCount;
     }
 
     private async Task DeleteIndex()
     {
-        var response = await Http.PostAsJsonAsync<string>("SearchAdmin/DeleteIndex", IndexName);
+        var response = await Http.PostAsJsonAsync<string>("api/SearchAdmin/DeleteIndex", IndexName);
         response.EnsureSuccessStatusCode();
         string responseBody = await response.Content.ReadAsStringAsync();
 
@@ -91,7 +91,7 @@
 
     private async Task AddData()
     {
-        var response = await Http.PostAsJsonAsync<string>("SearchAdmin/AddData", IndexName);
+        var response = await Http.PostAsJsonAsync<string>("api/SearchAdmin/AddData", IndexName);
         response.EnsureSuccessStatusCode();
         string responseBody = await response.Content.ReadAsStringAsync();
 
@@ -107,7 +107,7 @@
 
     private async Task CreateIndex()
     {
-        var response = await Http.PostAsJsonAsync<string>("SearchAdmin/CreateIndex", IndexName);
+        var response = await Http.PostAsJsonAsync<string>("api/SearchAdmin/CreateIndex", IndexName);
         response.EnsureSuccessStatusCode();
         string responseBody = await response.Content.ReadAsStringAsync();
 

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace BlazorAzureSearch.Server.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class SearchPagingController : ControllerBase
     {
         private readonly SearchProviderPaging _searchProvider;

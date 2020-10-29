@@ -10,16 +10,16 @@ namespace BlazorAzureSearch.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class SearchPagingController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<SearchPagingController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public SearchPagingController(ILogger<SearchPagingController> logger)
         {
             _logger = logger;
         }

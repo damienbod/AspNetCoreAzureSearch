@@ -37,10 +37,17 @@ namespace BlazorAzureSearch.Server.Controllers
 
         [HttpPost]
         [Route("DeleteIndex")]
-        private async Task<DeleteIndex> DeleteIndex(string indexName)
+        public async Task<DeleteIndex> DeleteIndex(string indexName)
         {
-            
             var deleteIndex = new DeleteIndex();
+            if (string.IsNullOrEmpty(indexName))
+            {
+                deleteIndex.Messages = new[] {
+                    new AlertViewModel("danger", "no indexName defined", "Please provide the index name"),
+                };
+                return deleteIndex;
+            }
+
             try
             {
                 await _searchProviderIndex.DeleteIndex(indexName).ConfigureAwait(false);

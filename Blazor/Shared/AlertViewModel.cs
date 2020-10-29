@@ -7,6 +7,8 @@ namespace BlazorAzureSearch.Shared
         public string AlertTitle { get; set; }
         public string AlertMessage { get; set; }
 
+        public AlertViewModel() { }
+
         public AlertViewModel(string type, string title, string message)
         {
             AlertType = type;

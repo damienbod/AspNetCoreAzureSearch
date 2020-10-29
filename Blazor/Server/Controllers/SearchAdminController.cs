@@ -37,7 +37,7 @@ namespace BlazorAzureSearch.Server.Controllers
 
         [HttpPost]
         [Route("DeleteIndex")]
-        public async Task<IndexResult> DeleteIndex(string indexName)
+        public async Task<IndexResult> DeleteIndex([FromBody] string indexName)
         {
             var deleteIndex = new IndexResult();
             if (string.IsNullOrEmpty(indexName))
@@ -71,7 +71,7 @@ namespace BlazorAzureSearch.Server.Controllers
 
         [HttpPost]
         [Route("AddData")]
-        public async Task<IndexResult> AddData(string indexName)
+        public async Task<IndexResult> AddData([FromBody]string indexName)
         {
             var addData = new IndexResult();
             if (string.IsNullOrEmpty(indexName))
@@ -104,7 +104,7 @@ namespace BlazorAzureSearch.Server.Controllers
 
         [HttpPost]
         [Route("CreateIndex")]
-        public async Task<IndexResult> CreateIndex(string indexName)
+        public async Task<IndexResult> CreateIndex([FromBody] string indexName)
         {
             var createIndex = new IndexResult();
             if (string.IsNullOrEmpty(indexName))

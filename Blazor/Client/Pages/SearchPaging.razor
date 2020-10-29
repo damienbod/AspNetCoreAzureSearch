@@ -3,20 +3,20 @@
 @using Azure.Search.Documents.Models
 @inject HttpClient Http
 
-<EditForm asp-page="/Search" asp-page-handler="Init" method="get">
+<EditForm Model="@SearchData">
     <div class="searchBoxForm">
-        <InputText @bind-Value="SearchText" class="searchBox" ></InputText>
+        <InputText @bind-Value="SearchData.SearchText" class="searchBox" ></InputText>
         <input class="searchBoxSubmit" @onclick="Search">
     </div>
 </EditForm>
 
-@if (PersonCities != null)
+@if (SearchData.PersonCities != null)
 {
     <p class="sampleText">
-        Found @PersonCities.TotalCount Documents
+        Found @SearchData.PersonCities.TotalCount Documents
     </p>
 
-    var results = PersonCities.GetResults().ToList();
+    var results = SearchData.PersonCities.GetResults().ToList();
 
     @for (var i = 0; i < results.Count; i++)
     {
@@ -42,15 +42,15 @@
     }
 }
 
-@if (PageCount > 1)
+@if (SearchData.PageCount > 1)
 {
     <table>
         <tr>
             <td>
-                @if (CurrentPage > 0)
+                @if (SearchData.CurrentPage > 0)
                 {
                     <p class="pageButton">
-                        <a href="/Search?handler=Paging&paging=0&SearchText=@SearchText">|&#60;</a>
+                        <a href="/Search?handler=Paging&paging=0&SearchText=@SearchData.SearchText">|&#60;</a>
                     </p>
                 }
                 else
@@ -60,10 +60,10 @@
             </td>
 
             <td>
-                @if (CurrentPage > 0)
+                @if (SearchData.CurrentPage > 0)
                 {
                     <p class="pageButton">
-                        <a href="/Search?handler=Paging&paging=prev&SearchText=@SearchText">&#60;</a>
+                        <a href="/Search?handler=Paging&paging=prev&SearchText=@SearchData.SearchText">&#60;</a>
                     </p>
                 }
                 else
@@ -72,18 +72,18 @@
                 }
             </td>
 
-            @for (var pn = LeftMostPage; pn < LeftMostPage + PageRange; pn++)
+            @for (var pn = SearchData.LeftMostPage; pn < SearchData.LeftMostPage + SearchData.PageRange; pn++)
             {
                 <td>
-                    @if (CurrentPage == pn)
+                    @if (SearchData.CurrentPage == pn)
                     {
                         <p class="pageSelected">@(pn + 1)</p>
                     }
                     else
                     {
                         <p class="pageButton">
-                            @{var p1 = PageCount - 1;}
-                            <a href="/Search?handler=Paging&paging=@pn&SearchText=@SearchText">@(pn + 1)</a>
+                            @{var p1 = SearchData.PageCount - 1;}
+                            <a href="/Search?handler=Paging&paging=@pn&SearchText=@SearchData.SearchText">@(pn + 1)</a>
                         </p>
                                 }
                 </td>
@@ -91,11 +91,11 @@
                                 }
 
             <td>
-                @if (CurrentPage < PageCount - 1)
+                @if (SearchData.CurrentPage < SearchData.PageCount - 1)
                 {
                     <p class="pageButton">
-                        @{var p1 = PageCount - 1;}
-                        <a href="/Search?handler=Paging&paging=next&SearchText=@SearchText">&#62;</a>
+                        @{var p1 = SearchData.PageCount - 1;}
+                        <a href="/Search?handler=Paging&paging=next&SearchText=@SearchData.SearchText">&#62;</a>
                     </p>
                             }
                             else
@@ -105,11 +105,11 @@
             </td>
 
             <td>
-                @if (CurrentPage < PageCount - 1)
+                @if (SearchData.CurrentPage < SearchData.PageCount - 1)
                 {
                     <p class="pageButton">
-                        @{var p7 = PageCount - 1;}
-                        <a href="/Search?handler=Paging&paging=@p7&SearchText=@SearchText">&#62;|</a>
+                        @{var p7 = SearchData.PageCount - 1;}
+                        <a href="/Search?handler=Paging&paging=@p7&SearchText=@SearchData.SearchText">&#62;|</a>
                     </p>
                             }
                             else
@@ -122,23 +122,68 @@
 }
 @code {
 
-    public string SearchText { get; set; }
-    public int CurrentPage { get; set; }
-    public int PageCount { get; set; }
-    public int LeftMostPage { get; set; }
-    public int PageRange { get; set; }
-    public string Paging { get; set; }
-    public int PageNo { get; set; }
-    public SearchResults<PersonCity> PersonCities;
+    private SearchData SearchData { get; set; } = new SearchData();
+    //private string SearchText { get; set; }
+    //private int CurrentPage { get; set; }
+    //private int PageCount { get; set; }
+    //private int LeftMostPage { get; set; }
+    //private int PageRange { get; set; }
+    //private string Paging { get; set; }
+    //private SearchResults<PersonCity> PersonCities;
+
+    private int PageNo { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-
+        //SearchData model = new SearchData
+        //{
+        //    SearchText = searchText
+        //};
 
     }
 
     private async Task Search()
     {
+        int page;
+
+        switch (SearchData.Paging)
+        {
+            case "prev":
+                page = PageNo - 1;
+                break;
+
+            case "next":
+                page = PageNo + 1;
+                break;
+
+            default:
+                page = int.Parse(SearchData.Paging);
+                break;
+        }
+
+        int leftMostPage = SearchData.LeftMostPage;
+
+        var searchData = new SearchData
+        {
+            SearchText = SearchData.SearchText,
+            CurrentPage = SearchData.CurrentPage,
+            PageCount = SearchData.PageCount,
+            LeftMostPage = SearchData.LeftMostPage,
+            PageRange = SearchData.PageRange,
+            Paging = SearchData.Paging
+        };
+
+        var response = await Http.PostAsJsonAsync<SearchData>("SearchAdmin/DeleteIndex", searchData);
+        response.EnsureSuccessStatusCode();
+        string responseBody = await response.Content.ReadAsStringAsync();
+
+        var deleteIndex = System.Text.Json.JsonSerializer.Deserialize<IndexResult>(responseBody);
+
+
+        var searchDataResult = await Http.GetFromJsonAsync<SearchData>("Search/Paging");
+
+        PageNo = page;
+        SearchData = searchDataResult;
 
     }
 

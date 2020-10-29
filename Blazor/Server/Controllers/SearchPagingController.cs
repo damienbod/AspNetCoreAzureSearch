@@ -35,9 +35,9 @@ namespace BlazorAzureSearch.Server.Controllers
             return model;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("Paging")]
-        public async Task<SearchData> Paging(SearchData model)
+        public async Task<SearchData> Paging([FromBody]SearchData model)
         {
             int page;
 

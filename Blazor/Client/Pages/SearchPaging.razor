@@ -1,6 +1,5 @@
 ﻿@page "/searchpaging"
 @using BlazorAzureSearch.Shared
-@using Azure.Search.Documents.Models
 @inject HttpClient Http
 
 <EditForm Model="@SearchData">
@@ -11,33 +10,33 @@
     </div>
 </EditForm>
 
-@if (SearchData.PersonCities != null)
+@if (SearchData.Results.PersonCities != null)
 {
     <p class="sampleText">
-        Found @SearchData.PersonCities.TotalCount Documents
+        Found @SearchData.Results.TotalCount Documents
     </p>
 
-    var results = SearchData.PersonCities.GetResults().ToList();
+    var results = SearchData.Results.PersonCities;
 
     @for (var i = 0; i < results.Count; i++)
     {
 <div>
-    <b><span><a href="@results[i].Document.Web">@results[i].Document.Name @results[i].Document.FamilyName</a>: @results[i].Document.CityCountry</span></b>
-    @if (!string.IsNullOrEmpty(results[i].Document.Twitter))
+    <b><span><a href="@results[i].Web">@results[i].Name @results[i].FamilyName</a>: @results[i].CityCountry</span></b>
+    @if (!string.IsNullOrEmpty(results[i].Twitter))
     {
-        <a href="@results[i].Document.Twitter"><img src="/images/socialTwitter.png" /></a>
+        <a href="@results[i].Twitter"><img src="/images/socialTwitter.png" /></a>
     }
-    @if (!string.IsNullOrEmpty(results[i].Document.Github))
+    @if (!string.IsNullOrEmpty(results[i].Github))
     {
-        <a href="@results[i].Document.Github"><img src="/images/github.png" /></a>
+        <a href="@results[i].Github"><img src="/images/github.png" /></a>
     }
-    @if (!string.IsNullOrEmpty(results[i].Document.Mvp))
+    @if (!string.IsNullOrEmpty(results[i].Mvp))
     {
-        <a href="@results[i].Document.Mvp"><img src="/images/mvp.png" width="24" /></a>
+        <a href="@results[i].Mvp"><img src="/images/mvp.png" width="24" /></a>
     }
     <br />
-    <em><span>@results[i].Document.Metadata</span></em><br />
-    <InputText @bind-Value="results[i].Document.Info" class="infotext"></InputText>
+    <em><span>@results[i].Metadata</span></em><br />
+    <InputText @bind-Value="results[i].Info" class="infotext"></InputText>
     <br />
 </div>
     }
@@ -123,14 +122,7 @@
 }
 @code {
 
-    private SearchData SearchData { get; set; } = new SearchData();
-    //private string SearchText { get; set; }
-    //private int CurrentPage { get; set; }
-    //private int PageCount { get; set; }
-    //private int LeftMostPage { get; set; }
-    //private int PageRange { get; set; }
-    //private string Paging { get; set; }
-    //private SearchResults<PersonCity> PersonCities;
+    private SearchDataDto SearchData { get; set; } = new SearchDataDto();
 
     private int PageNo { get; set; }
 
@@ -164,7 +156,7 @@
 
         int leftMostPage = SearchData.LeftMostPage;
 
-        var searchData = new SearchData
+        var searchData = new SearchDataDto
         {
             SearchText = SearchData.SearchText,
             CurrentPage = SearchData.CurrentPage,
@@ -174,11 +166,11 @@
             Paging = SearchData.Paging
         };
 
-        var response = await Http.PostAsJsonAsync<SearchData>("SearchPaging/Paging", searchData);
+        var response = await Http.PostAsJsonAsync<SearchDataDto>("SearchPaging/Paging", searchData);
         response.EnsureSuccessStatusCode();
         string responseBody = await response.Content.ReadAsStringAsync();
 
-        var searchDataResult = System.Text.Json.JsonSerializer.Deserialize<SearchData>(responseBody);
+        var searchDataResult = System.Text.Json.JsonSerializer.Deserialize<SearchDataDto>(responseBody);
 
         PageNo = page;
         SearchData = searchDataResult;

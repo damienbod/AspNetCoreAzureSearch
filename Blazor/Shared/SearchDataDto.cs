@@ -1,9 +1,9 @@
-﻿using Azure.Search.Documents.Models;
+﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace BlazorAzureSearch.Shared
 {
-    public class SearchData
+    public class SearchDataDto
     {
         // The text to search for.
         [JsonPropertyName("searchText")]
@@ -29,8 +29,10 @@ namespace BlazorAzureSearch.Shared
         [JsonPropertyName("paging")]
         public string Paging { get; set; } = "0";
 
-        [JsonPropertyName("personCities")]
-        public SearchResults<PersonCity> PersonCities { get; set; }
-
+        [JsonPropertyName("results")]
+        public SearchResultItems Results { get; set; } = new SearchResultItems
+        {
+            PersonCities = new List<PersonCityDto>()
+        };
     }
 }

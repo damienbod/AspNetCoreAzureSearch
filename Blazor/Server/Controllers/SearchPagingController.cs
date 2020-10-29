@@ -1,5 +1,6 @@
 ﻿using BlazorAzureSearch.Shared;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -37,30 +38,74 @@ namespace BlazorAzureSearch.Server.Controllers
 
         [HttpPost]
         [Route("Paging")]
-        public async Task<SearchData> Paging([FromBody]SearchData model)
+        public async Task<SearchDataDto> Paging([FromBody] SearchDataDto searchDataDto)
         {
             int page;
 
-            switch (model.Paging)
+            switch (searchDataDto.Paging)
             {
                 case "prev":
-                    page = model.CurrentPage - 1;
+                    page = searchDataDto.CurrentPage - 1;
                     break;
 
                 case "next":
-                    page = model.CurrentPage + 1;
+                    page = searchDataDto.CurrentPage + 1;
                     break;
 
                 default:
-                    page = int.Parse(model.Paging);
+                    page = int.Parse(searchDataDto.Paging);
                     break;
             }
 
-            int leftMostPage = model.LeftMostPage;
+            int leftMostPage = searchDataDto.LeftMostPage;
+
+            SearchData model = new SearchData
+            {
+                SearchText = searchDataDto.SearchText,
+                LeftMostPage = searchDataDto.LeftMostPage,
+                PageCount = searchDataDto.PageCount,
+                PageRange = searchDataDto.PageRange,
+                Paging = searchDataDto.Paging,
+                CurrentPage = searchDataDto.CurrentPage
+            };
 
             await _searchProvider.QueryPagingFull(model, page, leftMostPage).ConfigureAwait(false);
 
-            return model;
+           
+            var results = new SearchDataDto
+            {
+                SearchText = model.SearchText,
+                LeftMostPage = model.LeftMostPage,
+                PageCount = model.PageCount,
+                PageRange = model.PageRange,
+                Paging = model.Paging,
+                CurrentPage = model.CurrentPage,
+                Results = new SearchResultItems
+                {
+                   PersonCities = new List<PersonCityDto>(),
+                   TotalCount = model.PersonCities.TotalCount.GetValueOrDefault()
+                }
+            };
+
+            var docs =  model.PersonCities.GetResults().ToList();
+            foreach(var doc in docs)
+            {
+                results.Results.PersonCities.Add(new PersonCityDto
+                {
+                    CityCountry = doc.Document.CityCountry,
+                    FamilyName = doc.Document.FamilyName,
+                    Github = doc.Document.Github,
+                    Id = doc.Document.Id,
+                    Info = doc.Document.Info,
+                    Metadata = doc.Document.Metadata,
+                    Mvp = doc.Document.Mvp,
+                    Name = doc.Document.Name,
+                    Twitter = doc.Document.Twitter,
+                    Web = doc.Document.Web
+                });
+            }
+
+            return results;
         }
     }
 }

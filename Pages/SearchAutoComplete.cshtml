@@ -1,0 +1,78 @@
+﻿@page "{handler?}"
+@model SearchAutoCompleteModel
+@{
+    ViewData["Title"] = "Auto complete suggester";
+}
+
+<fieldset class="form">
+    <legend>Search for a person in the search engine</legend>
+    <table width="500">
+        <tr>
+            <th></th>
+        </tr>
+        <tr>
+            <td>
+                <input class="form-control" id="autocomplete" type="text" style="width:500px" />
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+<br />
+
+<div class="card">
+    <h5 class="card-header">
+        <span id="docName"></span>
+        <span id="docFamilyName"></span>
+    </h5>
+    <div class="card-body">
+        <p class="card-text"><span id="docInfo"></span></p>
+        <p class="card-text"><span id="docCityCountry"></span></p>
+        <p class="card-text"><span id="docWeb"></span></p>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        var items;
+        $(document).ready(function () {
+            $("input#autocomplete").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "SearchAutoComplete/AutoCompleteSuggest",
+                        dataType: "json",
+                        data: {
+                            term: request.term,
+                        },
+                        success: function (data) {
+                            var itemArray = new Array();
+                            for (i = 0; i < data.length; i++) {
+                                itemArray[i] = {
+                                    label: data[i].document.name + " " + data[i].document.familyName,
+                                    value: data[i].document.name + " " + data[i].document.familyName,
+                                    data: data[i]
+                                }
+                            }
+
+                            console.log(itemArray);
+                            response(itemArray);
+                        },
+                        error: function (data, type) {
+                            console.log(type);
+                        }
+                    });
+                },
+                select: function (event, ui) {
+                    $("#docNameId").text(ui.item.data.id);
+                    $("#docName").text(ui.item.data.document.name);
+                    $("#docFamilyName").text(ui.item.data.document.familyName);
+                    $("#docInfo").text(ui.item.data.document.info);
+                    $("#docCityCountry").text(ui.item.data.document.cityCountry);
+                    $("#docWeb").text(ui.item.data.document.web);
+                    console.log(ui.item);
+                }
+            });
+        });
+    </script>
+}

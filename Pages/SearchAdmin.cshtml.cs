@@ -10,14 +10,14 @@ namespace AspNetCoreAzureSearch.Pages
 {
     public class SearchAdminModel : PageModel
     {
-        private readonly SearchProvider _searchProvider;
+        private readonly SearchProviderIndex _searchProviderIndex;
         private readonly ILogger<IndexModel> _logger;
 
         public AlertViewModel[] Messages = null;
-        public SearchAdminModel(SearchProvider searchProvider,
+        public SearchAdminModel(SearchProviderIndex searchProviderIndex,
             ILogger<IndexModel> logger)
         {
-            _searchProvider = searchProvider;
+            _searchProviderIndex = searchProviderIndex;
             _logger = logger;
         }
 
@@ -27,7 +27,7 @@ namespace AspNetCoreAzureSearch.Pages
 
         public async Task OnGetAsync()
         {
-            var indexStatus = await _searchProvider.GetIndexStatus();
+            var indexStatus = await _searchProviderIndex.GetIndexStatus().ConfigureAwait(false);
             IndexExists = indexStatus.Exists;
             DocumentCount = indexStatus.DocumentCount;
         }
@@ -36,11 +36,11 @@ namespace AspNetCoreAzureSearch.Pages
         {
             try
             {
-                await _searchProvider.CreateIndex();
+                await _searchProviderIndex.CreateIndex().ConfigureAwait(false);
                 Messages = new[] {
                     new AlertViewModel("success", "Index created", "The Azure Search index was created successfully!"),
                 };
-                var indexStatus = await _searchProvider.GetIndexStatus();
+                var indexStatus = await _searchProviderIndex.GetIndexStatus().ConfigureAwait(false);
                 IndexExists = indexStatus.Exists;
                 DocumentCount = indexStatus.DocumentCount;
                 return Page();
@@ -59,11 +59,11 @@ namespace AspNetCoreAzureSearch.Pages
             try
             {
                 PersonCityData.CreateTestData();
-                await _searchProvider.AddDocumentsToIndex(PersonCityData.Data);
+                await _searchProviderIndex.AddDocumentsToIndex(PersonCityData.Data).ConfigureAwait(false);
                 Messages = new[] {
                     new AlertViewModel("success", "Documented added", "The Azure Search documents were uploaded! The Document Count takes n seconds to update!"),
                 };
-                var indexStatus = await _searchProvider.GetIndexStatus();
+                var indexStatus = await _searchProviderIndex.GetIndexStatus().ConfigureAwait(false);
                 IndexExists = indexStatus.Exists;
                 DocumentCount = indexStatus.DocumentCount;
                 return Page();
@@ -81,11 +81,11 @@ namespace AspNetCoreAzureSearch.Pages
         {
             try
             {
-                await _searchProvider.DeleteIndex();
+                await _searchProviderIndex.DeleteIndex().ConfigureAwait(false);
                 Messages = new[] {
                     new AlertViewModel("success", "Index Deleted!", "The Azure Search Index was successfully deleted!"),
                 };
-                var indexStatus = await _searchProvider.GetIndexStatus();
+                var indexStatus = await _searchProviderIndex.GetIndexStatus().ConfigureAwait(false);
                 IndexExists = indexStatus.Exists;
                 DocumentCount = indexStatus.DocumentCount;
                 return Page();

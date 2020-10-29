@@ -18,8 +18,10 @@ namespace AspNetCoreAzureSearch
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<SearchProvider>();
-
+            services.AddScoped<SearchProviderIndex>();
+            services.AddScoped<SearchProviderPaging>();
+            services.AddScoped<SearchProviderAutoComplete>();
+ 
             services.AddHttpClient();
 
             services.AddRazorPages();

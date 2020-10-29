@@ -2,9 +2,11 @@
 
 ## Blogs
 
-Implement a full text search using Azure Cognitive Search in ASP.NET Core
+<ul>
+	<li><a href="https://damienbod.com/2020/10/19/implement-a-full-text-search-using-azure-cognitive-search-in-asp-net-core/">Implement a full text search using Azure Cognitive Search in ASP.NET Core</a></li>
+	<li><a href="https://damienbod.com/2020/10/29/using-azure-cognitive-search-suggesters-in-asp-net-core-and-autocomplete/">Using Azure Cognitive Search Suggesters in ASP.NET Core and Autocomplete</a></li>
+</ul>
 
-https://damienbod.com/2020/10/19/implement-a-full-text-search-using-azure-cognitive-search-in-asp-net-core/
 
 # Links
 
@@ -19,3 +21,5 @@ https://github.com/Azure-Samples/azure-search-dotnet-samples/
 https://channel9.msdn.com/Shows/AI-Show/Azure-Cognitive-Search-Deep-Dive-with-Debug-Sessions
 
 https://channel9.msdn.com/Shows/AI-Show/Azure-Cognitive-Search-Whats-new-in-security
+
+https://docs.microsoft.com/en-us/azure/search/search-autocomplete-tutorial

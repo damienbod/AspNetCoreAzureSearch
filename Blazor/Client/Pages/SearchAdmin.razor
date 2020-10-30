@@ -9,6 +9,15 @@
     </div>
 </div>
 
+@if (Loading)
+{
+    <div class="spinner d-flex align-items-center justify-content-center fixedSpinner">
+        <div class="spinner-border text-success" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+}
+
 <div class="card-deck">
     <div class="card">
         <div class="card-body">
@@ -61,6 +70,7 @@
 }
 
 @code {
+    private bool Loading { get; set; } = false;
     private List<AlertViewModel> Messages = null;
     private string IndexName { get; set; } = "personcities";
     private bool IndexExists { get; set; }
@@ -68,13 +78,16 @@
 
     protected override async Task OnInitializedAsync()
     {
+        Loading = true;
         var status = await Http.GetFromJsonAsync<IndexStatus>("api/SearchAdmin/IndexStatus");
         IndexExists = status.IndexExists;
         DocumentCount = status.DocumentCount;
+        Loading = false;
     }
 
     private async Task DeleteIndex()
     {
+        Loading = true;
         var response = await Http.PostAsJsonAsync<string>("api/SearchAdmin/DeleteIndex", IndexName);
         response.EnsureSuccessStatusCode();
         string responseBody = await response.Content.ReadAsStringAsync();
@@ -82,15 +95,17 @@
         var deleteIndex = System.Text.Json.JsonSerializer.Deserialize<IndexResult>(responseBody);
 
         Messages = deleteIndex.Messages;
-        if(Messages.Count > 0 && Messages[0].AlertType == "success")
+        if (Messages.Count > 0 && Messages[0].AlertType == "success")
         {
             IndexExists = deleteIndex.Status.IndexExists;
             DocumentCount = deleteIndex.Status.DocumentCount;
         }
+        Loading = false;
     }
 
     private async Task AddData()
     {
+        Loading = true;
         var response = await Http.PostAsJsonAsync<string>("api/SearchAdmin/AddData", IndexName);
         response.EnsureSuccessStatusCode();
         string responseBody = await response.Content.ReadAsStringAsync();
@@ -103,10 +118,12 @@
             IndexExists = addData.Status.IndexExists;
             DocumentCount = addData.Status.DocumentCount;
         }
+        Loading = false;
     }
 
     private async Task CreateIndex()
     {
+        Loading = true;
         var response = await Http.PostAsJsonAsync<string>("api/SearchAdmin/CreateIndex", IndexName);
         response.EnsureSuccessStatusCode();
         string responseBody = await response.Content.ReadAsStringAsync();
@@ -119,6 +136,7 @@
             IndexExists = createIndex.Status.IndexExists;
             DocumentCount = createIndex.Status.DocumentCount;
         }
+        Loading = false;
     }
 
 }

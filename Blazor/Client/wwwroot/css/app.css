@@ -147,3 +147,9 @@ textarea.infotext {
     text-align: center;
     vertical-align: middle;
 }
+
+.fixedSpinner {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+}

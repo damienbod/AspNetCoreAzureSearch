@@ -13,7 +13,7 @@
 
 @if (Loading)
 {
-<div class="spinner d-flex align-items-center justify-content-center">
+<div class="spinner d-flex align-items-center justify-content-center fixedSpinner" >
     <div class="spinner-border text-success" role="status">
         <span class="sr-only">Loading...</span>
     </div>
@@ -53,8 +53,8 @@
 }
 
 <div class="container">
-    <div class="row centerMiddle">
-        <div class="col centerMiddle">
+    <div class="row">
+        <div class="col">
             @if (SearchData.PageCount > 1)
             {
                 <table class="col">
@@ -162,7 +162,7 @@
 
 @code {
 
-    private bool Loading { get; set; } = true;
+    private bool Loading { get; set; } = false;
     private SearchDataDto SearchData { get; set; } = new SearchDataDto();
 
     private int PageNo { get; set; }
@@ -195,6 +195,7 @@
 
     private async Task Search()
     {
+        Loading = true;
         int page;
 
         switch (SearchData.Paging)
@@ -232,6 +233,7 @@
 
         PageNo = page;
         SearchData = searchDataResult;
+        Loading = false;
     }
 
 }

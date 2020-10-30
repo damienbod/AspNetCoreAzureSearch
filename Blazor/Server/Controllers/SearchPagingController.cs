@@ -71,7 +71,7 @@ namespace BlazorAzureSearch.Server.Controllers
 
             await _searchProvider.QueryPagingFull(model, page, leftMostPage).ConfigureAwait(false);
 
-           
+
             var results = new SearchDataDto
             {
                 SearchText = model.SearchText,
@@ -82,13 +82,13 @@ namespace BlazorAzureSearch.Server.Controllers
                 CurrentPage = model.CurrentPage,
                 Results = new SearchResultItems
                 {
-                   PersonCities = new List<PersonCityDto>(),
-                   TotalCount = model.PersonCities.TotalCount.GetValueOrDefault()
+                    PersonCities = new List<PersonCityDto>(),
+                    TotalCount = model.PersonCities.TotalCount.GetValueOrDefault()
                 }
             };
 
-            var docs =  model.PersonCities.GetResults().ToList();
-            foreach(var doc in docs)
+            var docs = model.PersonCities.GetResults().ToList();
+            foreach (var doc in docs)
             {
                 results.Results.PersonCities.Add(new PersonCityDto
                 {

@@ -71,7 +71,7 @@ namespace BlazorAzureSearch.Server.Controllers
 
         [HttpPost]
         [Route("AddData")]
-        public async Task<IndexResult> AddData([FromBody]string indexName)
+        public async Task<IndexResult> AddData([FromBody] string indexName)
         {
             var addData = new IndexResult();
             if (string.IsNullOrEmpty(indexName))

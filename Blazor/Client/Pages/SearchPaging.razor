@@ -10,14 +10,13 @@
     </div>
 </EditForm>
 
-
 @if (Loading)
 {
-<div class="spinner d-flex align-items-center justify-content-center fixedSpinner" >
-    <div class="spinner-border text-success" role="status">
-        <span class="sr-only">Loading...</span>
+    <div class="spinner d-flex align-items-center justify-content-center fixedSpinner" >
+        <div class="spinner-border text-success" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
     </div>
-</div>
 } 
 
 @if (SearchData.Results.PersonCities != null)

@@ -3,7 +3,6 @@ using Azure.Search.Documents;
 using Azure.Search.Documents.Indexes;
 using Azure.Search.Documents.Indexes.Models;
 using Azure.Search.Documents.Models;
-using BlazorAzureSearch.Shared;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;

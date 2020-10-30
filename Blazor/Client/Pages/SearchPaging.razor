@@ -29,25 +29,25 @@
 
     @for (var i = 0; i < results.Count; i++)
     {
-        <div>
-            <b><span><a href="@results[i].Web">@results[i].Name @results[i].FamilyName</a>: @results[i].CityCountry</span></b>
-            @if (!string.IsNullOrEmpty(results[i].Twitter))
-            {
-                <a href="@results[i].Twitter"><img src="/images/socialTwitter.png" /></a>
-            }
-            @if (!string.IsNullOrEmpty(results[i].Github))
-            {
-                <a href="@results[i].Github"><img src="/images/github.png" /></a>
-            }
-            @if (!string.IsNullOrEmpty(results[i].Mvp))
-            {
-                <a href="@results[i].Mvp"><img src="/images/mvp.png" width="24" /></a>
-            }
-            <br />
-            <em><span>@results[i].Metadata</span></em><br />
-            <textarea class="infotext">@results[i].Info</textarea>
-            <br />
-        </div>
+<div>
+    <b><span><a href="@results[i].Web">@results[i].Name @results[i].FamilyName</a>: @results[i].CityCountry &nbsp;</span></b>
+    @if (!string.IsNullOrEmpty(results[i].Twitter))
+    {
+        <a href="@results[i].Twitter"><img src="/images/socialTwitter.png" /></a>
+    }
+    @if (!string.IsNullOrEmpty(results[i].Github))
+    {
+        <a href="@results[i].Github"><img src="/images/github.png" /></a>
+    }
+    @if (!string.IsNullOrEmpty(results[i].Mvp))
+    {
+        <a href="@results[i].Mvp"><img src="/images/mvp.png" width="24" /></a>
+    }
+    <br />
+    <em><span>@results[i].Metadata</span></em><br />
+    <textarea class="infotext">@results[i].Info</textarea>
+    <br />
+</div>
     }
 }
 

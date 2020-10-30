@@ -119,24 +119,30 @@
             DocumentCount = addData.Status.DocumentCount;
         }
         Loading = false;
+        StateHasChanged();
     }
 
     private async Task CreateIndex()
     {
-        Loading = true;
-        var response = await Http.PostAsJsonAsync<string>("api/SearchAdmin/CreateIndex", IndexName);
-        response.EnsureSuccessStatusCode();
-        string responseBody = await response.Content.ReadAsStringAsync();
-
-        var createIndex = System.Text.Json.JsonSerializer.Deserialize<IndexResult>(responseBody);
-
-        Messages = createIndex.Messages;
-        if (Messages.Count > 0 && Messages[0].AlertType == "success")
+        try
         {
-            IndexExists = createIndex.Status.IndexExists;
-            DocumentCount = createIndex.Status.DocumentCount;
-        }
-        Loading = false;
-    }
+            Loading = true;
+            var response = await Http.PostAsJsonAsync<string>("api/SearchAdmin/CreateIndex", IndexName);
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
 
+            var createIndex = System.Text.Json.JsonSerializer.Deserialize<IndexResult>(responseBody);
+
+            Messages = createIndex.Messages;
+            if (Messages.Count > 0 && Messages[0].AlertType == "success")
+            {
+                IndexExists = createIndex.Status.IndexExists;
+                DocumentCount = createIndex.Status.DocumentCount;
+            }
+        }
+        finally
+        {
+            Loading = false;
+        }
+    }
 }

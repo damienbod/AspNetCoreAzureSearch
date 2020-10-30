@@ -78,6 +78,8 @@
 
     protected override async Task OnInitializedAsync()
     {
+        Console.WriteLine("On Init");
+
         Loading = true;
         var status = await Http.GetFromJsonAsync<IndexStatus>("api/SearchAdmin/IndexStatus");
         IndexExists = status.IndexExists;
@@ -101,6 +103,7 @@
             DocumentCount = deleteIndex.Status.DocumentCount;
         }
         Loading = false;
+        Console.WriteLine($"DocumentCount: {DocumentCount}");
     }
 
     private async Task AddData()
@@ -119,7 +122,7 @@
             DocumentCount = addData.Status.DocumentCount;
         }
         Loading = false;
-        StateHasChanged();
+        Console.WriteLine($"DocumentCount: {DocumentCount}");
     }
 
     private async Task CreateIndex()
@@ -143,6 +146,7 @@
         finally
         {
             Loading = false;
+            Console.WriteLine($"DocumentCount: {DocumentCount}");
         }
     }
 }

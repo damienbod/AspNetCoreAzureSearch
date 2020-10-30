@@ -3,7 +3,7 @@
 @inject HttpClient Http
 @inject NavigationManager NavManager
 
-<EditForm Model="@SearchData">
+<EditForm Model="@SearchData" class="centerMiddle">
     <div class="searchBoxForm">
         <InputText @bind-Value="SearchData.SearchText" class="searchBox"></InputText>
         <input class="searchBoxSubmit" @onclick="@(e => SearchPager(0.ToString(), SearchData.SearchText))">
@@ -11,9 +11,18 @@
 </EditForm>
 
 
+@if (Loading)
+{
+<div class="spinner d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-success" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+} 
+
 @if (SearchData.Results.PersonCities != null)
 {
-    <p class="sampleText">
+    <p class="sampleText centerMiddle">
         Found @SearchData.Results.TotalCount Documents
     </p>
 
@@ -43,104 +52,117 @@
     }
 }
 
-@if (SearchData.PageCount > 1)
-{
-    <table>
-        <tr>
-            <td>
-                @if (SearchData.CurrentPage > 0)
-                {
-                <p class="pageButton">
-                    <button class="btn btn-link"
-                            @onclick="@(e => SearchPager(0.ToString(), SearchData.SearchText))">
-                        |&#60;
-                    </button>
-                </p>
-                }
-                else
-                {
-                    <p class="pageButtonDisabled">|&lt;</p>
-                }
-            </td>
-
-            <td>
-                @if (SearchData.CurrentPage > 0)
-                {
-                    var prev = "prev";
-                <p class="pageButton">
-                    <button class="btn btn-link" @onclick="@(e => SearchPager(prev, SearchData.SearchText))">&#60;</button>
-                </p>
-                }
-                else
-                {
-                    <p class="pageButtonDisabled">&lt;</p>
-                }
-            </td>
-
-            @for (var pn = SearchData.LeftMostPage; pn < SearchData.LeftMostPage + SearchData.PageRange; pn++)
+<div class="container">
+    <div class="row centerMiddle">
+        <div class="col centerMiddle">
+            @if (SearchData.PageCount > 1)
             {
-                <td>
-                    @if (SearchData.CurrentPage == pn)
-                    {
-                        <p class="pageSelected">@(pn + 1)</p>
-                    }
-                    else
-                    {
-                        <p class="pageButton">
-                            @{
-                                var p1 = SearchData.PageCount - 1;
-                                var plink = pn.ToString();
-                             }
-                            <button class="btn btn-link"
-                                    @onclick="@(e => SearchPager(plink, SearchData.SearchText))">
-                                @(pn + 1)
-                            </button>
-                        </p>
-                    }
-                </td>
+                <table class="col">
+                    <tr class="col">
+                        <td>
+                            @if (SearchData.CurrentPage > 0)
+                            {
+                                <p class="pageButton">
+                                    <button class="btn btn-link"
+                                            @onclick="@(e => SearchPager(0.ToString(), SearchData.SearchText))">
+                                        |&#60;
+                                    </button>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="pageButtonDisabled">|&lt;</p>
+                            }
+                        </td>
 
+                        <td>
+                            @if (SearchData.CurrentPage > 0)
+                            {
+                                var prev = "prev";
+                                <p class="pageButton">
+                                    <button class="btn btn-link" @onclick="@(e => SearchPager(prev, SearchData.SearchText))">&#60;</button>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="pageButtonDisabled">&lt;</p>
+                            }
+                        </td>
+
+                        @for (var pn = SearchData.LeftMostPage; pn < SearchData.LeftMostPage + SearchData.PageRange; pn++)
+                        {
+                            <td>
+                                @if (SearchData.CurrentPage == pn)
+                                {
+                                    <p class="pageSelected">@(pn + 1)</p>
+                                }
+                                else
+                                {
+                                    <p class="pageButton">
+                                        @{
+                                            var p1 = SearchData.PageCount - 1;
+                                            var plink = pn.ToString();
+                                        }
+                                        <button class="btn btn-link"
+                                                @onclick="@(e => SearchPager(plink, SearchData.SearchText))">
+                                            @(pn + 1)
+                                        </button>
+                                    </p>
+                                }
+                            </td>
+
+                        }
+
+                        <td>
+                            @if (SearchData.CurrentPage < SearchData.PageCount - 1)
+                            {
+
+                                <p class="pageButton">
+                                    @{
+                                        var p1 = SearchData.PageCount - 1;
+                                        var next = "next";
+                                    }
+                                    <button class="btn btn-link"
+                                            @onclick="@(e => SearchPager(next, SearchData.SearchText))">
+                                        &#62;
+                                    </button>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="pageButtonDisabled">&gt;</p>
+                            }
+                        </td>
+
+                        <td>
+                            @if (SearchData.CurrentPage < SearchData.PageCount - 1)
+                            {
+                                <p class="pageButton">
+                                    @{var p7 = SearchData.PageCount - 1;}
+                                    <button class="btn btn-link"
+                                            @onclick="@(e => SearchPager(p7.ToString(), SearchData.SearchText))">
+                                        &#62;|
+                                    </button>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="pageButtonDisabled">&gt;|</p>
+                            }
+                        </td>
+                    </tr>
+                </table>
             }
+        </div>
+   
+    </div>
 
-            <td>
-                @if (SearchData.CurrentPage < SearchData.PageCount - 1)
-                {
-                    
-                <p class="pageButton">
-                    @{
-                        var p1 = SearchData.PageCount - 1;
-                        var next = "next";
-                    }
-                    <button class="btn btn-link"
-                            @onclick="@(e => SearchPager(next, SearchData.SearchText))">
-                        &#62;
-                    </button>
-                </p>
-                }
-                else
-                {
-                    <p class="pageButtonDisabled">&gt;</p>
-                }
-            </td>
+</div>
 
-            <td>
-                @if (SearchData.CurrentPage < SearchData.PageCount - 1)
-                {
-                <p class="pageButton">
-                    @{var p7 = SearchData.PageCount - 1;}
-                    <button class="btn btn-link" 
-                            @onclick="@(e => SearchPager(p7.ToString(), SearchData.SearchText))">&#62;|</button>
-                </p>
-                }
-                else
-                {
-                    <p class="pageButtonDisabled">&gt;|</p>
-                }
-            </td>
-        </tr>
-    </table>
-}
+
 @code {
 
+    private bool Loading { get; set; } = true;
     private SearchDataDto SearchData { get; set; } = new SearchDataDto();
 
     private int PageNo { get; set; }

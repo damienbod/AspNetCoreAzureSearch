@@ -3,11 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30626.31
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorAzureSearch.Server", "Server\BlazorAzureSearch.Server.csproj", "{5229B6D9-5F88-496D-9733-0A50C394E19B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorAzureSearch.Server", "Server\BlazorAzureSearch.Server.csproj", "{5229B6D9-5F88-496D-9733-0A50C394E19B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorAzureSearch.Client", "Client\BlazorAzureSearch.Client.csproj", "{D6860B6F-5308-4035-A26B-F0643564A5DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorAzureSearch.Client", "Client\BlazorAzureSearch.Client.csproj", "{D6860B6F-5308-4035-A26B-F0643564A5DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorAzureSearch.Shared", "Shared\BlazorAzureSearch.Shared.csproj", "{617E863C-7221-49C6-9F86-9F820B002CE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorAzureSearch.Shared", "Shared\BlazorAzureSearch.Shared.csproj", "{617E863C-7221-49C6-9F86-9F820B002CE9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1EE42B75-CFC7-4B63-9728-39D124242565}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

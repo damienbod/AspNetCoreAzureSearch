@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>5a48e2c5-2d62-43fe-93fa-bb8e15c0fe5d</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.0-rc.2.20475.17" />
+	  <PackageReference Include="Azure.Search.Documents" Version="11.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Client\BlazorAzureSearch.Client.csproj" />
+    <ProjectReference Include="..\Shared\BlazorAzureSearch.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

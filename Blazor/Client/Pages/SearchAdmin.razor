@@ -1,0 +1,152 @@
+﻿@page "/searchadmin"
+@using BlazorAzureSearch.Shared
+@inject HttpClient Http
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Index: @IndexName</h1>
+        <p class="lead">Exists: <span class="badge badge-secondary">@IndexExists</span>  Documents Count: <span class="badge badge-light">@DocumentCount</span> </p>
+    </div>
+</div>
+
+@if (Loading)
+{
+    <div class="spinner d-flex align-items-center justify-content-center fixedSpinner">
+        <div class="spinner-border text-success" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+}
+
+<div class="card-deck">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Create index: @IndexName</h5>
+            <p class="card-text">Click to create a new index in Azure Cognitive search called @IndexName.</p>
+        </div>
+        <div class="card-footer text-center">
+            <button class="btn btn-primary col-sm-6" @onclick="CreateIndex">
+                Create
+            </button>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Add Documents to index: @IndexName</h5>
+            <p class="card-text">Add documents to the Azure Cognitive search index: @IndexName.</p>
+        </div>
+        <div class="card-footer text-center">
+            <button class="btn btn-primary col-sm-6" @onclick="AddData">
+                Add
+            </button>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Delete index: @IndexName</h5>
+            <p class="card-text">Delete Azure Cognitive search index: @IndexName.</p>
+        </div>
+        <div class="card-footer text-center">
+            <button type="submit" class="btn btn-danger col-sm-6" @onclick="DeleteIndex">
+                Delete
+            </button>
+        </div>
+    </div>
+</div>
+
+<br />
+
+@if (Messages != null)
+{
+    @foreach (var msg in Messages)
+    {
+        <div class="alert alert-@msg.AlertType alert-dismissible fade show" role="alert">
+            <strong>@msg.AlertTitle</strong> @msg.AlertMessage
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+}
+
+@code {
+    private bool Loading { get; set; } = false;
+    private List<AlertViewModel> Messages = null;
+    private string IndexName { get; set; } = "personcities";
+    private bool IndexExists { get; set; }
+    private long DocumentCount { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("On Init");
+
+        Loading = true;
+        var status = await Http.GetFromJsonAsync<IndexStatus>("api/SearchAdmin/IndexStatus");
+        IndexExists = status.IndexExists;
+        DocumentCount = status.DocumentCount;
+        Loading = false;
+    }
+
+    private async Task DeleteIndex()
+    {
+        Loading = true;
+        var response = await Http.PostAsJsonAsync<string>("api/SearchAdmin/DeleteIndex", IndexName);
+        response.EnsureSuccessStatusCode();
+        string responseBody = await response.Content.ReadAsStringAsync();
+
+        var deleteIndex = System.Text.Json.JsonSerializer.Deserialize<IndexResult>(responseBody);
+
+        Messages = deleteIndex.Messages;
+        if (Messages.Count > 0 && Messages[0].AlertType == "success")
+        {
+            IndexExists = deleteIndex.Status.IndexExists;
+            DocumentCount = deleteIndex.Status.DocumentCount;
+        }
+        Loading = false;
+        Console.WriteLine($"DocumentCount: {DocumentCount}");
+    }
+
+    private async Task AddData()
+    {
+        Loading = true;
+        var response = await Http.PostAsJsonAsync<string>("api/SearchAdmin/AddData", IndexName);
+        response.EnsureSuccessStatusCode();
+        string responseBody = await response.Content.ReadAsStringAsync();
+
+        var addData = System.Text.Json.JsonSerializer.Deserialize<IndexResult>(responseBody);
+
+        Messages = addData.Messages;
+        if (Messages.Count > 0 && Messages[0].AlertType == "success")
+        {
+            IndexExists = addData.Status.IndexExists;
+            DocumentCount = addData.Status.DocumentCount;
+        }
+        Loading = false;
+        Console.WriteLine($"DocumentCount: {DocumentCount}");
+    }
+
+    private async Task CreateIndex()
+    {
+        try
+        {
+            Loading = true;
+            var response = await Http.PostAsJsonAsync<string>("api/SearchAdmin/CreateIndex", IndexName);
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            var createIndex = System.Text.Json.JsonSerializer.Deserialize<IndexResult>(responseBody);
+
+            Messages = createIndex.Messages;
+            if (Messages.Count > 0 && Messages[0].AlertType == "success")
+            {
+                IndexExists = createIndex.Status.IndexExists;
+                DocumentCount = createIndex.Status.DocumentCount;
+            }
+        }
+        finally
+        {
+            Loading = false;
+            Console.WriteLine($"DocumentCount: {DocumentCount}");
+        }
+    }
+}

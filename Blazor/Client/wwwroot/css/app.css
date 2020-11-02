@@ -1,0 +1,155 @@
+﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+
+html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+a, .btn-link {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.content {
+    padding-top: 1.1rem;
+}
+
+.valid.modified:not([type=checkbox]) {
+    outline: 1px solid #26b050;
+}
+
+.invalid {
+    outline: 1px solid red;
+}
+
+.validation-message {
+    color: red;
+}
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
+
+
+textarea.infotext {
+    width: 100%;
+    height: 100px;
+    border: none;
+    background-color: #e5e4e2;
+    color: black;
+    font-size: 12pt;
+    padding-left: 5px;
+    margin-bottom: 10px;
+}
+
+.sampleTitle {
+    font: 32px/normal 'Segoe UI Light',Arial,Helvetica,Sans-Serif;
+    margin: 20px 0;
+    font-size: 32px;
+    text-align: left;
+}
+
+.sampleText {
+    font: 16px/bold 'Segoe UI Light',Arial,Helvetica,Sans-Serif;
+    margin: 10px 0;
+    font-size: 14px;
+    text-align: left;
+    height: 20px;
+}
+
+.searchBoxForm {
+    width: 648px;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.1), 0 2px 4px 0 rgba(0,0,0,.16);
+    background-color: #fff;
+    display: inline-block;
+    border-collapse: collapse;
+    border-spacing: 0;
+    list-style: none;
+    color: #666;
+    background: rgba(0,0,0,0);
+}
+
+.searchBox {
+    width: 568px;
+    font-size: 16px;
+    margin: 5px 0 1px 20px;
+    padding: 0 10px 0 0;
+    border: 0;
+    max-height: 30px;
+    outline: none !important;
+    box-sizing: content-box;
+    height: 35px;
+    vertical-align: top;
+    background: rgba(0,0,0,0);
+}
+
+.searchBoxSubmit {
+    background-color: #fff;
+    border-color: #fff;
+    background-image: url(/images/search.png);
+    background-repeat: no-repeat;
+    height: 20px;
+    width: 20px;
+    text-indent: -99em;
+    border-width: 0;
+    border-style: solid;
+    margin: 10px;
+    outline: 0;
+}
+
+.pageButton {
+    border: none;
+    color: darkblue;
+    font-weight: normal;
+    width: 50px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.pageSelected {
+    border: none;
+    color: black;
+    font-weight: bold;
+    width: 50px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.pageButtonDisabled {
+    border: none;
+    color: lightgray;
+    font-weight: bold;
+    width: 50px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.centerMiddle {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.fixedSpinner {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+}

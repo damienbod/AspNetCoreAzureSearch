@@ -1,0 +1,238 @@
+﻿@page "/searchpaging"
+@using BlazorAzureSearch.Shared
+@inject HttpClient Http
+@inject NavigationManager NavManager
+
+<EditForm Model="@SearchData" class="centerMiddle">
+    <div class="searchBoxForm">
+        <InputText @bind-Value="SearchData.SearchText" class="searchBox"></InputText>
+        <input class="searchBoxSubmit" @onclick="@(e => SearchPager(0.ToString(), SearchData.SearchText))">
+    </div>
+</EditForm>
+
+@if (Loading)
+{
+    <div class="spinner d-flex align-items-center justify-content-center fixedSpinner" >
+        <div class="spinner-border text-success" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+} 
+
+@if (SearchData.Results.PersonCities != null)
+{
+    <p class="sampleText centerMiddle">
+        Found @SearchData.Results.TotalCount Documents
+    </p>
+
+    var results = SearchData.Results.PersonCities;
+
+    @for (var i = 0; i < results.Count; i++)
+    {
+<div>
+    <b><span><a href="@results[i].Web">@results[i].Name @results[i].FamilyName</a>: @results[i].CityCountry &nbsp;</span></b>
+    @if (!string.IsNullOrEmpty(results[i].Twitter))
+    {
+        <a href="@results[i].Twitter"><img src="/images/socialTwitter.png" /></a>
+    }
+    @if (!string.IsNullOrEmpty(results[i].Github))
+    {
+        <a href="@results[i].Github"><img src="/images/github.png" /></a>
+    }
+    @if (!string.IsNullOrEmpty(results[i].Mvp))
+    {
+        <a href="@results[i].Mvp"><img src="/images/mvp.png" width="24" /></a>
+    }
+    <br />
+    <em><span>@results[i].Metadata</span></em><br />
+    <textarea class="infotext">@results[i].Info</textarea>
+    <br />
+</div>
+    }
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            @if (SearchData.PageCount > 1)
+            {
+                <table class="col">
+                    <tr class="col">
+                        <td>
+                            @if (SearchData.CurrentPage > 0)
+                            {
+                                <p class="pageButton">
+                                    <button class="btn btn-link"
+                                            @onclick="@(e => SearchPager(0.ToString(), SearchData.SearchText))">
+                                        |&#60;
+                                    </button>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="pageButtonDisabled">|&lt;</p>
+                            }
+                        </td>
+
+                        <td>
+                            @if (SearchData.CurrentPage > 0)
+                            {
+                                var prev = "prev";
+                                <p class="pageButton">
+                                    <button class="btn btn-link" @onclick="@(e => SearchPager(prev, SearchData.SearchText))">&#60;</button>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="pageButtonDisabled">&lt;</p>
+                            }
+                        </td>
+
+                        @for (var pn = SearchData.LeftMostPage; pn < SearchData.LeftMostPage + SearchData.PageRange; pn++)
+                        {
+                            <td>
+                                @if (SearchData.CurrentPage == pn)
+                                {
+                                    <p class="pageSelected">@(pn + 1)</p>
+                                }
+                                else
+                                {
+                                    <p class="pageButton">
+                                        @{
+                                            var p1 = SearchData.PageCount - 1;
+                                            var plink = pn.ToString();
+                                        }
+                                        <button class="btn btn-link"
+                                                @onclick="@(e => SearchPager(plink, SearchData.SearchText))">
+                                            @(pn + 1)
+                                        </button>
+                                    </p>
+                                }
+                            </td>
+
+                        }
+
+                        <td>
+                            @if (SearchData.CurrentPage < SearchData.PageCount - 1)
+                            {
+
+                                <p class="pageButton">
+                                    @{
+                                        var p1 = SearchData.PageCount - 1;
+                                        var next = "next";
+                                    }
+                                    <button class="btn btn-link"
+                                            @onclick="@(e => SearchPager(next, SearchData.SearchText))">
+                                        &#62;
+                                    </button>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="pageButtonDisabled">&gt;</p>
+                            }
+                        </td>
+
+                        <td>
+                            @if (SearchData.CurrentPage < SearchData.PageCount - 1)
+                            {
+                                <p class="pageButton">
+                                    @{var p7 = SearchData.PageCount - 1;}
+                                    <button class="btn btn-link"
+                                            @onclick="@(e => SearchPager(p7.ToString(), SearchData.SearchText))">
+                                        &#62;|
+                                    </button>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="pageButtonDisabled">&gt;|</p>
+                            }
+                        </td>
+                    </tr>
+                </table>
+            }
+        </div>
+   
+    </div>
+
+</div>
+
+
+@code {
+
+    private bool Loading { get; set; } = false;
+    private SearchDataDto SearchData { get; set; } = new SearchDataDto();
+
+    private int PageNo { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
+        if (Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query).TryGetValue("paging", out var queryParamPaging))
+        {
+            SearchData.Paging = queryParamPaging;
+        }
+        if (Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query).TryGetValue("SearchText", out var queryParamSearchText))
+        {
+            SearchData.SearchText = queryParamSearchText;
+        }
+
+        if (!string.IsNullOrEmpty(queryParamSearchText) ||
+            !string.IsNullOrEmpty(queryParamPaging))
+        {
+            await Search();
+        }
+    }
+
+    private async Task SearchPager(string paging, string searchText)
+    {
+        SearchData.Paging = paging.ToString();
+        SearchData.SearchText = searchText;
+        await Search();
+    }
+
+    private async Task Search()
+    {
+        Loading = true;
+        int page;
+
+        switch (SearchData.Paging)
+        {
+            case "prev":
+                page = PageNo - 1;
+                break;
+
+            case "next":
+                page = PageNo + 1;
+                break;
+
+            default:
+                page = int.Parse(SearchData.Paging);
+                break;
+        }
+
+        int leftMostPage = SearchData.LeftMostPage;
+
+        var searchData = new SearchDataDto
+        {
+            SearchText = SearchData.SearchText,
+            CurrentPage = SearchData.CurrentPage,
+            PageCount = SearchData.PageCount,
+            LeftMostPage = SearchData.LeftMostPage,
+            PageRange = SearchData.PageRange,
+            Paging = SearchData.Paging
+        };
+
+        var response = await Http.PostAsJsonAsync<SearchDataDto>("api/SearchPaging/Paging", searchData);
+        response.EnsureSuccessStatusCode();
+        string responseBody = await response.Content.ReadAsStringAsync();
+
+        var searchDataResult = System.Text.Json.JsonSerializer.Deserialize<SearchDataDto>(responseBody);
+
+        PageNo = page;
+        SearchData = searchDataResult;
+        Loading = false;
+    }
+
+}

@@ -8,6 +8,9 @@
 	<li><a href="https://damienbod.com/2020/11/02/implement-a-blazor-full-text-search-using-azure-cognitive-search/">Implement a Blazor full text search using Azure Cognitive Search</a></li>
 </ul>
 
+## History
+
+2021-02-18 Uodated packages
 
 # Links
 

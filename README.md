@@ -1,5 +1,7 @@
 # ASP.NET Core with Cognitive Azure Search
 
+[![.NET](https://github.com/damienbod/AspNetCoreAzureSearch/actions/workflows/dotnet.yml/badge.svg)](https://github.com/damienbod/AspNetCoreAzureSearch/actions/workflows/dotnet.yml)
+
 ## Blogs
 
 <ul>
@@ -8,7 +10,19 @@
 	<li><a href="https://damienbod.com/2020/11/02/implement-a-blazor-full-text-search-using-azure-cognitive-search/">Implement a Blazor full text search using Azure Cognitive Search</a></li>
 </ul>
 
+## User secrets, Key vault configuration
+
+```
+{
+  "PersonCitiesSearchUri": "--url--",
+  "PersonCitiesSearchApiKey": "--secret--",
+  "PersonCitiesIndexName": "personcities"
+}
+```
+
 ## History
+
+2021-08-20 Updated packages
 
 2021-04-14 Updated packages
 

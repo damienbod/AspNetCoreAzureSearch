@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.5" />
-	  <PackageReference Include="Azure.Search.Documents" Version="11.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.9" />
+	  <PackageReference Include="Azure.Search.Documents" Version="11.3.0" />
   </ItemGroup>
 
   <ItemGroup>

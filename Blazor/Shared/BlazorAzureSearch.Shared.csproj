@@ -9,6 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Search.Documents" Version="11.2.0" />
+    <PackageReference Include="Azure.Search.Documents" Version="11.3.0" />
   </ItemGroup>
 </Project>

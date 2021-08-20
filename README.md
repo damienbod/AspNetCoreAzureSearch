@@ -1,5 +1,7 @@
 # ASP.NET Core with Cognitive Azure Search
 
+[![.NET](https://github.com/damienbod/AspNetCoreAzureSearch/actions/workflows/dotnet.yml/badge.svg)](https://github.com/damienbod/AspNetCoreAzureSearch/actions/workflows/dotnet.yml)
+
 ## Blogs
 
 <ul>

@@ -1,13 +1,11 @@
-﻿
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
-namespace BlazorAzureSearch.Shared
+namespace BlazorAzureSearch.Shared;
+
+public class IndexStatus
 {
-    public class IndexStatus
-    {
-        [JsonPropertyName("indexExists")]
-        public bool IndexExists { get; set; }
-        [JsonPropertyName("documentCount")]
-        public long DocumentCount { get; set; }
-    }
+    [JsonPropertyName("indexExists")]
+    public bool IndexExists { get; set; }
+    [JsonPropertyName("documentCount")]
+    public long DocumentCount { get; set; }
 }

@@ -1,17 +1,13 @@
-﻿using Azure.Search.Documents.Models;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
-namespace BlazorAzureSearch.Shared
+namespace BlazorAzureSearch.Shared;
+
+public class SearchResultItems
 {
-    public class SearchResultItems
-    {
-        // The text to search for.
-        [JsonPropertyName("totalCount")]
-        public long TotalCount { get; set; }
+    // The text to search for.
+    [JsonPropertyName("totalCount")]
+    public long TotalCount { get; set; }
 
-        [JsonPropertyName("personCities")]
-        public List<PersonCityDto> PersonCities { get; set; }
-
-    }
+    [JsonPropertyName("personCities")]
+    public List<PersonCityDto>? PersonCities { get; set; }
 }

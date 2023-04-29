@@ -1,24 +1,22 @@
-﻿
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
-namespace BlazorAzureSearch.Shared
+namespace BlazorAzureSearch.Shared;
+
+public class AlertViewModel
 {
-    public class AlertViewModel
+    [JsonPropertyName("alertType")]
+    public string? AlertType { get; set; }
+    [JsonPropertyName("alertTitle")]
+    public string? AlertTitle { get; set; }
+    [JsonPropertyName("alertMessage")]
+    public string? AlertMessage { get; set; }
+
+    public AlertViewModel() { }
+
+    public AlertViewModel(string type, string title, string message)
     {
-        [JsonPropertyName("alertType")]
-        public string AlertType { get; set; }
-        [JsonPropertyName("alertTitle")]
-        public string AlertTitle { get; set; }
-        [JsonPropertyName("alertMessage")]
-        public string AlertMessage { get; set; }
-
-        public AlertViewModel() { }
-
-        public AlertViewModel(string type, string title, string message)
-        {
-            AlertType = type;
-            AlertTitle = title;
-            AlertMessage = message;
-        }
+        AlertType = type;
+        AlertTitle = title;
+        AlertMessage = message;
     }
 }

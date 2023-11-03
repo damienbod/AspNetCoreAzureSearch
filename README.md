@@ -22,17 +22,13 @@
 
 ## History
 
-2023-04-29 Updated packages, .NET 7
-
-2022-01-18 Updated packages
-
-2021-11-28 Updated to .NET 6
-
-2021-08-20 Updated packages
-
-2021-04-14 Updated packages
-
-2021-02-18 Updated packages
+- 2023-11-03 Updated packages
+- 2023-04-29 Updated packages, .NET 7
+- 2022-01-18 Updated packages
+- 2021-11-28 Updated to .NET 6
+- 2021-08-20 Updated packages
+- 2021-04-14 Updated packages
+- 2021-02-18 Updated packages
 
 # Links
 

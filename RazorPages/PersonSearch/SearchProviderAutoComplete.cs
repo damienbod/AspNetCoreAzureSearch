@@ -24,7 +24,7 @@ public class SearchProviderAutoComplete
     {
         SuggestOptions sp = new SuggestOptions()
         {
-            UseFuzzyMatching = fuzzy, 
+            UseFuzzyMatching = fuzzy,
             Size = 5,
         };
         sp.Select.Add("Id");

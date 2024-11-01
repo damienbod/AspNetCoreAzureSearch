@@ -9,7 +9,7 @@
 
 
   <ItemGroup>
-    <PackageReference Include="Azure.Search.Documents" Version="11.5.1" />
+    <PackageReference Include="Azure.Search.Documents" Version="11.6.0" />
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
   </ItemGroup>
 

@@ -4,11 +4,9 @@
 
 ## Blogs
 
-<ul>
-	<li><a href="https://damienbod.com/2020/10/19/implement-a-full-text-search-using-azure-cognitive-search-in-asp-net-core/">Implement a full text search using Azure Cognitive Search in ASP.NET Core</a></li>
-	<li><a href="https://damienbod.com/2020/10/29/using-azure-cognitive-search-suggesters-in-asp-net-core-and-autocomplete/">Using Azure Cognitive Search Suggesters in ASP.NET Core and Autocomplete</a></li>
-	<li><a href="https://damienbod.com/2020/11/02/implement-a-blazor-full-text-search-using-azure-cognitive-search/">Implement a Blazor full text search using Azure Cognitive Search</a></li>
-</ul>
+- [Implement a full text search using Azure Cognitive Search in ASP.NET Core](https://damienbod.com/2020/10/19/implement-a-full-text-search-using-azure-cognitive-search-in-asp-net-core/)
+- [Using Azure Cognitive Search Suggesters in ASP.NET Core and Autocomplete](https://damienbod.com/2020/10/29/using-azure-cognitive-search-suggesters-in-asp-net-core-and-autocomplete/)
+- [Implement a Blazor full text search using Azure Cognitive Search](https://damienbod.com/2020/11/02/implement-a-blazor-full-text-search-using-azure-cognitive-search/)
 
 ## User secrets, Key vault configuration
 

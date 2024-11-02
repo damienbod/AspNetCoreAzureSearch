@@ -32,22 +32,12 @@ public class SearchPagingController : ControllerBase
     [Route("Paging")]
     public async Task<SearchDataDto> Paging([FromBody] SearchDataDto searchDataDto)
     {
-        int page;
-
-        switch (searchDataDto.Paging)
+        var page = searchDataDto.Paging switch
         {
-            case "prev":
-                page = searchDataDto.CurrentPage - 1;
-                break;
-
-            case "next":
-                page = searchDataDto.CurrentPage + 1;
-                break;
-
-            default:
-                page = int.Parse(searchDataDto.Paging);
-                break;
-        }
+            "prev" => searchDataDto.CurrentPage - 1,
+            "next" => searchDataDto.CurrentPage + 1,
+            _ => int.Parse(searchDataDto.Paging),
+        };
 
         int leftMostPage = searchDataDto.LeftMostPage;
 

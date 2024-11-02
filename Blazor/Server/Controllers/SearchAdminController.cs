@@ -19,11 +19,11 @@ public class SearchAdminController : ControllerBase
     [Route("IndexStatus")]
     public async Task<IndexStatus> IndexStatus()
     {
-        var indexStatus = await _searchProviderIndex.GetIndexStatus();
+        var (Exists, DocumentCount) = await _searchProviderIndex.GetIndexStatus();
         return new IndexStatus
         {
-            IndexExists = indexStatus.Exists,
-            DocumentCount = indexStatus.DocumentCount
+            IndexExists = Exists,
+            DocumentCount = DocumentCount
         };
     }
 
@@ -47,9 +47,9 @@ public class SearchAdminController : ControllerBase
             deleteIndex.Messages = [
                 new AlertViewModel("success", "Index Deleted!", "The Azure Search Index was successfully deleted!"),
             ];
-            var indexStatus = await _searchProviderIndex.GetIndexStatus();
-            deleteIndex.Status.IndexExists = indexStatus.Exists;
-            deleteIndex.Status.DocumentCount = indexStatus.DocumentCount;
+            var (Exists, DocumentCount) = await _searchProviderIndex.GetIndexStatus();
+            deleteIndex.Status.IndexExists = Exists;
+            deleteIndex.Status.DocumentCount = DocumentCount;
             return deleteIndex;
         }
         catch (Exception ex)
@@ -81,9 +81,9 @@ public class SearchAdminController : ControllerBase
             addData.Messages = [
                 new AlertViewModel("success", "Documented added", "The Azure Search documents were uploaded! The Document Count takes n seconds to update!"),
             ];
-            var indexStatus = await _searchProviderIndex.GetIndexStatus();
-            addData.Status.IndexExists = indexStatus.Exists;
-            addData.Status.DocumentCount = indexStatus.DocumentCount;
+            var (Exists, DocumentCount) = await _searchProviderIndex.GetIndexStatus();
+            addData.Status.IndexExists = Exists;
+            addData.Status.DocumentCount = DocumentCount;
             return addData;
         }
         catch (Exception ex)
@@ -114,9 +114,9 @@ public class SearchAdminController : ControllerBase
             createIndex.Messages = [
                 new AlertViewModel("success", "Index created", "The Azure Search index was created successfully!"),
             ];
-            var indexStatus = await _searchProviderIndex.GetIndexStatus();
-            createIndex.Status.IndexExists = indexStatus.Exists;
-            createIndex.Status.DocumentCount = indexStatus.DocumentCount;
+            var (Exists, DocumentCount) = await _searchProviderIndex.GetIndexStatus();
+            createIndex.Status.IndexExists = Exists;
+            createIndex.Status.DocumentCount = DocumentCount;
             return createIndex;
         }
         catch (Exception ex)

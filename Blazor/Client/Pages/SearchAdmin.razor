@@ -71,7 +71,7 @@
 
 @code {
     private bool Loading { get; set; } = false;
-    private List<AlertViewModel> Messages = null;
+    private List<AlertViewModel>? Messages = null;
     private string IndexName { get; set; } = "personcities";
     private bool IndexExists { get; set; }
     private long DocumentCount { get; set; }
@@ -82,7 +82,7 @@
 
         Loading = true;
         var status = await Http.GetFromJsonAsync<IndexStatus>("api/SearchAdmin/IndexStatus");
-        IndexExists = status.IndexExists;
+        IndexExists = status!.IndexExists;
         DocumentCount = status.DocumentCount;
         Loading = false;
     }
@@ -96,7 +96,7 @@
 
         var deleteIndex = System.Text.Json.JsonSerializer.Deserialize<IndexResult>(responseBody);
 
-        Messages = deleteIndex.Messages;
+        Messages = deleteIndex!.Messages;
         if (Messages.Count > 0 && Messages[0].AlertType == "success")
         {
             IndexExists = deleteIndex.Status.IndexExists;
@@ -115,7 +115,7 @@
 
         var addData = System.Text.Json.JsonSerializer.Deserialize<IndexResult>(responseBody);
 
-        Messages = addData.Messages;
+        Messages = addData!.Messages;
         if (Messages.Count > 0 && Messages[0].AlertType == "success")
         {
             IndexExists = addData.Status.IndexExists;
@@ -136,7 +136,7 @@
 
             var createIndex = System.Text.Json.JsonSerializer.Deserialize<IndexResult>(responseBody);
 
-            Messages = createIndex.Messages;
+            Messages = createIndex!.Messages;
             if (Messages.Count > 0 && Messages[0].AlertType == "success")
             {
                 IndexExists = createIndex.Status.IndexExists;

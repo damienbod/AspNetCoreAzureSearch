@@ -6,7 +6,7 @@
 <EditForm Model="@SearchData" class="centerMiddle">
     <div class="searchBoxForm">
         <InputText @bind-Value="SearchData.SearchText" class="searchBox"></InputText>
-        <input class="searchBoxSubmit" @onclick="@(e => SearchPager(0.ToString(), SearchData.SearchText))">
+        <input class="searchBoxSubmit" @onclick="@(e => SearchPager(0.ToString(), SearchData.SearchText!))">
     </div>
 </EditForm>
 
@@ -63,7 +63,7 @@
                             {
                                 <p class="pageButton">
                                     <button class="btn btn-link"
-                                            @onclick="@(e => SearchPager(0.ToString(), SearchData.SearchText))">
+                                            @onclick="@(e => SearchPager(0.ToString(), SearchData.SearchText!))">
                                         |&#60;
                                     </button>
                                 </p>
@@ -79,7 +79,7 @@
                             {
                                 var prev = "prev";
                                 <p class="pageButton">
-                                    <button class="btn btn-link" @onclick="@(e => SearchPager(prev, SearchData.SearchText))">&#60;</button>
+                                    <button class="btn btn-link" @onclick="@(e => SearchPager(prev, SearchData.SearchText!))">&#60;</button>
                                 </p>
                             }
                             else
@@ -103,7 +103,7 @@
                                             var plink = pn.ToString();
                                         }
                                         <button class="btn btn-link"
-                                                @onclick="@(e => SearchPager(plink, SearchData.SearchText))">
+                                                @onclick="@(e => SearchPager(plink, SearchData.SearchText!))">
                                             @(pn + 1)
                                         </button>
                                     </p>
@@ -122,7 +122,7 @@
                                         var next = "next";
                                     }
                                     <button class="btn btn-link"
-                                            @onclick="@(e => SearchPager(next, SearchData.SearchText))">
+                                            @onclick="@(e => SearchPager(next, SearchData.SearchText!))">
                                         &#62;
                                     </button>
                                 </p>
@@ -139,7 +139,7 @@
                                 <p class="pageButton">
                                     @{var p7 = SearchData.PageCount - 1;}
                                     <button class="btn btn-link"
-                                            @onclick="@(e => SearchPager(p7.ToString(), SearchData.SearchText))">
+                                            @onclick="@(e => SearchPager(p7.ToString(), SearchData.SearchText!))">
                                         &#62;|
                                     </button>
                                 </p>
@@ -171,7 +171,7 @@
         var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
         if (Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query).TryGetValue("paging", out var queryParamPaging))
         {
-            SearchData.Paging = queryParamPaging;
+            SearchData.Paging = queryParamPaging!;
         }
         if (Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query).TryGetValue("SearchText", out var queryParamSearchText))
         {
@@ -231,7 +231,7 @@
         var searchDataResult = System.Text.Json.JsonSerializer.Deserialize<SearchDataDto>(responseBody);
 
         PageNo = page;
-        SearchData = searchDataResult;
+        SearchData = searchDataResult!;
         Loading = false;
     }
 

@@ -1,4 +1,4 @@
-using AspNetCoreAzureSearch;
+using AspNetCoreAzureAISearch;
 
 var builder = WebApplication.CreateBuilder(args);
 

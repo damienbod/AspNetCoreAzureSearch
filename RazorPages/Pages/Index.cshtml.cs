@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AspNetCoreAzureSearch.Pages;
+namespace AspNetCoreAzureAISearch.Pages;
 
 public class IndexModel : PageModel
 {

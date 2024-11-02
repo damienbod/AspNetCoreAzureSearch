@@ -5,7 +5,7 @@ using Azure.Search.Documents.Indexes.Models;
 using Azure.Search.Documents.Models;
 using System.Net.Http.Headers;
 
-namespace AspNetCoreAzureSearch;
+namespace AspNetCoreAzureAISearch;
 
 public class SearchProviderIndex
 {

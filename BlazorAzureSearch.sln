@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreAzureSearch", "RazorPages\AspNetCoreAzureSearch.csproj", "{E4D5494D-D09F-4242-BF6C-ADE5AF657065}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreAzureAISearch", "RazorPages\AspNetCoreAzureAISearch.csproj", "{E4D5494D-D09F-4242-BF6C-ADE5AF657065}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

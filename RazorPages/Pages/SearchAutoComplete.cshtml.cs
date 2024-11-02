@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AspNetCoreAzureSearch.Pages;
+namespace AspNetCoreAzureAISearch.Pages;
 
 public class SearchAutoCompleteModel : PageModel
 {

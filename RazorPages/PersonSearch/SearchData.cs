@@ -1,6 +1,6 @@
 ﻿using Azure.Search.Documents.Models;
 
-namespace AspNetCoreAzureSearch;
+namespace AspNetCoreAzureAISearch;
 
 public class SearchData
 {

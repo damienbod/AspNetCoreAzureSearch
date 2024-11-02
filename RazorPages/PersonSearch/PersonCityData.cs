@@ -1,4 +1,4 @@
-﻿namespace AspNetCoreAzureSearch;
+﻿namespace AspNetCoreAzureAISearch;
 
 public static class PersonCityData
 {

@@ -20,12 +20,12 @@ public class SearchPagingController : ControllerBase
     [HttpGet]
     public async Task<SearchData> Get(string searchText)
     {
-        SearchData model = new SearchData
+        var model = new SearchData
         {
             SearchText = searchText
         };
 
-        await _searchProvider.QueryPagingFull(model, 0, 0).ConfigureAwait(false);
+        await _searchProvider.QueryPagingFull(model, 0, 0);
 
         return model;
     }
@@ -53,7 +53,7 @@ public class SearchPagingController : ControllerBase
 
         int leftMostPage = searchDataDto.LeftMostPage;
 
-        SearchData model = new SearchData
+        var model = new SearchData
         {
             SearchText = searchDataDto.SearchText,
             LeftMostPage = searchDataDto.LeftMostPage,
@@ -63,8 +63,7 @@ public class SearchPagingController : ControllerBase
             CurrentPage = searchDataDto.CurrentPage
         };
 
-        await _searchProvider.QueryPagingFull(model, page, leftMostPage).ConfigureAwait(false);
-
+        await _searchProvider.QueryPagingFull(model, page, leftMostPage);
 
         var results = new SearchDataDto
         {

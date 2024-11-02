@@ -40,7 +40,7 @@ public class SearchProviderAutoComplete
             sp.HighlightPostTag = "</b>";
         }
 
-        var suggestResults = await _searchClient.SuggestAsync<PersonCity>(term, "personSg", sp).ConfigureAwait(false);
+        var suggestResults = await _searchClient.SuggestAsync<PersonCity>(term, "personSg", sp);
         return suggestResults.Value;
     }
 
@@ -51,7 +51,7 @@ public class SearchProviderAutoComplete
     //        UseFuzzyMatching = false, Size = 5, 
     //    };
 
-    //    var autocompleteResult = await _searchClient.AutocompleteAsync(term, "personSg", ap).ConfigureAwait(false);
+    //    var autocompleteResult = await _searchClient.AutocompleteAsync(term, "personSg", ap);
 
     //    List<string> autocomplete = autocompleteResult.Value.Results.Select(x => x.Text).ToList();
     //    return autocomplete;

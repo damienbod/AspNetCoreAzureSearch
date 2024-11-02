@@ -13,10 +13,9 @@ public class SearchProviderAutoComplete
     {
         _index = configuration["PersonCitiesIndexName"];
 
-        Uri serviceEndpoint = new Uri(configuration["PersonCitiesSearchUri"]);
-        AzureKeyCredential credential = new AzureKeyCredential(configuration["PersonCitiesSearchApiKey"]);
+        var serviceEndpoint = new Uri(configuration["PersonCitiesSearchUri"]!);
+        var credential = new AzureKeyCredential(configuration["PersonCitiesSearchApiKey"]!);
         _searchClient = new SearchClient(serviceEndpoint, _index, credential);
-
     }
 
     public async Task<SuggestResults<PersonCity>> Suggest(
@@ -40,7 +39,7 @@ public class SearchProviderAutoComplete
             sp.HighlightPostTag = "</b>";
         }
 
-        var suggestResults = await _searchClient.SuggestAsync<PersonCity>(term, "personSg", sp).ConfigureAwait(false);
+        var suggestResults = await _searchClient.SuggestAsync<PersonCity>(term, "personSg", sp);
         return suggestResults.Value;
     }
 
@@ -51,7 +50,7 @@ public class SearchProviderAutoComplete
     //        UseFuzzyMatching = false, Size = 5, 
     //    };
 
-    //    var autocompleteResult = await _searchClient.AutocompleteAsync(term, "personSg", ap).ConfigureAwait(false);
+    //    var autocompleteResult = await _searchClient.AutocompleteAsync(term, "personSg", ap);
 
     //    List<string> autocomplete = autocompleteResult.Value.Results.Select(x => x.Text).ToList();
     //    return autocomplete;

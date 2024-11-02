@@ -6,7 +6,7 @@ namespace AspNetCoreAzureAISearch.Pages;
 
 public class SearchModel : PageModel
 {
-    private readonly SearchProviderPaging? _searchProvider;
+    private readonly SearchProviderPaging _searchProvider;
 
     public string? SearchText { get; set; }
     public int CurrentPage { get; set; }
@@ -33,7 +33,7 @@ public class SearchModel : PageModel
             SearchText = searchText
         };
 
-        await _searchProvider.QueryPagingFull(model, 0, 0).ConfigureAwait(false);
+        await _searchProvider.QueryPagingFull(model, 0, 0);
 
         SearchText = model.SearchText;
         CurrentPage = model.CurrentPage;
@@ -61,13 +61,13 @@ public class SearchModel : PageModel
                 break;
 
             default:
-                page = int.Parse(model.Paging);
+                page = int.Parse(model.Paging!);
                 break;
         }
 
         int leftMostPage = LeftMostPage;
 
-        await _searchProvider.QueryPagingFull(model, page, leftMostPage).ConfigureAwait(false);
+        await _searchProvider.QueryPagingFull(model, page, leftMostPage);
 
         PageNo = page;
         SearchText = model.SearchText;
@@ -80,5 +80,4 @@ public class SearchModel : PageModel
 
         return Page();
     }
-
 }

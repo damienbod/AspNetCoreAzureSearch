@@ -21,20 +21,19 @@ public class SearchProviderIndex
         _httpClientFactory = httpClientFactory;
         _index = configuration["PersonCitiesIndexName"];
 
-        Uri serviceEndpoint = new Uri(configuration["PersonCitiesSearchUri"]);
-        AzureKeyCredential credential = new AzureKeyCredential(configuration["PersonCitiesSearchApiKey"]);
+        var serviceEndpoint = new Uri(configuration["PersonCitiesSearchUri"]!);
+        var credential = new AzureKeyCredential(configuration["PersonCitiesSearchApiKey"]!);
 
         _searchIndexClient = new SearchIndexClient(serviceEndpoint, credential);
         _searchClient = new SearchClient(serviceEndpoint, _index, credential);
-
     }
 
     public async Task CreateIndex()
     {
-        FieldBuilder bulder = new FieldBuilder();
+        var bulder = new FieldBuilder();
         var definition = new SearchIndex(_index, bulder.Build(typeof(PersonCity)));
         definition.Suggesters.Add(new SearchSuggester(
-            "personSg", new string[] { "Name", "FamilyName", "Info", "CityCountry" }
+            "personSg", ["Name", "FamilyName", "Info", "CityCountry"]
         ));
 
         await _searchIndexClient.CreateIndexAsync(definition).ConfigureAwait(false);

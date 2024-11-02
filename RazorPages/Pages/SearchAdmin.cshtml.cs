@@ -19,7 +19,7 @@ public class SearchAdminModel : PageModel
 
     public async Task OnGetAsync()
     {
-        var indexStatus = await _searchProviderIndex.GetIndexStatus().ConfigureAwait(false);
+        var indexStatus = await _searchProviderIndex.GetIndexStatus();
         IndexExists = indexStatus.Exists;
         DocumentCount = indexStatus.DocumentCount;
     }
@@ -28,20 +28,20 @@ public class SearchAdminModel : PageModel
     {
         try
         {
-            await _searchProviderIndex.CreateIndex().ConfigureAwait(false);
-            Messages = new[] {
+            await _searchProviderIndex.CreateIndex();
+            Messages = [
                 new AlertViewModel("success", "Index created", "The Azure Search index was created successfully!"),
-            };
-            var indexStatus = await _searchProviderIndex.GetIndexStatus().ConfigureAwait(false);
+            ];
+            var indexStatus = await _searchProviderIndex.GetIndexStatus();
             IndexExists = indexStatus.Exists;
             DocumentCount = indexStatus.DocumentCount;
             return Page();
         }
         catch (Exception ex)
         {
-            Messages = new[] {
+            Messages = [
                 new AlertViewModel("danger", "Error creating index", ex.Message),
-            };
+            ];
             return Page();
         }
     }
@@ -51,20 +51,20 @@ public class SearchAdminModel : PageModel
         try
         {
             PersonCityData.CreateTestData();
-            await _searchProviderIndex.AddDocumentsToIndex(PersonCityData.Data).ConfigureAwait(false);
-            Messages = new[] {
+            await _searchProviderIndex.AddDocumentsToIndex(PersonCityData.Data);
+            Messages = [
                 new AlertViewModel("success", "Documented added", "The Azure Search documents were uploaded! The Document Count takes n seconds to update!"),
-            };
-            var indexStatus = await _searchProviderIndex.GetIndexStatus().ConfigureAwait(false);
+            ];
+            var indexStatus = await _searchProviderIndex.GetIndexStatus();
             IndexExists = indexStatus.Exists;
             DocumentCount = indexStatus.DocumentCount;
             return Page();
         }
         catch (Exception ex)
         {
-            Messages = new[] {
+            Messages = [
                 new AlertViewModel("danger", "Error adding documents", ex.Message),
-            };
+            ];
             return Page();
         }
     }
@@ -73,22 +73,21 @@ public class SearchAdminModel : PageModel
     {
         try
         {
-            await _searchProviderIndex.DeleteIndex().ConfigureAwait(false);
-            Messages = new[] {
+            await _searchProviderIndex.DeleteIndex();
+            Messages = [
                 new AlertViewModel("success", "Index Deleted!", "The Azure Search Index was successfully deleted!"),
-            };
-            var indexStatus = await _searchProviderIndex.GetIndexStatus().ConfigureAwait(false);
+            ];
+            var indexStatus = await _searchProviderIndex.GetIndexStatus();
             IndexExists = indexStatus.Exists;
             DocumentCount = indexStatus.DocumentCount;
             return Page();
         }
         catch (Exception ex)
         {
-            Messages = new[] {
+            Messages = [
                 new AlertViewModel("danger", "Error deleting index", ex.Message),
-            };
+            ];
             return Page();
         }
     }
-
 }

@@ -2,7 +2,7 @@
 using Azure.Search.Documents;
 using Azure.Search.Documents.Models;
 
-namespace BlazorAzureSearch.Server;
+namespace BlazorAzureSearch.Server.PersonSearch;
 
 public class SearchProviderPaging
 {

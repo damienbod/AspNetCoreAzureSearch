@@ -1,5 +1,4 @@
-﻿
-using BlazorAzureSearch.Server;
+﻿using BlazorAzureSearch.Server.PersonSearch;
 
 var builder = WebApplication.CreateBuilder(args);
 

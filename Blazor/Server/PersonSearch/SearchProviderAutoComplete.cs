@@ -2,7 +2,7 @@
 using Azure.Search.Documents;
 using Azure.Search.Documents.Models;
 
-namespace BlazorAzureSearch.Server;
+namespace BlazorAzureSearch.Server.PersonSearch;
 
 public class SearchProviderAutoComplete
 {
@@ -13,8 +13,8 @@ public class SearchProviderAutoComplete
     {
         _index = configuration["PersonCitiesIndexName"];
 
-        Uri serviceEndpoint = new Uri(configuration["PersonCitiesSearchUri"]);
-        AzureKeyCredential credential = new AzureKeyCredential(configuration["PersonCitiesSearchApiKey"]);
+        var serviceEndpoint = new Uri(configuration["PersonCitiesSearchUri"]!);
+        var credential = new AzureKeyCredential(configuration["PersonCitiesSearchApiKey"]!);
         _searchClient = new SearchClient(serviceEndpoint, _index, credential);
 
     }
@@ -22,7 +22,7 @@ public class SearchProviderAutoComplete
     public async Task<SuggestResults<PersonCity>> Suggest(
         bool highlights, bool fuzzy, string term)
     {
-        SuggestOptions sp = new SuggestOptions()
+        var sp = new SuggestOptions()
         {
             UseFuzzyMatching = fuzzy,
             Size = 5,

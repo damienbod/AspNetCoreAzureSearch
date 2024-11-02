@@ -1,4 +1,5 @@
-﻿using BlazorAzureSearch.Shared;
+﻿using BlazorAzureSearch.Server.PersonSearch;
+using BlazorAzureSearch.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorAzureSearch.Server.Controllers;

@@ -5,7 +5,7 @@ using Azure.Search.Documents.Indexes.Models;
 using Azure.Search.Documents.Models;
 using System.Net.Http.Headers;
 
-namespace BlazorAzureSearch.Server;
+namespace BlazorAzureSearch.Server.PersonSearch;
 
 public class SearchProviderIndex
 {

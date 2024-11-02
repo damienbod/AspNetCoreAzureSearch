@@ -1,4 +1,5 @@
-﻿using BlazorAzureSearch.Shared;
+﻿using BlazorAzureSearch.Server.PersonSearch;
+using BlazorAzureSearch.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorAzureSearch.Server.Controllers;
@@ -8,13 +9,10 @@ namespace BlazorAzureSearch.Server.Controllers;
 public class SearchPagingController : ControllerBase
 {
     private readonly SearchProviderPaging _searchProvider;
-    private readonly ILogger<SearchAdminController> _logger;
 
-    public SearchPagingController(SearchProviderPaging searchProvider,
-    ILogger<SearchAdminController> logger)
+    public SearchPagingController(SearchProviderPaging searchProvider)
     {
         _searchProvider = searchProvider;
-        _logger = logger;
     }
 
     [HttpGet]
@@ -75,8 +73,8 @@ public class SearchPagingController : ControllerBase
             CurrentPage = model.CurrentPage,
             Results = new SearchResultItems
             {
-                PersonCities = new List<PersonCityDto>(),
-                TotalCount = model.PersonCities.TotalCount.GetValueOrDefault()
+                PersonCities = [],
+                TotalCount = model.PersonCities!.TotalCount.GetValueOrDefault()
             }
         };
 

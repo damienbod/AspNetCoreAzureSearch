@@ -36,12 +36,12 @@ public class SearchProviderIndex
             "personSg", ["Name", "FamilyName", "Info", "CityCountry"]
         ));
 
-        await _searchIndexClient.CreateIndexAsync(definition).ConfigureAwait(false);
+        await _searchIndexClient.CreateIndexAsync(definition);
     }
 
     public async Task DeleteIndex()
     {
-        await _searchIndexClient.DeleteIndexAsync(_index).ConfigureAwait(false);
+        await _searchIndexClient.DeleteIndexAsync(_index);
     }
 
     public async Task<(bool Exists, long DocumentCount)> GetIndexStatus()
@@ -56,12 +56,12 @@ public class SearchProviderIndex
             httpClient.DefaultRequestHeaders.Add("api-key", _configuration["PersonCitiesSearchApiKey"]);
 
             var uri = $"{_configuration["PersonCitiesSearchUri"]}/indexes/{_index}/docs/$count?api-version=2020-06-30";
-            var data = await httpClient.GetAsync(uri).ConfigureAwait(false);
+            var data = await httpClient.GetAsync(uri);
             if (data.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
                 return (false, 0);
             }
-            var payload = await data.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var payload = await data.Content.ReadAsStringAsync();
             return (true, int.Parse(payload));
         }
         catch
@@ -73,6 +73,6 @@ public class SearchProviderIndex
     public async Task AddDocumentsToIndex(List<PersonCity> personCities)
     {
         var batch = IndexDocumentsBatch.Upload(personCities);
-        await _searchClient.IndexDocumentsAsync(batch).ConfigureAwait(false);
+        await _searchClient.IndexDocumentsAsync(batch);
     }
 }

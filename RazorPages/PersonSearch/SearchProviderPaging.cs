@@ -32,7 +32,7 @@ public class SearchProviderPaging
             QueryType = SearchQueryType.Full
         }; // options.Select.Add("Name"); // add this explicitly if all fields are not required
 
-        model.PersonCities = await _searchClient.SearchAsync<PersonCity>(model.SearchText, options).ConfigureAwait(false);
+        model.PersonCities = await _searchClient.SearchAsync<PersonCity>(model.SearchText, options);
         model.PageCount = ((int)model.PersonCities.TotalCount! + pageSize - 1) / pageSize;
         model.CurrentPage = page;
         if (page == 0)

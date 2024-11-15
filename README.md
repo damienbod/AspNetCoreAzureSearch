@@ -20,6 +20,7 @@
 
 ## History
 
+- 2024-11-15 .NET 9
 - 2024-11-02 Update packages, rename to Azure AI Search
 - 2024-01-14 .NET 8
 - 2023-11-03 Updated packages
